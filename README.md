@@ -1,0 +1,2 @@
+# Plato
+Note taking application
