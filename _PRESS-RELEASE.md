@@ -17,28 +17,28 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
-
+  > Plato
+  
 ## Sub-Heading ##
-  > Describe who the market for the product is and what benefit they get. One sentence only underneath the title.
+  > This app is great for the everyday user who needs an easy way to take notes
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
-
+  > The app will allow you to take notes and keep track of all of them. The app will allow you to easily take notes by transcribing speech to text.
+  
 ## Problem ##
-  > Describe the problem your product solves.
+  > It will solve the problem of having to take paper notes and keep track of all of your random thoughts.
 
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
+  > It elegantly solves this problem because it helps to organize all of your notes within one simple app.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
+  > The next big thing for keeping all your notes in one simple location.
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
+  > Go to our deployed link and/or download our desktop app!
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
+  > This has helped me to keep all of my notes in one simple location and really has upped my productivity!
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
+  > If you would love to give this new mind blowing app then please checkout our deployed link or if you would like to contribute then please fork our repo!
