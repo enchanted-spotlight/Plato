@@ -1,5 +1,5 @@
 {
-  "name": "Plato",
+  "name": "plato",
   "version": "0.0.1",
   "description": "note-taking app",
   "main": "index.js",
@@ -21,7 +21,7 @@
     "drawlings"
   ],
   "author": "Clarabelle Cheng-Yue, Jon Garrett, Daniel Snyder, Joseph Yu",
-  "license": "UNLICENSED",
+  "license": "MIT License",
   "bugs": {
     "url": "https://github.com/enchanted-spotlight/Plato/issues"
   },
