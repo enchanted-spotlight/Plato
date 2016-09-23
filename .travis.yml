@@ -4,3 +4,5 @@ node_js:
 
 script: mocha Test.js
 
+notifications:
+ slack: hr46:9wx63tFQsFOqK9t4TaCE4FUM
