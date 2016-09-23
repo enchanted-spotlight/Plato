@@ -1,0 +1,8 @@
+language: node_js
+node_js:
+  - '0.10'
+
+script: mocha Test.js
+
+notifications:
+ slack: hr46:9wx63tFQsFOqK9t4TaCE4FUM

@@ -1,0 +1,39 @@
+{
+  "name": "Plato",
+  "version": "0.0.1",
+  "description": "note-taking app",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha Test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enchanted-spotlight/Plato.git"
+  },
+  "keywords": [
+    "tldr",
+    "speech",
+    "to",
+    "text",
+    "time",
+    "marked",
+    "notes",
+    "drawlings"
+  ],
+  "author": "Clarabelle Cheng-Yue, Jon Garrett, Daniel Snyder, Joseph Yu",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/enchanted-spotlight/Plato/issues"
+  },
+  "homepage": "https://github.com/enchanted-spotlight/Plato#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "nodemon": "^1.10.2"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.0.2",
+    "supertest": "^2.0.0"
+  }
+}
