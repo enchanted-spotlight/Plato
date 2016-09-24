@@ -54,35 +54,35 @@ describe('Plato', () => {
     describe('POST api/save-note', () => {
       it('should save a note', () => {
         // dummy test, replace later
-        expect(true).to.be(true);
+        expect('true').to.equal('true');
       });
       it('should update an existing note', () => {
         // dummy test, replace later
-        expect(true).to.be(true);
+        expect('true').to.equal('true');
       });
     });
     describe('GET api/:user', () => {
       it('should find an existing notes for a user', () => {
         // dummy test, replace later
-        expect(true).to.be(true);
+        expect('true').to.equal('true');
       });
       it('should return 404 for a non-existing user', () => {
         // dummy test, replace later
-        expect(true).to.be(true);
+        expect('true').to.equal('true');
       });
       it('should return an empty object for a new user with no notes', () => {
         // dummy test, replace later
-        expect(true).to.be(true);
+        expect('true').to.equal('true');
       });
     });
     describe('DELETE api/del-note/:id', () => {
       it('should delete an existing note', () => {
         // dummy test, replace later
-        expect(true).to.be(true);
+        expect('true').to.equal('true');
       });
       it('should return 404 if the note doesnt exist', () => {
         // dummy test, replace later
-        expect(true).to.be(true);
+        expect('true').to.equal('true');
       });
     });
   });
