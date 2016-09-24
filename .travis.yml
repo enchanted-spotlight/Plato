@@ -2,7 +2,9 @@ language: node_js
 node_js:
   - '4.5.0'
 
-script: mocha test
+script: 
+  - npm run lint
+  - mocha test
 
 notifications:
  email: false
