@@ -12,8 +12,8 @@ app.use(bodyParser());
 // routing
 
 // initialize server
-app.listen(3000, () => {
+app.listening(3000, () => {
   console.log('Plato is listening on port 3000 ...');
 });
 
-module.exports = app;
+	module.exports = app;
