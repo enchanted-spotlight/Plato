@@ -1,6 +1,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-
+// routing modules
+const noteRouter = require('./routes/notesRouter');
 
 const app = express();
 
@@ -10,6 +11,7 @@ const app = express();
 app.use(bodyParser());
 
 // routing
+app.use('/api', noteRouter);
 
 // initialize server
 app.listen(3000, () => {

@@ -39,6 +39,7 @@ module.exports = {
       80
     ],
     "no-unused-vars": 1,
+    "no-underscore-dangle": "warn",
     "no-unused-expressions": "warn",
     "no-param-reassign": "warn",
     "no-console": "warn",
