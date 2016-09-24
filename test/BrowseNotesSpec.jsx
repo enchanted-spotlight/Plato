@@ -25,3 +25,8 @@ describe('<BrowseNotes />', () => {
 
 // Should filter out notes that do not meet search parameters
 
+<<<<<<< 3a9c5c0da56445b1d312a94cf6822c8d64bd9677
+=======
+// Should open note for editing when it is clicked
+
+>>>>>>> Rename test spec again since change was lost in rebase
