@@ -25,4 +25,3 @@ describe('<BrowseNotes />', () => {
 
 // Should filter out notes that do not meet search parameters
 
-// Should open note component with note data when clicked
