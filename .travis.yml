@@ -5,4 +5,5 @@ node_js:
 script: mocha Test.js
 
 notifications:
+ email: false
  slack: hr46:9wx63tFQsFOqK9t4TaCE4FUM
