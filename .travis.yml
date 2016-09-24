@@ -2,8 +2,15 @@ language: node_js
 node_js:
   - '4.5.0'
 
-script: mocha test
+script: 
+  - npm run lint
+  - mocha test
+
 
 notifications:
  email: false
  slack: hr46:9wx63tFQsFOqK9t4TaCE4FUM
+
+after_success:
+  - 'if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then bash ./travis/run_on_pull_requests; fi'
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./travis/run_on_non_pull_requests; fi'
