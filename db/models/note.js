@@ -1,1 +1,1 @@
-// define schema for note here
+const mongoose = require('mongoose');
