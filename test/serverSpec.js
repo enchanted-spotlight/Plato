@@ -73,8 +73,7 @@ describe('Plato', () => {
         request(app)
           .get('/api/000000')
           .end((err, res) => {
-            let text = JSON.parse(res.text);
-            text = text[0];
+            const text = JSON.parse(res.text)[0];
             expect(text.user_id).to.equal('000000');
             done();
           });
