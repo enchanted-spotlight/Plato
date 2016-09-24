@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run lint && nodemon server/server.js",
     "test": "mocha test -R nyan",
-    "enzyme": "mocha --require ./test/setup.js --compilers js:babel-register",
+    "enzyme": "mocha --require ./test/setup.js --compilers jsx:babel-register",
     "lint": "eslint --ext .js --ext .jsx test server db public --ignore-path client/public/bundle.js",
     "watch": "babel --watch ./public --out-dir ./public/compiled --presets=es2015,react --ignore=node_modules,compiled --source-maps inline && node server/server.js"
   },
@@ -46,6 +46,7 @@
     "babel-loader": "^6.2.5",
     "babel-preset-es2015": "^6.14.0",
     "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.14.0",
     "chai": "^3.5.0",
     "enzyme": "^2.4.1",

@@ -1,5 +1,7 @@
 import React from 'react';
 
-const App = () => <div><h1>Howdy Dan!</h1></div>;
+import BrowseNotes from './BrowseNotes.jsx';
+
+const App = () => <div><h1>Howdy Dan!</h1><BrowseNotes /></div>;
 
 export default App;

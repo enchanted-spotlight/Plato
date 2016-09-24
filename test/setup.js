@@ -1,3 +1,5 @@
+require('babel-register')();
+
 const jsdom = require('jsdom').jsdom;
 
 global.document = jsdom('');

@@ -1,5 +1,7 @@
 import React from 'react';
 
-const browseNotes = props => <div><ul><li>Props: {props}</li></ul></div>;
+const BrowseNotes = props => (
+  <h2>You are the best!</h2>
+);
 
-export default browseNotes;
+export default BrowseNotes;
