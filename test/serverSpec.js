@@ -69,11 +69,12 @@ describe('Plato', () => {
 
   describe('API endpoints', () => {
     describe('GET /api/:user', () => {
-      it('should find an existing notes for a user', (done) => {
+      it('should find an existing note for a user', (done) => {
         request(app)
           .get('/api/000000')
           .end((err, res) => {
-            const text = JSON.parse(res.text)[0];
+            let text = JSON.parse(res.text);
+            text = text[0];
             expect(text.user_id).to.equal('000000');
             done();
           });
