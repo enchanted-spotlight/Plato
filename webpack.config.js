@@ -15,5 +15,10 @@ module.exports = {
         query: { presets: ['react', 'es2015'] }
       }
     ]
+  },
+  externals: {
+    'react/addons': true,
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true
   }
 };
