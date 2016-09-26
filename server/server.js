@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 // routing modules
@@ -10,7 +11,6 @@ const app = express();
 // middleware
 app.use(bodyParser());
 
-console.log(process.env.NODE_ENV);
 // routing
 app.use('/api', noteRouter);
 
