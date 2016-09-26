@@ -1,8 +1,15 @@
 const mongoose = require('mongoose');
 const Note = require('./models/note');
 const User = require('./models/user');
+
 // db stuff here
-mongoose.connect('mongodb://localhost/plato');
+if (process.env.NODE_ENV === 'dev') {
+  console.log('Connecting to test DB ...');
+  mongoose.connect('mongodb://localhost/test');
+} else {
+  console.log('Connecting to real DB ...');
+  mongoose.connect('mongodb://localhost/plato');
+}
 
 const db = mongoose.connection;
 

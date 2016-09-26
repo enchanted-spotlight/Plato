@@ -12,9 +12,6 @@ const expect = chai.expect;
 const User = require('../db/models/user');
 const Note = require('../db/models/note');
 
-// fill this out with the database uri
-const dbURI = 'mongodb://localhost/test';
-
 describe('Plato', () => {
   before((done) => {
     done();
@@ -39,7 +36,7 @@ describe('Plato', () => {
   afterEach((done) => {
     // clear collections when we're done with the test
     mongoose.connection.collections.users.remove();
-    mongoose.connection.collections.texts.remove();
+    mongoose.connection.collections.notes.remove();
     done();
   });
   // --------------- UNIT TEST ---------------//
