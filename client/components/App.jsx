@@ -25,23 +25,21 @@ class App extends React.Component {
           text: 'Angular sure is nice, but this React stuff seems cool too.'
         },
       ]
-    }
-  }
-
-  handleTermChange(term) {
-    console.log('Search term: ' + term);
+    };
+    this.statics = {
+      handleTermChange: term => console.log('Search term: ', term)
+    };
   }
 
   render() {
     return (
       <div>
         <h1>Howdy Dan!</h1>
-        <SearchBar onTermChange={this.handleTermChange} />
+        <SearchBar onTermChange={this.statics.handleTermChange} />
         <NoteList notes={this.state.articles} />
       </div>
     );
   }
 }
-
 
 export default App;
