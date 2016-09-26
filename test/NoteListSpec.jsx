@@ -54,7 +54,6 @@ describe('<NoteList />', () => {
 
   // Should open note component with note data when clicked
 
-
   // Should have a delete note button
   // Should have a delete function
   // Button should ask for confirmation
