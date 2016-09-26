@@ -14,7 +14,7 @@ class SearchBar extends React.Component {
   render() {
     return (
       <div className="search">
-      <h3>Search:</h3>
+        <h3>Search:</h3>
         <input
           type="text"
           onChange={event => this.onInputChange(event.target.value)}
@@ -23,5 +23,9 @@ class SearchBar extends React.Component {
     );
   }
 }
+
+SearchBar.propTypes = {
+  onTermChange: React.PropTypes.func
+};
 
 export default SearchBar;
