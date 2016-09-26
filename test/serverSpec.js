@@ -36,7 +36,7 @@ describe('Plato', () => {
   afterEach((done) => {
     // clear collections when we're done with the test
     mongoose.connection.collections.users.remove();
-    mongoose.connection.collections.texts.remove();
+    mongoose.connection.collections.notes.remove();
     done();
   });
   // --------------- UNIT TEST ---------------//
