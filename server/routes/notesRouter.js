@@ -13,7 +13,7 @@ router.post('/save-note', (req, res) => {
   // this is the query that we're going to use to upsert the doc
   const update = {
     user_id: req.body.user_id,
-    notes: req.body.notes,
+    text: req.body.text,
     // where is the title going to be?
     title: req.body.title
   };
