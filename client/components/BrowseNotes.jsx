@@ -1,7 +1,9 @@
 import React from 'react';
 
 const BrowseNotes = props => (
-  <h2>You are the best!</h2>
+  <div className="notes-list">
+    <h2>Your Notes</h2>
+  </div>
 );
 
 export default BrowseNotes;
