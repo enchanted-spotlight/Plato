@@ -28,7 +28,7 @@ describe('Plato', () => {
 
     const testNote = new Note({
       user_id: '000000',
-      notes: 'hello',
+      text: 'hello',
       title: 'testNote'
     });
     testNote.save();
@@ -93,7 +93,7 @@ describe('Plato', () => {
           .post('/api/save-note')
           .send({
             user_id: '123123123',
-            notes: 'lolololol',
+            text: 'lolololol',
             title: 'testttt'
           })
           .end((err, res) => {
@@ -106,7 +106,7 @@ describe('Plato', () => {
           .post('/api/save-note')
           .send({
             user_id: '123123123',
-            notes: 'lolololol',
+            text: 'lolololol',
             title: 'GODZILLA'
           })
           .end(() => {
@@ -114,7 +114,7 @@ describe('Plato', () => {
               .post('/api/save-note')
               .send({
                 user_id: '123123123',
-                notes: 'roflcopter',
+                text: 'roflcopter',
                 title: 'GODZILLA'
               })
               .end(() => {
@@ -122,7 +122,7 @@ describe('Plato', () => {
                 .get('/api/123123123')
                 .end((err, res) => {
                   const text = JSON.parse(res.text)[0];
-                  expect(text.notes).to.equal('roflcopter');
+                  expect(text.text).to.equal('roflcopter');
                   done();
                 });
               });
