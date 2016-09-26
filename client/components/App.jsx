@@ -3,7 +3,6 @@ import React from 'react';
 import NoteList from './NoteList.jsx';
 import SearchBar from './SearchBar.jsx';
 
-
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -11,38 +10,37 @@ class App extends React.Component {
       articles: [
         {
           id: 1,
-          user_id: 'Jon',
           title: 'JavaScript Intro',
           text: 'JavaScript is super fun.'
         },
         {
           id: 2,
-          user_id: 'Jon',
           title: 'JavaScript for Beginners',
           text: 'Functions on objects are methods.'
         },
         {
           id: 3,
-          user_id: 'Jon',
           title: 'JavaScript Frameworks',
           text: 'Angular sure is nice, but this React stuff seems cool too.'
         },
       ]
-    };
-    this.statics = {
-      handleTermChange: term => console.log('Search term: ', term)
-    };
+    }
+  }
+
+  handleTermChange(term) {
+    console.log('Search term: ' + term);
   }
 
   render() {
     return (
       <div>
         <h1>Howdy Dan!</h1>
-        <SearchBar onTermChange={this.statics.handleTermChange} />
+        <SearchBar onTermChange={this.handleTermChange} />
         <NoteList notes={this.state.articles} />
       </div>
     );
   }
 }
+
 
 export default App;
