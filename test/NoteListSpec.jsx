@@ -3,11 +3,11 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 // If this becomes a stateful component, you will have to use mount
 
-import BrowseNotes from './../client/components/BrowseNotes';
+import NoteList from './../client/components/NoteList';
 
-describe('BrowseNotes React Component', () => {
-  const wrapper = shallow(<BrowseNotes />);
 
+describe('<NoteList />', () => {
+  const wrapper = shallow(<NoteList />);
   it('should render component', () => {
     expect(wrapper.find('h2')).to.have.length(1);
   });
