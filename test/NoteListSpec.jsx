@@ -2,11 +2,11 @@ import React from 'react';
 import { expect } from 'chai';
 import { mount } from 'enzyme';
 
-import BrowseNotes from './../client/components/BrowseNotes';
+import NoteList from './../client/components/NoteList';
 
-describe('<BrowseNotes />', () => {
+describe('<NoteList />', () => {
   it('should render component', () => {
-    const wrapper = mount(<BrowseNotes />);
+    const wrapper = mount(<NoteList />);
     expect(wrapper.find('h2')).to.have.length(1);
   });
 });
