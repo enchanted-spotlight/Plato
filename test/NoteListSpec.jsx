@@ -5,9 +5,29 @@ import { shallow } from 'enzyme';
 
 import NoteList from './../client/components/NoteList';
 
+const articles = [
+  {
+    id: 1,
+    user_id: 'Jon',
+    title: 'JavaScript Intro',
+    text: 'JavaScript is super fun.'
+  },
+  {
+    id: 2,
+    user_id: 'Jon',
+    title: 'JavaScript for Beginners',
+    text: 'Functions on objects are methods.'
+  },
+  {
+    id: 3,
+    user_id: 'Jon',
+    title: 'JavaScript Frameworks',
+    text: 'Angular sure is nice, but this React stuff seems cool too.'
+  },
+];
 
 describe('<NoteList />', () => {
-  const wrapper = shallow(<NoteList />);
+  const wrapper = shallow(<NoteList notes={articles} />);
   it('should render component', () => {
     expect(wrapper.find('h2')).to.have.length(1);
   });
