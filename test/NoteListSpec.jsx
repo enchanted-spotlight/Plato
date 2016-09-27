@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 
 import NoteList from './../client/components/NoteList';
 
-const articles = [
+const notes = [
   {
     id: 1,
     user_id: 'Jon',
@@ -27,7 +27,7 @@ const articles = [
 ];
 
 describe('<NoteList />', () => {
-  const wrapper = shallow(<NoteList notes={articles} />);
+  const wrapper = shallow(<NoteList notes={notes} />);
   it('should render component', () => {
     expect(wrapper.find('h2')).to.have.length(1);
   });
