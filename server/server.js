@@ -13,10 +13,6 @@ app.use(bodyParser());
 // serve public files
 app.use(express.static('client/public'));
 
-// serve public
-app.use(express.static('client/public'));
-
-
 // routing
 app.use('/api', noteRouter);
 
