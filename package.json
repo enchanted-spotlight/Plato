@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "npm run lint && nodemon server/server.js",
-    "test": "mocha --require ./test/setup.js --compilers jsx:babel-register -R list",
+    "test": "mocha --require ./test/setup.js --compilers jsx:babel-register",
     "lint": "eslint --ext .js --ext .jsx test server db public --ignore-path client/public/bundle.js",
     "build": "npm run lint && node_modules/.bin/webpack",
     "dev": "webpack --watch"

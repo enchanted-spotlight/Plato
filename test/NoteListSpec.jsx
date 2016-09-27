@@ -37,14 +37,6 @@ describe('<NoteList />', () => {
     expect(wrapper.is('.notes-list')).to.equal(true);
   });
 
-  // Should get all notes from database for a given user
-  it('should have a fetch notes function', () => {
-
-  });
-  it('should call fetch notes function on mount', () => {
-
-  });
-
   // Should create a list item for every note received from database
   // Each list item shoud have a note title
   // Each item should have a snippet of the note body
