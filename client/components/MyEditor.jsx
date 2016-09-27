@@ -1,26 +1,22 @@
 import React from 'react';
-// import { Editor, EditorState } from 'draft-js';
+import { Editor, EditorState } from 'draft-js';
 
 class MyEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      notes: []
-    };
+    this.state = { editorState: EditorState.createEmpty() };
+    this.onChange = editorState => this.setState({ editorState });
   }
 
   render() {
-    return (
-      <div>
-        <h1>{this.props.notes}</h1>
-      </div>
-    );
+    const { editorState } = this.state;
+    return <Editor editorState={editorState} onChange={this.onChange} />;
   }
 }
 
 
-MyEditor.propTypes = {
-  notes: React.PropTypes.Array
-};
+// MyEditor.propTypes = {
+//   notes: React.PropTypes.Array
+// };
 
 export default MyEditor;
