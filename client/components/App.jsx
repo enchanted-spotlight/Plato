@@ -4,6 +4,7 @@ import request from 'superagent';
 import LogIn from './LogIn.jsx';
 import NoteList from './NoteList.jsx';
 import SearchBar from './SearchBar.jsx';
+import MyEditor from './MyEditor.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -35,6 +36,8 @@ class App extends React.Component {
           }
         </h1>
         <SearchBar onTermChange={this.statics.handleTermChange} />
+        <h1>Your current Note:</h1>
+        <MyEditor notes={this.state.articles} />
         <NoteList notes={this.state.articles} />
       </div>
     );
