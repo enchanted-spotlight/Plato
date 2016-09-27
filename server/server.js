@@ -11,6 +11,10 @@ const app = express();
 // middleware
 app.use(bodyParser());
 
+// serve public
+app.use(express.static('client/public'));
+
+
 // routing
 app.use('/api', noteRouter);
 
