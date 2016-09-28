@@ -1,22 +1,43 @@
 import React from 'react';
 import { Editor, EditorState, Modifier } from 'draft-js';
 import SpeechToText from './SpeechToText.jsx';
+import request from 'superagent';
 
 class MyEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      editorState: EditorState.createEmpty()
+      editorState: EditorState.createEmpty(),
+      title: ''
     };
 
     this.onChange = (editorState) => {
-      // console.log(editorState);
       this.setState({ editorState });
     };
 
-    this.logState = () => {
-      // console.log(event);
-      console.log(this.state.editorState.getCurrentContent().getPlainText());
+    this.titleChange = (event) => {
+      this.setState({ title: event.target.value });
+    };
+
+    this.submitNote = () => {
+      const userNote = this.state.editorState
+        .getCurrentContent().getPlainText();
+      const userTitle = this.state.title;
+      const username = this.props.username;
+      const url = 'api/save-note';
+      request
+        .post(url)
+        .send({
+          user_id: username,
+          text: userNote,
+          title: userTitle
+        })
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (err) {
+            console.log('There is an error in submitNote: ', err);
+          }
+        });
     };
   }
 
@@ -35,17 +56,23 @@ class MyEditor extends React.Component {
       <div>
         <div>
           <SpeechToText addText={string => this.addText(string)} />
+          <input
+            type="text"
+            value={this.state.value}
+            onChange={this.titleChange}
+            placeholder="Title"
+          />
           <Editor
             editorState={this.state.editorState}
             onChange={this.onChange}
-            placeholder="Enter something please"
+            placeholder="Type your note here... "
           />
         </div>
         <div>
           <input
-            onClick={this.logState}
+            onClick={this.submitNote}
             type="button"
-            value="Log State"
+            value="Submit"
           />
         </div>
       </div>
@@ -55,8 +82,8 @@ class MyEditor extends React.Component {
 }
 
 
-// MyEditor.propTypes = {
-//   notes: React.PropTypes.Array
-// };
+MyEditor.propTypes = {
+  username: React.PropTypes.string
+};
 
 export default MyEditor;

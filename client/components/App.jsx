@@ -37,7 +37,7 @@ class App extends React.Component {
         </h1>
         <SearchBar onTermChange={this.statics.handleTermChange} />
         <h1>Your current Note:</h1>
-        <MyEditor notes={this.state.articles} />
+        <MyEditor username={this.state.username} />
         <NoteList notes={this.state.articles} />
       </div>
     );
