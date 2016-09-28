@@ -2,6 +2,7 @@ import React from 'react';
 import { Editor, EditorState, Modifier } from 'draft-js';
 import request from 'superagent';
 
+// travis, stop fucking shit up
 class SpeechToTextEditor extends React.Component {
   constructor(props) {
     super(props);
