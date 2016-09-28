@@ -14,6 +14,9 @@ const Note = require('../db/models/note');
 
 describe('Plato', () => {
   before((done) => {
+    const dummyUser = new User({
+      name: 'dummyUser'
+    });
     done();
   });
 
