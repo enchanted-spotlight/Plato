@@ -4,14 +4,12 @@ class LogIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = { username: '' };
-    this.statics = {
-      onInputChange: (e) => {
-        this.setState({ username: e.target.value });
-      },
-      onFormSubmit: (e) => {
-        e.preventDefault();
-        this.props.fetchNotes(this.state.username);
-      }
+    this.onInputChange = (e) => {
+      this.setState({ username: e.target.value });
+    };
+    this.onFormSubmit = (e) => {
+      e.preventDefault();
+      this.props.fetchNotes(this.state.username)
     };
   }
 
@@ -19,12 +17,12 @@ class LogIn extends React.Component {
     return (
       <form
         className="login"
-        onSubmit={this.statics.onFormSubmit}
+        onSubmit={this.onFormSubmit}
       >
         <h3>Login:</h3>
         <input
           type="text"
-          onChange={this.statics.onInputChange}
+          onChange={this.onInputChange}
         />
         <input type="submit" />
       </form>
