@@ -5,9 +5,18 @@ import SpeechToText from './SpeechToText.jsx';
 class MyEditor extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { editorState: EditorState.createEmpty() };
+    this.state = {
+      editorState: EditorState.createEmpty()
+    };
+
     this.onChange = (editorState) => {
+      // console.log(editorState);
       this.setState({ editorState });
+    };
+
+    this.logState = () => {
+      // console.log(event);
+      console.log(this.state.editorState.getCurrentContent().getPlainText());
     };
   }
 
@@ -22,12 +31,25 @@ class MyEditor extends React.Component {
   }
 
   render() {
-    const { editorState } = this.state;
     return (
       <div>
-        <SpeechToText addText={string => this.addText(string)} />
-        <Editor editorState={editorState} onChange={this.onChange} />
+        <div>
+          <SpeechToText addText={string => this.addText(string)} />
+          <Editor
+            editorState={this.state.editorState}
+            onChange={this.onChange}
+            placeholder="Enter something please"
+          />
+        </div>
+        <div>
+          <input
+            onClick={this.logState}
+            type="button"
+            value="Log State"
+          />
+        </div>
       </div>
+
     );
   }
 }
