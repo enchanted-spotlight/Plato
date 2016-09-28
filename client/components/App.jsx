@@ -4,6 +4,7 @@ import request from 'superagent';
 import LogIn from './LogIn.jsx';
 import NoteList from './NoteList.jsx';
 import SearchBar from './SearchBar.jsx';
+import SpeechToTextEditor from './SpeechToTextEditor.jsx';
 import MyEditor from './MyEditor.jsx';
 
 class App extends React.Component {
@@ -37,6 +38,7 @@ class App extends React.Component {
         <SearchBar onTermChange={this.searchNotes} />
         <h1>Your current Note:</h1>
         <MyEditor username={this.state.username} />
+        <SpeechToTextEditor username={this.state.username} />
         <NoteList notes={this.state.articles} />
       </div>
     );
