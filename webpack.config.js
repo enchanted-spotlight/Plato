@@ -14,7 +14,16 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel',
-        query: { presets: ['react', 'es2015', 'stage-0'] }
+        query: {
+          plugins: [
+            'transform-object-rest-spread'
+          ],
+          presets: [
+            'react',
+            'es2015',
+            'stage-0'
+          ]
+        }
       }
     ]
   },

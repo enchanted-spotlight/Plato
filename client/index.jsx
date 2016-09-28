@@ -3,17 +3,23 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers } from 'redux';
 import connect from 'react-redux';
 
-// import App from './components/App.jsx';
-// import reducers from './reducers/reducers.js';
-
-
-const counter = (state = 0, action) => {
+const todo = (state, action) => {
   switch (action.type) {
-  case 'INCREMENT': {
-    return state + 1;
+  case 'ADD_TODO': {
+    return {
+      id: action.id,
+      text: action.text,
+      completed: false
+    };
   }
-  case 'DECREMENT': {
-    return state - 1;
+  case 'TOGGLE_TODO': {
+    if (state.id !== action.id) {
+      return state;
+    }
+    return {
+      ...state,
+      completed: !state.completed
+    };
   }
   default: {
     return state;
@@ -21,60 +27,73 @@ const counter = (state = 0, action) => {
   }
 };
 
-const store = createStore(counter);
+const todos = (state = [], action) => {
+  switch (action.type) {
+  case 'ADD_TODO': {
+    return [
+      ...state,
+      todo(undefined, action)
+    ];
+  }
+  case 'TOGGLE_TODO': {
+    return state.map(t => todo(t, action));
+  }
+  default: {
+    return state;
+  }
+  }
+};
 
-console.log(store.getState());
-store.dispatch({ type: 'INCREMENT' });
-console.log(store.getState());
+const visibilityFilter = (state = 'SHOW_ALL', action) => {
+  switch (action.type) {
+  case 'SET_VISIBILITY_FILTER': {
+    return action.filter;
+  }
+  default: {
+    return state;
+  }
+  }
+};
+
+const todoApp = combineReducers({ todos, visibilityFilter });
+const store = createStore(todoApp);
+
+let nextTodoId = 0;
+class TodoApp extends React.Component {
+  render() {
+    return (
+      <div>
+        <button
+          onClick={() => {
+            store.dispatch({
+              type: 'ADD_TODO',
+              text: 'Test',
+              id: nextTodoId += 1
+            });
+          }}
+        >
+        Add Todo
+        </button>
+        <ul>
+          {this.props.todos.map(todo =>
+            <li key={todo.id}>
+              {todo.text}
+            </li>
+          )}
+        </ul>
+      </div>
+    );
+  }
+}
 
 const render = () => {
-  document.body.innerText = store.getState();
+  ReactDOM.render(
+    <TodoApp
+      todos={store.getState().todos}
+    />,
+    document.getElementById('root')
+  );
 };
 
 store.subscribe(render);
 render();
-
-document.addEventListener('click', () => {
-  store.dispatch({ type: 'INCREMENT' });
-});
-
-// const store = createStore(reducers);
-
-// store.dispatch({
-//   type: 'ADD_NOTE',
-//   note: 'This is a test note to update the store with!'
-// });
-
-// const userReducer = (state = {}, action) => {
-//   switch (action.type) {
-//   case 'ADD_USER': {
-//     const newState = state.concat([action.user]);
-//     return newState;
-//   }
-//   default: {
-//     return state;
-//   }
-//   }
-// };
-
-// const widgetReducer = (state = {}, action) => {
-//   if (action.type === 'WIDGET_REL') {
-//     const newState = 'cool stuff bro';
-//     return newState;
-//   }
-//   return state;
-// };
-
-// const reducers = combineReducers({
-//   userState: userReducer,
-//   widgetState: widgetReducer
-// });
-
-// const store = createStore(reducers);
-
-// store.dispatch({
-//   type: 'ADD_USER',
-//   user: { name: 'Dan' }
-// });
-
-// ReactDOM.render(<App />, document.getElementById('app'));
