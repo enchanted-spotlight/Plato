@@ -1,6 +1,6 @@
 import React from 'react';
-import SpeechToText from './SpeechToText.jsx';
 import { Editor, EditorState, Modifier } from 'draft-js';
+import SpeechToText from './SpeechToText.jsx';
 
 class MyEditor extends React.Component {
   constructor(props) {

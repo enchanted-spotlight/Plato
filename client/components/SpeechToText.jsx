@@ -23,6 +23,8 @@ class SpeechToText extends React.Component {
         }
       }
       this.props.addText(window.finalTranscript);
+      // reset transcript
+      window.finalTranscript = '';
     };
   }
 
@@ -47,7 +49,7 @@ class SpeechToText extends React.Component {
 }
 
 SpeechToText.propTypes = {
-  addText: React.Proptypes.Function
+  addText: React.PropTypes.func.isRequired
 };
 
 export default SpeechToText;
