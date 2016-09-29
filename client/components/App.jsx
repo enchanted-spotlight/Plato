@@ -19,7 +19,7 @@ class App extends React.Component {
       const urlUser = `api/${username}`;
       return request('GET', urlUser)
         .then((res) => {
-          this.setState({ articles: JSON.parse(res.text) })
+          this.setState({ articles: JSON.parse(res.text) });
         }, (err) => {
           console.log('Error fetching user notes: ', err);
         });

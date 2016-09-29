@@ -9,7 +9,7 @@ class LogIn extends React.Component {
     };
     this.onFormSubmit = (e) => {
       e.preventDefault();
-      this.props.fetchNotes(this.state.username)
+      this.props.fetchNotes(this.state.username);
     };
   }
 
