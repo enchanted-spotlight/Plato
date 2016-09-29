@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "npm run lint && nodemon server/server.js",
-    "test": "mocha --require ./test/setup.js --compilers jsx:babel-register",
+    "test": "mocha --require ./test/setup.js --compilers jsx:babel-register -R list",
     "lint": "eslint --ext .js --ext .jsx test server db public --ignore-path client/public/bundle.js",
     "build": "npm run lint && node_modules/.bin/webpack",
     "dev": "webpack --watch"
@@ -60,6 +60,7 @@
     "eslint-plugin-react": "^6.3.0",
     "jsdom": "^9.5.0",
     "mocha": "^3.0.2",
+    "mocha-jsdom": "^1.1.0",
     "react-addons-test-utils": "^15.3.2",
     "supertest": "^2.0.0",
     "webpack": "^1.13.2"

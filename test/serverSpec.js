@@ -43,11 +43,6 @@ describe('Plato', () => {
   // focuses on single method or class
   // tests one thing at a time
   // doesn't talk across network or to database
-  describe('The test should pass', () => {
-    it('should pass the tests', () => {
-      expect(typeof 'string').to.equal('string');
-    });
-  });
 
   /*
   //do this for other unit tests:
