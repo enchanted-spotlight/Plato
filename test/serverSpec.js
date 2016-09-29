@@ -43,7 +43,7 @@ describe('Plato', () => {
   // focuses on single method or class
   // tests one thing at a time
   // doesn't talk across network or to database
-  
+
   /*
   //do this for other unit tests:
   describe('What is this test generally for?', function() {
