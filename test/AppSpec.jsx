@@ -1,5 +1,4 @@
 import React from 'react';
-import jsdom from 'mocha-jsdom';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 import mongoose from 'mongoose';
@@ -11,7 +10,6 @@ const wrapper = shallow(<App />);
 const inst = wrapper.instance();
 
 describe('<App /> Component', () => {
-  jsdom();
   it('should exist and be a react component', () => {
     expect(inst).to.be.instanceOf(App);
     expect(wrapper.is('.plato-app')).to.equal(true);
