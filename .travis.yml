@@ -7,12 +7,10 @@ services:
 
 before_install: if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi
 
-matrix:
-  include:
-      addons:
-        sauce_connect:
-          username: "jsdom"
-          access_key: "7d402b1d-0388-467c-8d99-edf195456eee"
+addons:
+  sauce_connect:
+    username: "jsdom"
+    access_key: "7d402b1d-0388-467c-8d99-edf195456eee"
 
 script: mocha --require ./test/setup.js --compilers jsx:babel-register -R list
 
