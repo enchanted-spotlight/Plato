@@ -15,21 +15,34 @@ class App extends React.Component {
       articles: []
     };
     this.searchNotes = term => console.log('Search term: ', term);
-    this.fetchNotes = (username) => {
-      const urlUser = `api/${username}`;
-      return request('GET', urlUser)
-        .then((res) => {
-          this.setState({ articles: JSON.parse(res.text) });
-        }, (err) => {
-          console.log('Error fetching user notes: ', err);
-        });
-    };
+    // this.loginHandler = e => {
+    //   e.preventDefault();
+    //   this.setState({ username: e.target.value });
+    // };
+  }
+
+  fetchNotes(e) {
+    e.preventDefault();
+    const urlUser = `api/${e.target.username.value}`;
+    return request('GET', urlUser)
+      .then((res) => {
+        console.log(JSON.parse(res.text), 'this is here');
+        this.setState({ articles: JSON.parse(res.text) });
+      }, (err) => {
+        console.log('Error fetching user: ', err);
+      });
+  }
+
+  loginHandler(e) {
+    e.preventDefault();
+    console.log(e.target.value, 'username');
+    this.setState({ username: e.target.value });
   }
 
   render() {
     return (
       <div className="plato-app">
-        <LogIn fetchNotes={this.fetchNotes} />
+        <LogIn fetchNotes={this.fetchNotes.bind(this)} loginHandler={this.loginHandler.bind(this)} />
         <h1>{this.state.username ?
           `Howdy ${this.state.username}!`
           : 'Howdy!'
