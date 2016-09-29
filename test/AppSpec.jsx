@@ -26,9 +26,9 @@ describe('<App /> Component', () => {
   it('should have note list component', () => {
     expect(wrapper.find('NoteList')).to.have.length(1);
   });
-  xit('should have new note component', () => {
-    expect(wrapper.find('NewNote')).to.have.length(1);
-  });
+  // xit('should have new note component', () => {
+  //   expect(wrapper.find('NewNote')).to.have.length(1);
+  // });
 
   it('should have fetchNotes function', () => {
     expect(inst.fetchNotes).to.be.instanceOf(Function);
