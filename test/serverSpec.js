@@ -14,9 +14,6 @@ const Note = require('../db/models/note');
 
 describe('Plato', () => {
   before((done) => {
-    const dummyUser = new User({
-      name: 'dummyUser'
-    });
     done();
   });
 
@@ -46,12 +43,7 @@ describe('Plato', () => {
   // focuses on single method or class
   // tests one thing at a time
   // doesn't talk across network or to database
-  describe('The test should pass', () => {
-    it('should pass the tests', () => {
-      expect(typeof 'string').to.equal('string');
-    });
-  });
-
+  
   /*
   //do this for other unit tests:
   describe('What is this test generally for?', function() {
