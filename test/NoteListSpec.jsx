@@ -1,4 +1,5 @@
 import React from 'react';
+import jsdom from 'mocha-jsdom';
 import { expect } from 'chai';
 import { shallow } from 'enzyme';
 // If this becomes a stateful component, you will have to use mount
@@ -27,6 +28,7 @@ const notes = [
 ];
 
 describe('<NoteList />', () => {
+  jsdom();
   const wrapper = shallow(<NoteList notes={notes} />);
   it('should render component', () => {
     expect(wrapper.find('h2')).to.have.length(1);

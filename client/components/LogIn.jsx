@@ -9,6 +9,7 @@ class LogIn extends React.Component {
     };
     this.onFormSubmit = (e) => {
       e.preventDefault();
+      console.log('executed');
       this.props.fetchNotes(this.state.username);
     };
   }
@@ -17,12 +18,12 @@ class LogIn extends React.Component {
     return (
       <form
         className="login"
-        onSubmit={this.onFormSubmit}
+        onSubmit={e => this.onFormSubmit(e)}
       >
         <h3>Login:</h3>
         <input
           type="text"
-          onChange={this.onInputChange}
+          onChange={e => this.onInputChange(e)}
         />
         <input type="submit" />
       </form>
