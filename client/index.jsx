@@ -15,7 +15,7 @@ const RECEIVE_NOTES = 'RECEIVE_NOTES';
 
 const loggerMiddleware = createLogger();
 
-/* ------------------- ACTIONS ---------------------------*/
+/* ------------------- ACTION CREATORS ---------------------------*/
 
 const loginUser = username => ({
   type: USER_LOGIN,
@@ -36,13 +36,23 @@ const requestNotes = username => ({
 // TODO: normalize notes into object instead of array
 // (Improve access and let it be present in different scoped components.)
 // https://github.com/paularmstrong/normalizr
-const receiveNotes = (username, results, status) => ({
+const receiveNotes = (username, notes, status) => ({
   type: RECEIVE_NOTES,
   username,
-  notes: results.map(child => child.data),
+  notes,
   status,
   recievedAt: Date.now()
 });
+
+// Thunk action creator:
+const fetchNotes = username => (
+  (dispatch) => {
+    dispatch(requestNotes(username));
+    return fetch(`api/${username}`)
+      .then(response => response.json())
+      .then(json => dispatch(receiveNotes(username, json)));
+  }
+);
 
 /* ------------------- REDUCERS ---------------------------*/
 
@@ -56,7 +66,7 @@ const userLogin = (state = '', action) => {
 const notesInitialState = {
   isFetching: false,
   didInvalidate: false,
-  items: []
+  notes: []
 };
 const notes = (state = notesInitialState, action) => {
   if (action.type === INVALIDATE_NOTES) {
@@ -115,14 +125,6 @@ class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = { username: '' };
-    this.fetchNotes = (username) => {
-      return (dispatch) => {
-        dispatch(requestNotes(username));
-        return fetch(`api/${username}`)
-          .then(response => response.json())
-          .then(json => dispatch(receiveNotes(username, json)));
-      };
-    };
   }
   render() {
     return (
