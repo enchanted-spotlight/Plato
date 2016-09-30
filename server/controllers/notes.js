@@ -31,7 +31,7 @@ const notesController = {
     });
   },
   deleteUserNote(req, res) {
-    Note.findOneandRemove({ _id: req.params.id }, (err, doc, result) => {
+    Note.findOneAndRemove({ _id: req.params.id }, (err, doc, result) => {
       if (err) {
         res.status(500).end();
       } else {
