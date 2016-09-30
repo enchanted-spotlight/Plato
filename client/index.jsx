@@ -134,6 +134,7 @@ class Login extends React.Component {
           e.preventDefault();
           // Dispath this.state.username so that store is updated
           store.dispatch(loginUser(this.state.username));
+          store.dispatch(fetchNotes(this.state.username));
           this.setState({ username: '' });
         }}
       >
@@ -174,4 +175,4 @@ store.subscribe(render);
 render();
 
 // TODO: dispatch fetchNotes on change of store's username value
-store.dispatch(fetchNotes('Jon')).then(() => console.log(store.getState()));
+// store.dispatch(fetchNotes('Jon')).then(() => console.log(store.getState()));
