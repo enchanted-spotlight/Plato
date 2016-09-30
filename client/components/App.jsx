@@ -26,6 +26,7 @@ class App extends React.Component {
 
     // query DB, fetch all notes where username matches
     this.fetchNotes = (username) => {
+      console.log('fetchNotes executed');
       this.setState({ username });
       const urlUser = `api/${username}`;
       request('GET', urlUser)
@@ -57,7 +58,12 @@ class App extends React.Component {
         </h1>
         <SearchBar onTermChange={this.searchNotes} />
         <h1>Your current Note:</h1>
-        <MyEditor username={this.state.username} currentNote={this.state.currentNote} currentNoteTitle={this.state.currentNoteTitle} />
+        <MyEditor
+          username={this.state.username}
+          currentNote={this.state.currentNote}
+          currentNoteTitle={this.state.currentNoteTitle}
+          fetchNotes={this.fetchNotes}
+        />
         <SpeechToTextEditor username={this.state.username} />
         <NoteList notes={this.state.articles} loadNote={this.loadNote} />
       </div>

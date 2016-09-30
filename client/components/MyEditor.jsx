@@ -5,12 +5,9 @@ import request from 'superagent';
 class MyEditor extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       editorState: props.currentNote,
       title: props.currentNoteTitle
-        // editorState: EditorState.createEmpty(),
-        // title: ''
     };
 
     this.onChange = (editorState) => {
@@ -24,13 +21,11 @@ class MyEditor extends React.Component {
     this.submitNote = () => {
       // this will let us save the current content as rich text
       const userNote = convertToRaw(this.state.editorState.getCurrentContent());
-      // console.log(convertToRaw(this.state.editorState.getCurrentContent()));
-      // const userNote = this.state.editorState
-      //   .getCurrentContent().getPlainText();
       const userTitle = this.state.title;
       const username = this.props.username;
       const url = 'api/save-note';
 
+      // submit the note to the server for storage in db
       request
         .post(url)
         .send({
@@ -42,6 +37,8 @@ class MyEditor extends React.Component {
         .end((err, res) => {
           if (err) {
             console.log('There is an error in submitNote: ', err);
+          } else {
+            this.props.fetchNotes(this.props.username);
           }
         });
     };
@@ -86,7 +83,8 @@ class MyEditor extends React.Component {
 MyEditor.propTypes = {
   username: React.PropTypes.string,
   currentNoteTitle: React.PropTypes.string,
-  currentNote: () => null
+  currentNote: () => null,
+  fetchNotes: React.PropTypes.func
 };
 
 export default MyEditor;
