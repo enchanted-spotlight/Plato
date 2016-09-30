@@ -19,13 +19,14 @@ class App extends React.Component {
       // currentNote will represent the current "main" note,
       // we may want to change this later as we modularize things
       currentNote: EditorState.createEmpty(),
-      currentNoteTitle: 'fake title'
+      currentNoteTitle: ''
     };
     // not functional yet
     this.searchNotes = term => console.log('Search term: ', term);
 
     // query DB, fetch all notes where username matches
     this.fetchNotes = (username) => {
+      console.log('fetchNotes executed');
       this.setState({ username });
       const urlUser = `api/${username}`;
       request('GET', urlUser)
@@ -34,6 +35,12 @@ class App extends React.Component {
           this.setState({ articles: JSON.parse(res.text) });
         }, (err) => {
           console.log('Error fetching user notes: ', err);
+          // if we have a 404, that means that the user doesn't have any notes
+          // in which case we dont need to display a note list
+          // to display an empty note list, we set articles = []
+          if (err.status === 404) {
+            this.setState({ articles: [] });
+          }
         });
     };
 
@@ -57,9 +64,22 @@ class App extends React.Component {
         </h1>
         <SearchBar onTermChange={this.searchNotes} />
         <h1>Your current Note:</h1>
-        <MyEditor username={this.state.username} currentNote={this.state.currentNote} currentNoteTitle={this.state.currentNoteTitle} />
-        <SpeechToTextEditor username={this.state.username} />
-        <NoteList notes={this.state.articles} loadNote={this.loadNote} />
+        <MyEditor
+          username={this.state.username}
+          currentNote={this.state.currentNote}
+          currentNoteTitle={this.state.currentNoteTitle}
+          fetchNotes={this.fetchNotes}
+        />
+        <SpeechToTextEditor
+          username={this.state.username}
+          fetchNotes={this.fetchNotes}
+        />
+        <NoteList
+          username={this.state.username}
+          notes={this.state.articles}
+          loadNote={this.loadNote}
+          fetchNotes={this.fetchNotes}
+        />
       </div>
     );
   }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Editor, EditorState, Modifier } from 'draft-js';
+import { Editor, EditorState, Modifier, convertToRaw } from 'draft-js';
 import request from 'superagent';
 
 // travis, stop fucking shit up
@@ -20,6 +20,10 @@ class SpeechToTextEditor extends React.Component {
     // interim results = true will have the transcription process
     // return 'half-baked' results to us. ie, results that arent necessarily correct
     this.recognition.interimResults = false;
+    // we are going to use these variables to determine whether or not we should
+    // put the next phrase on a new line/sentence
+    this.lastEventTime = undefined;
+    this.currentTime = new Date();
 
     // function that we will fire every time an event happens, basically
     // everytime a phrase is transcribed
@@ -29,6 +33,18 @@ class SpeechToTextEditor extends React.Component {
           window.transcript += event.results[i][0].transcript;
         }
       }
+      // the very first time we insert a phrase, we shouldn't be inserting
+      // a period
+      if (this.lastEventTime === undefined) {
+        this.lastEventTime = new Date();
+      }
+
+      this.currentTime = new Date();
+      if (this.currentTime - this.lastEventTime > 3500) {
+        this.addText('. ');
+      }
+      // reset our lastEventTime to match our currentTime
+      this.lastEventTime = new Date();
       this.addText(window.transcript);
       // reset transcript to nothing so that we aren't duplicating results
       window.transcript = '';
@@ -40,35 +56,43 @@ class SpeechToTextEditor extends React.Component {
       title: '',
     };
 
+    // this method should mirror the MyEditor component
     this.onChange = (editorState) => {
       this.setState({ editorState });
     };
 
+    // this method should mirror the MyEditor component
     this.titleChange = (event) => {
       this.setState({ title: event.target.value });
     };
 
+    // this method should mirror the MyEditor component
     this.submitNote = () => {
-      const userNote = this.state.editorState
-        .getCurrentContent().getPlainText();
+      // this will let us save the current content as rich text
+      const userNote = convertToRaw(this.state.editorState.getCurrentContent());
       const userTitle = this.state.title;
       const username = this.props.username;
       const url = 'api/save-note';
+
+      // submit the note to the server for storage in db
       request
         .post(url)
         .send({
           user_id: username,
-          text: userNote,
+          text: JSON.stringify(userNote),
           title: userTitle
         })
         .set('Accept', 'application/json')
         .end((err, res) => {
           if (err) {
             console.log('There is an error in submitNote: ', err);
+          } else {
+            this.props.fetchNotes(this.props.username);
           }
         });
     };
 
+    // add string to the editable portion of the editor
     this.addText = (string) => {
       // get state of the editor, move the selection to end
       // so that we are inserting text at the end
@@ -130,7 +154,8 @@ class SpeechToTextEditor extends React.Component {
 }
 
 SpeechToTextEditor.propTypes = {
-  username: React.PropTypes.string
+  username: React.PropTypes.string,
+  fetchNotes: React.PropTypes.func
 };
 
 
