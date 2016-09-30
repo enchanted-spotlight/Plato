@@ -1,5 +1,5 @@
 import React from 'react';
-import { Editor, convertToRaw } from 'draft-js';
+import { Editor, EditorState, convertToRaw } from 'draft-js';
 import request from 'superagent';
 
 class MyEditor extends React.Component {
@@ -47,12 +47,12 @@ class MyEditor extends React.Component {
     };
   }
 
-  // componentWillReceiveProps(newProps) {
-  //   this.setState({
-  //     editorState: newProps.currentNote,
-  //     title: newProps.title
-  //   });
-  // }
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      editorState: newProps.currentNote,
+      title: newProps.currentNoteTitle
+    });
+  }
 
   render() {
     return (
@@ -60,13 +60,13 @@ class MyEditor extends React.Component {
         <div>
           <input
             type="text"
-            value={this.state.value}
+            value={this.state.title}
             onChange={this.titleChange}
             placeholder="Title"
           />
           <Editor
             editorState={this.state.editorState}
-            onChange={this.onChange}
+            onChange={e => this.onChange(e)}
             placeholder="Type your note here... "
           />
         </div>

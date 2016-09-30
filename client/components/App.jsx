@@ -40,9 +40,9 @@ class App extends React.Component {
     // change state of app so that it forces the myEditor component
     // to render with a note that we tell it to render
     this.loadNote = (note, title) => {
-      this.setState({ currentNote: convertFromRaw(JSON.parse(note)) });
+      const fromRaw = convertFromRaw(JSON.parse(note));
+      this.setState({ currentNote: EditorState.createWithContent(fromRaw) });
       this.setState({ currentNoteTitle: title });
-      console.log('WE CHANGED THE NOTE');
     };
   }
 
