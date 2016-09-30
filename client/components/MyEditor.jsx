@@ -66,7 +66,7 @@ class MyEditor extends React.Component {
           />
           <Editor
             editorState={this.state.editorState}
-            onChange={() => this.onChange()}
+            onChange={e => this.onChange(e)}
             placeholder="Type your note here... "
           />
         </div>

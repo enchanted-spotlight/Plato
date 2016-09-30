@@ -41,7 +41,6 @@ class App extends React.Component {
     // to render with a note that we tell it to render
     this.loadNote = (note, title) => {
       const fromRaw = convertFromRaw(JSON.parse(note));
-      console.log('ConvertedFromRaw: ', fromRaw);
       this.setState({ currentNote: EditorState.createWithContent(fromRaw) });
       this.setState({ currentNoteTitle: title });
     };
