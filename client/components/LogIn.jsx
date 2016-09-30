@@ -6,22 +6,7 @@ class LogIn extends React.Component {
     this.state = { username: '' };
   }
 
-  // onInputChange(e) {
-  //   console.log(e.target.value, 'e');
-  //   this.setState({ username: e.target.value });
-  //   console.log(this.state, 'state');
-  // }
-
-  // onFormSubmit(e) {
-  //   e.preventDefault();
-  //   console.log('executed', this.state.username);
-  //   this.props.fetchNotes(this.state.username);
-  //   console.log('executedd', this.state.username);
-  // }
-
-
   render() {
-    console.log(this.props, 'props');
     return (
       <form
         className="login"

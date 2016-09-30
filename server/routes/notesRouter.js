@@ -38,12 +38,10 @@ router.get('/:user', (req, res) => {
   Note.find({ user_id: req.params.user }, (err, data) => {
     if (err) {
       res.status(500).end();
-    } 
-    // else if (data.length === 0) {
-    //   console.log('404');
-    //   res.status(200).send(data);
-    // } 
-    else {
+    } else if (data.length === 0) {
+      console.log('404');
+      res.status(404).end();
+    } else {
       res.status(200).send(data);
     }
   });

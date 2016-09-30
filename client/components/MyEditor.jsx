@@ -42,7 +42,8 @@ class MyEditor extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="editor">
+        <h2>Your Notes</h2>
         <div>
           <input
             type="text"
@@ -64,7 +65,6 @@ class MyEditor extends React.Component {
           />
         </div>
       </div>
-
     );
   }
 }

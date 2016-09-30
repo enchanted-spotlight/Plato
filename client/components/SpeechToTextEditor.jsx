@@ -99,7 +99,8 @@ class SpeechToTextEditor extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="SpeechToTextEditor">
+        <h2>Transcript</h2>
         <div>
           <input
             type="text"
