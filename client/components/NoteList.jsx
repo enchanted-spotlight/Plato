@@ -10,9 +10,12 @@ const NoteList = (props) => {
   const noteItems = props.notes.map(note =>
     <NoteItem
       key={note._id}
+      _id={note._id}
       title={note.title}
       text={note.text}
+      username={props.username}
       loadNote={props.loadNote}
+      fetchNotes={props.fetchNotes}
     />
   );
 
@@ -28,7 +31,7 @@ const NoteList = (props) => {
 // Validate expected property types
 NoteList.propTypes = {
   notes: React.PropTypes.arrayOf(React.PropTypes.object),
-  loadNote: React.PropTypes.func
+  fetchNotes: React.PropTypes.func
 };
 
 export default NoteList;

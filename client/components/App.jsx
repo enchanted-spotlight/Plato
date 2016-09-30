@@ -65,7 +65,12 @@ class App extends React.Component {
           fetchNotes={this.fetchNotes}
         />
         <SpeechToTextEditor username={this.state.username} />
-        <NoteList notes={this.state.articles} loadNote={this.loadNote} />
+        <NoteList
+          username={this.state.username}
+          notes={this.state.articles}
+          loadNote={this.loadNote}
+          fetchNotes={this.fetchNotes}
+        />
       </div>
     );
   }
