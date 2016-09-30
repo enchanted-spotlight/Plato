@@ -53,11 +53,12 @@ const userLogin = (state = '', action) => {
   return state;
 };
 
-const notes = (state = {
+const notesInitialState = {
   isFetching: false,
   didInvalidate: false,
   items: []
-}, action) => {
+};
+const notes = (state = notesInitialState, action) => {
   if (action.type === INVALIDATE_NOTES) {
     return {
       ...state,
@@ -82,11 +83,23 @@ const notes = (state = {
   return state;
 };
 
-const notesByUser = (state = {}, action) {
-
+const notesByUser = (state = {}, action) => {
+  if (action.type === INVALIDATE_NOTES ||
+      action.type === REQUEST_NOTES ||
+      action.type === RECEIVE_NOTES) {
+    return {
+      ...state,
+      notes: notes(state[notes], action)
+    };
+  }
+  return state;
 };
 
-const platoApp = combineReducers({ userLogin });
+const platoApp = combineReducers({
+  userLogin,
+  notes,
+  notesByUser
+});
 const store = createStore(
   platoApp,
   window.devToolsExtension && window.devToolsExtension(),
