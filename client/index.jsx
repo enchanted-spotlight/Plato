@@ -154,18 +154,35 @@ class Login extends React.Component {
   }
 }
 
-const PlatoApp = () =>  (
-  <div>
-    <h1>This is Plato Note Taker!</h1>
-    <Login />
-    <h2>Your Notes:</h2>
-    <ul>{}</ul>
-  </div>
-);
+const NotesList = ({notes}) => {
+  console.log(notes);
+  return (
+    <ul>
+      {notes.map(note =>
+        <li>{note.title}</li>
+      )}
+    </ul>
+  );
+};
+
+class PlatoApp extends React.Component {
+  render() {
+    return(
+      <div>
+        <h1>This is Plato Note Taker!</h1>
+        <Login />
+        <h2>Your Notes:</h2>
+        <NotesList notes={this.props.notes.notes}/>
+      </div>
+    );
+  }
+}
 
 const render = () => {
   ReactDOM.render(
-    <PlatoApp />,
+    <PlatoApp
+      {...store.getState()}
+    />,
     document.getElementById('app')
   );
 };
