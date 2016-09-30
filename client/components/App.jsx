@@ -56,7 +56,6 @@ class App extends React.Component {
   render() {
     return (
       <div className="plato-app">
-        <button onClick={() => console.log(this.state.articles)} />
         <LogIn fetchNotes={this.fetchNotes} />
         <h1>{this.state.username ?
           `Howdy ${this.state.username}!`
@@ -71,7 +70,10 @@ class App extends React.Component {
           currentNoteTitle={this.state.currentNoteTitle}
           fetchNotes={this.fetchNotes}
         />
-        <SpeechToTextEditor username={this.state.username} />
+        <SpeechToTextEditor
+          username={this.state.username}
+          fetchNotes={this.fetchNotes}
+        />
         <NoteList
           username={this.state.username}
           notes={this.state.articles}
