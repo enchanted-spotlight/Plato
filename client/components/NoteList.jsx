@@ -5,33 +5,52 @@ import React from 'react';
 // Is styling better that way?
 import NoteItem from './NoteItem.jsx';
 
-const NoteList = (props) => {
-  // Map over array and create componenets for each item
-  const noteItems = props.notes.map(note =>
-    <NoteItem
-      key={note._id}
-      _id={note._id}
-      title={note.title}
-      text={note.text}
-      username={props.username}
-      loadNote={props.loadNote}
-      fetchNotes={props.fetchNotes}
-    />
-  );
+class NoteList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      note: props.articles || [],
+      username: props.username
+    };
+  }
 
-  // Return built up notes component
-  return (
-    <div className="notes-list">
-      <h2>Your Notes</h2>
-      <ul>{noteItems}</ul>
-    </div>
-  );
-};
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      note: newProps.notes,
+      username: newProps.username
+    });
+  }
 
-// Validate expected property types
+  render() {
+    return (
+      <div className="notes-list">
+        <h2>Your Notes</h2>
+        <button onClick={() => console.log(this.state)}>
+        LOG state
+        </button>
+        <ul>
+          {this.state.note.map(element =>
+            <NoteItem
+              key={element._id}
+              _id={element._id}
+              title={element.title}
+              text={element.text}
+              username={this.state.username}
+              loadNote={this.props.loadNote}
+              fetchNotes={this.props.fetchNotes}
+            />
+          )}
+        </ul>
+      </div>
+    );
+  }
+}
+
 NoteList.propTypes = {
-  notes: React.PropTypes.arrayOf(React.PropTypes.object),
-  fetchNotes: React.PropTypes.func
+  articles: React.PropTypes.arrayOf(React.PropTypes.object),
+  loadNote: React.PropTypes.func,
+  fetchNotes: React.PropTypes.func,
+  username: React.PropTypes.string
 };
 
 export default NoteList;

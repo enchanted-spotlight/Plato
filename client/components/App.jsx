@@ -19,7 +19,7 @@ class App extends React.Component {
       // currentNote will represent the current "main" note,
       // we may want to change this later as we modularize things
       currentNote: EditorState.createEmpty(),
-      currentNoteTitle: 'fake title'
+      currentNoteTitle: ''
     };
     // not functional yet
     this.searchNotes = term => console.log('Search term: ', term);
@@ -35,6 +35,12 @@ class App extends React.Component {
           this.setState({ articles: JSON.parse(res.text) });
         }, (err) => {
           console.log('Error fetching user notes: ', err);
+          // if we have a 404, that means that the user doesn't have any notes
+          // in which case we dont need to display a note list
+          // to display an empty note list, we set articles = []
+          if (err.status === 404) {
+            this.setState({ articles: [] });
+          }
         });
     };
 
@@ -50,6 +56,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="plato-app">
+        <button onClick={() => console.log(this.state.articles)} />
         <LogIn fetchNotes={this.fetchNotes} />
         <h1>{this.state.username ?
           `Howdy ${this.state.username}!`

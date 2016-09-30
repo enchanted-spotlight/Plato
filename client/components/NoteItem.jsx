@@ -1,7 +1,7 @@
 import React from 'react';
 import request from 'superagent';
+
 const NoteItem = (props) => {
-  console.log(props);
   const displayNote = () => {
     props.loadNote(props.text, props.title);
   };
@@ -27,7 +27,7 @@ const NoteItem = (props) => {
 };
 
 NoteItem.propTypes = {
-  title: React.PropTypes.string,
+  title: React.PropTypes.string
 };
 
 export default NoteItem;
