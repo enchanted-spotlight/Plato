@@ -5,15 +5,17 @@ import connect from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 
+const loggerMiddleware = createLogger();
+
 // Redux async docs:
 // http://redux.js.org/docs/advanced/AsyncActions.html
+
+/* ------------------- ACTIONS ---------------------------*/
 
 const USER_LOGIN = 'USER_LOGIN';
 const INVALIDATE_NOTES = 'INVALIDATE_NOTES';
 const REQUEST_NOTES = 'REQUEST_NOTES';
 const RECEIVE_NOTES = 'RECEIVE_NOTES';
-
-const loggerMiddleware = createLogger();
 
 /* ------------------- ACTION CREATORS ---------------------------*/
 
@@ -56,7 +58,7 @@ const fetchNotes = username => (
 
 /* ------------------- REDUCERS ---------------------------*/
 
-const userLogin = (state = '', action) => {
+const username = (state = '', action) => {
   if (action.type === USER_LOGIN) {
     return action.username;
   }
@@ -68,7 +70,7 @@ const notesInitialState = {
   didInvalidate: false,
   notes: []
 };
-const notes = (state = notesInitialState, action) => {
+const savedNotes = (state = notesInitialState, action) => {
   if (action.type === INVALIDATE_NOTES) {
     return {
       ...state,
@@ -76,11 +78,10 @@ const notes = (state = notesInitialState, action) => {
     };
   }
   if (action.type === REQUEST_NOTES) {
-    return {
-      ...state,
-      isFetching: true,
-      didInvalidate: false
-    };
+    // For now we will wipe old notes out on new request
+    // By setting object back to initial state
+    // May want to refactor to have separate WIPE_NOTES action
+    return notesInitialState;
   }
   if (action.type === RECEIVE_NOTES) {
     return {
@@ -93,22 +94,9 @@ const notes = (state = notesInitialState, action) => {
   return state;
 };
 
-const notesByUser = (state = {}, action) => {
-  if (action.type === INVALIDATE_NOTES ||
-      action.type === REQUEST_NOTES ||
-      action.type === RECEIVE_NOTES) {
-    return {
-      ...state,
-      notes: notes(state[notes], action)
-    };
-  }
-  return state;
-};
-
 const platoApp = combineReducers({
-  userLogin,
-  notes,
-  notesByUser
+  username,
+  savedNotes
 });
 const store = createStore(
   platoApp,
@@ -119,7 +107,7 @@ const store = createStore(
   )
 );
 
-/* ------------------- COMPONENT ---------------------------*/
+/* ------------------- COMPONENTS ---------------------------*/
 
 class Login extends React.Component {
   constructor(props) {
@@ -141,7 +129,6 @@ class Login extends React.Component {
         <h3>Login:</h3>
         <input
           type="text"
-          value={this.state.username}
           onChange={
             e => this.setState({ username: e.target.value })
           }
@@ -154,29 +141,40 @@ class Login extends React.Component {
   }
 }
 
-const NotesList = ({notes}) => {
-  console.log(notes);
+const NoteItem = ({ note }) => (
+  <li>{note.title}</li>
+);
+NoteItem.propTypes = { note: React.PropTypes.object };
+
+const NotesList = ({ notes }) => (
+  <ul>
+    {notes.map(note =>
+      <NoteItem
+        key={note._id}
+        note={note}
+      />
+    )}
+  </ul>
+);
+NotesList.propTypes = { notes: React.PropTypes.array };
+
+const PlatoApp = (props) => {
+  const {
+    username,
+    savedNotes
+  } = props;
   return (
-    <ul>
-      {notes.map(note =>
-        <li>{note.title}</li>
-      )}
-    </ul>
+    <div>
+      <h1>This is Plato Note Taker!</h1>
+      <Login />
+      <h2>Your Notes:</h2>
+      <NotesList notes={savedNotes.notes} />
+    </div>
   );
 };
 
-class PlatoApp extends React.Component {
-  render() {
-    return(
-      <div>
-        <h1>This is Plato Note Taker!</h1>
-        <Login />
-        <h2>Your Notes:</h2>
-        <NotesList notes={this.props.notes.notes}/>
-      </div>
-    );
-  }
-}
+/* ------------------- START IT UP ---------------------------*/
+
 
 const render = () => {
   ReactDOM.render(
@@ -187,9 +185,5 @@ const render = () => {
   );
 };
 
-
 store.subscribe(render);
 render();
-
-// TODO: dispatch fetchNotes on change of store's username value
-// store.dispatch(fetchNotes('Jon')).then(() => console.log(store.getState()));
