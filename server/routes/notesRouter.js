@@ -39,9 +39,25 @@ router.get('/:user', (req, res) => {
     if (err) {
       res.status(500).end();
     } else if (data.length === 0) {
+      console.log('404');
       res.status(404).end();
     } else {
       res.status(200).send(data);
+    }
+  });
+});
+
+router.post('/:user', (req, res) => {
+  const newUser = new User({
+    username: res.params.username
+  });
+
+  User.save(newUser, (err, saved) => {
+    if (err) {
+      console.log(err, 'err');
+      res.status(500).send(err);
+    } else {
+      res.status(200).send(saved);
     }
   });
 });

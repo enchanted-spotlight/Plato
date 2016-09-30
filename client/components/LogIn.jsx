@@ -4,26 +4,19 @@ class LogIn extends React.Component {
   constructor(props) {
     super(props);
     this.state = { username: '' };
-    this.onInputChange = (e) => {
-      this.setState({ username: e.target.value });
-    };
-    this.onFormSubmit = (e) => {
-      e.preventDefault();
-      console.log('executed');
-      this.props.fetchNotes(this.state.username);
-    };
   }
 
   render() {
     return (
       <form
         className="login"
-        onSubmit={e => this.onFormSubmit(e)}
+        onSubmit={e => this.props.fetchNotes(e)}
       >
         <h3>Login:</h3>
         <input
           type="text"
-          onChange={e => this.onInputChange(e)}
+          name="username"
+          onChange={e => this.props.loginHandler(e)}
         />
         <input type="submit" />
       </form>
@@ -32,7 +25,8 @@ class LogIn extends React.Component {
 }
 
 LogIn.propTypes = {
-  fetchNotes: React.PropTypes.func
+  fetchNotes: React.PropTypes.func,
+  loginHandler: React.PropTypes.func
 };
 
 export default LogIn;

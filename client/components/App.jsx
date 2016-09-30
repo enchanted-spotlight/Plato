@@ -15,13 +15,19 @@ class App extends React.Component {
       articles: []
     };
     this.searchNotes = term => console.log('Search term: ', term);
-    this.fetchNotes = (username) => {
-      const urlUser = `api/${username}`;
+    this.loginHandler = (e) => {
+      e.preventDefault();
+      this.setState({ username: e.target.value });
+    };
+
+    this.fetchNotes = (e) => {
+      e.preventDefault();
+      const urlUser = `api/${e.target.username.value}`;
       return request('GET', urlUser)
         .then((res) => {
           this.setState({ articles: JSON.parse(res.text) });
         }, (err) => {
-          console.log('Error fetching user notes: ', err);
+          console.log('Error fetching user: ', err);
         });
     };
   }
@@ -29,7 +35,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="plato-app">
-        <LogIn fetchNotes={this.fetchNotes} />
+        <LogIn fetchNotes={this.fetchNotes} loginHandler={this.loginHandler} />
         <h1>{this.state.username ?
           `Howdy ${this.state.username}!`
           : 'Howdy!'
