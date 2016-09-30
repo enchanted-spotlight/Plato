@@ -1,6 +1,5 @@
 const Note = require('./../models/note');
 
-
 const notesController = {
   saveNote(req, res) {
     const update = {
@@ -16,7 +15,7 @@ const notesController = {
       if (err) {
         res.status(500).end();
       } else {
-        res.status(200).end(data);
+        res.status(200).send(data);
       }
     });
   },
