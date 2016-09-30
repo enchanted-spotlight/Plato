@@ -5,7 +5,11 @@ import connect from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 
+// Redux async docs:
+// http://redux.js.org/docs/advanced/AsyncActions.html
+
 const USER_LOGIN = 'USER_LOGIN';
+const INVALIDATE_NOTES = 'INVALIDATE_NOTES';
 const REQUEST_NOTES = 'REQUEST_NOTES';
 const RECEIVE_NOTES = 'RECEIVE_NOTES';
 
@@ -18,17 +22,20 @@ const loginUser = username => ({
   username
 });
 
-const requestNotes = username => ({
-  type: REQUEST_NOTES,
-  username
-});
-
 // Async requires three actions:
 // 1. Inform reducers request initiated
 // 2. Inform reducers request completed
 // 3. Inform reducers taht request failed
 
+const requestNotes = username => ({
+  type: REQUEST_NOTES,
+  username
+});
+
 // We will handle errors in the reducer by checking status passed
+// TODO: normalize notes into object instead of array
+// (Improve access and let it be present in different scoped components.)
+// https://github.com/paularmstrong/normalizr
 const receiveNotes = (username, results, status) => ({
   type: RECEIVE_NOTES,
   username,
@@ -44,6 +51,39 @@ const userLogin = (state = '', action) => {
     return action.username;
   }
   return state;
+};
+
+const notes = (state = {
+  isFetching: false,
+  didInvalidate: false,
+  items: []
+}, action) => {
+  if (action.type === INVALIDATE_NOTES) {
+    return {
+      ...state,
+      didInvalidate: true
+    };
+  }
+  if (action.type === REQUEST_NOTES) {
+    return {
+      ...state,
+      isFetching: true,
+      didInvalidate: false
+    };
+  }
+  if (action.type === RECEIVE_NOTES) {
+    return {
+      ...state,
+      isFetching: false,
+      didInvalidate: false,
+      notes: action.notes
+    };
+  }
+  return state;
+};
+
+const notesByUser = (state = {}, action) {
+
 };
 
 const platoApp = combineReducers({ userLogin });
