@@ -11,32 +11,33 @@ const RECEIVE_NOTES = 'RECEIVE_NOTES';
 
 const loggerMiddleware = createLogger();
 
-const requestNotes = (username) => {
-  return {
-    type: REQUEST_NOTES,
-    username
-  };
-};
+/* ------------------- ACTIONS ---------------------------*/
 
-// TODO: Add error handling to receiveNotes
-const receiveNotes = (username, results) => {
-  console.log('results given to receiveNotes: ', results);
-  return {
-    type: RECEIVE_NOTES,
-    username,
-    notes: results.map(child => child.data),
-    recievedAt: Date.now()
-  };
-};
+const loginUser = username => ({
+  type: USER_LOGIN,
+  username
+});
 
-const fetchNotes = (username) => {
-  return (dispatch) => {
-    dispatch(requestNotes(username));
-    return fetch(`api/${username}`)
-      .then(response => response.json())
-      .then(json => dispatch(receiveNotes(username, json)));
-  };
-};
+const requestNotes = username => ({
+  type: REQUEST_NOTES,
+  username
+});
+
+// Async requires three actions:
+// 1. Inform reducers request initiated
+// 2. Inform reducers request completed
+// 3. Inform reducers taht request failed
+
+// We will handle errors in the reducer by checking status passed
+const receiveNotes = (username, results, status) => ({
+  type: RECEIVE_NOTES,
+  username,
+  notes: results.map(child => child.data),
+  status,
+  recievedAt: Date.now()
+});
+
+/* ------------------- REDUCERS ---------------------------*/
 
 const userLogin = (state = '', action) => {
   if (action.type === USER_LOGIN) {
@@ -55,10 +56,20 @@ const store = createStore(
   )
 );
 
+/* ------------------- COMPONENT ---------------------------*/
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = { username: '' };
+    this.fetchNotes = (username) => {
+      return (dispatch) => {
+        dispatch(requestNotes(username));
+        return fetch(`api/${username}`)
+          .then(response => response.json())
+          .then(json => dispatch(receiveNotes(username, json)));
+      };
+    };
   }
   render() {
     return (
@@ -67,10 +78,7 @@ class Login extends React.Component {
         onSubmit={(e) => {
           e.preventDefault();
           // Dispath this.state.username so that store is updated
-          store.dispatch({
-            type: USER_LOGIN,
-            username: this.state.username
-          });
+          store.dispatch(loginUser(this.state.username));
           this.setState({ username: '' });
         }}
       >
@@ -94,6 +102,8 @@ const PlatoApp = () =>  (
   <div>
     <h1>This is Plato Note Taker!</h1>
     <Login />
+    <h2>Your Notes:</h2>
+    <ul>{}</ul>
   </div>
 );
 
@@ -107,4 +117,6 @@ const render = () => {
 
 store.subscribe(render);
 render();
+
+// TODO: dispatch fetchNotes on change of store's username value
 store.dispatch(fetchNotes('Jon')).then(() => console.log(store.getState()));
