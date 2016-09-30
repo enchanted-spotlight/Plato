@@ -11,6 +11,10 @@ router.post('/save-note', (req, res) => {
   // we also need to JSON.stringify their notes and the note's title
 
   // this is the query that we're going to use to upsert the doc
+  console.log(req.body.user_id);
+  console.log(req.body.text);
+  console.log(req.body.title);
+
   const update = {
     user_id: req.body.user_id,
     text: req.body.text,
@@ -24,6 +28,7 @@ router.post('/save-note', (req, res) => {
     title: req.body.title
   }, update, { upsert: true }, (err, data) => {
     if (err) {
+      console.log(err);
       // error should mean that there was an error updating or inserting
       res.status(500).end();
     } else {

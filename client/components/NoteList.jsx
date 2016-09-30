@@ -9,9 +9,10 @@ const NoteList = (props) => {
   // Map over array and create componenets for each item
   const noteItems = props.notes.map(note =>
     <NoteItem
-      key={note.id}
+      key={note._id}
       title={note.title}
       text={note.text}
+      loadNote={props.loadNote}
     />
   );
 
@@ -26,7 +27,8 @@ const NoteList = (props) => {
 
 // Validate expected property types
 NoteList.propTypes = {
-  notes: React.PropTypes.arrayOf(React.PropTypes.object)
+  notes: React.PropTypes.arrayOf(React.PropTypes.object),
+  loadNote: React.PropTypes.func
 };
 
 export default NoteList;
