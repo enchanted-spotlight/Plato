@@ -9,8 +9,8 @@ const app = require('../server/server');
 const should = chai.should();
 const expect = chai.expect;
 
-const User = require('../db/models/user');
-const Note = require('../db/models/note');
+const User = require('./../server/models/user');
+const Note = require('./../server/models/note');
 
 describe('Plato', () => {
   before((done) => {

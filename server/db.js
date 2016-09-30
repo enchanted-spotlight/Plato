@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
-const Note = require('./note');
-const User = require('./user');
+const Note = require('./models/note');
+const User = require('./models/user');
 
 // db stuff here
 if (process.env.NODE_ENV === 'dev') {

@@ -1,4 +1,7 @@
 require('dotenv').config();
+
+// Require db so it sets up connection
+require('./db');
 const express = require('express');
 const middleware = require('./config/middleware');
 // routing modules
