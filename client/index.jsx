@@ -9,6 +9,15 @@ import platoApp from './plato';
 
 const loggerMiddleware = createLogger();
 
+const store = createStore(
+  platoApp,
+  window.devToolsExtension && window.devToolsExtension(),
+  applyMiddleware(
+    thunkMiddleware,
+    loggerMiddleware
+  )
+);
+
 const render = () => {
   ReactDOM.render(
     <PlatoApp />,
