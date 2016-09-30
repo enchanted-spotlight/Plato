@@ -1,17 +1,12 @@
 require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
+const middleware = require('./config/middleware');
 // routing modules
-const noteRouter = require('./routes/notesRouter');
+const noteRouter = require('./config/routes');
 
 const app = express();
+middleware(app, express);
 
-// server stuff here
-
-// middleware
-app.use(bodyParser());
-// serve public files
-app.use(express.static('client/public'));
 
 // routing
 app.use('/api', noteRouter);
