@@ -1,4 +1,5 @@
 import React from 'react';
+import { EditorState, convertFromRaw } from 'draft-js';
 import request from 'superagent';
 
 import LogIn from './LogIn.jsx';
@@ -7,22 +8,41 @@ import SearchBar from './SearchBar.jsx';
 import SpeechToTextEditor from './SpeechToTextEditor.jsx';
 import MyEditor from './MyEditor.jsx';
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       username: '',
-      articles: []
+      // articles represents user's notes
+      articles: [],
+      // currentNote will represent the current "main" note,
+      // we may want to change this later as we modularize things
+      currentNote: EditorState.createEmpty(),
+      currentNoteTitle: 'fake title'
     };
+    // not functional yet
     this.searchNotes = term => console.log('Search term: ', term);
+
+    // query DB, fetch all notes where username matches
     this.fetchNotes = (username) => {
+      this.setState({ username });
       const urlUser = `api/${username}`;
-      return request('GET', urlUser)
+      request('GET', urlUser)
+      // this is going to have to change, res.text is no longer just a string
         .then((res) => {
           this.setState({ articles: JSON.parse(res.text) });
         }, (err) => {
           console.log('Error fetching user notes: ', err);
         });
+    };
+
+    // change state of app so that it forces the myEditor component
+    // to render with a note that we tell it to render
+    this.loadNote = (note, title) => {
+      this.setState({ currentNote: convertFromRaw(JSON.parse(note)) });
+      this.setState({ currentNoteTitle: title });
+      console.log('WE CHANGED THE NOTE');
     };
   }
 
@@ -37,9 +57,9 @@ class App extends React.Component {
         </h1>
         <SearchBar onTermChange={this.searchNotes} />
         <h1>Your current Note:</h1>
-        <MyEditor username={this.state.username} />
+        <MyEditor username={this.state.username} currentNote={this.state.currentNote} currentNoteTitle={this.state.currentNoteTitle} />
         <SpeechToTextEditor username={this.state.username} />
-        <NoteList notes={this.state.articles} />
+        <NoteList notes={this.state.articles} loadNote={this.loadNote} />
       </div>
     );
   }

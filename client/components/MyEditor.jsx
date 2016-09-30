@@ -1,13 +1,16 @@
 import React from 'react';
-import { Editor, EditorState, Modifier } from 'draft-js';
+import { Editor, convertToRaw } from 'draft-js';
 import request from 'superagent';
 
 class MyEditor extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      editorState: EditorState.createEmpty(),
-      title: ''
+      editorState: props.currentNote,
+      title: props.currentNoteTitle
+        // editorState: EditorState.createEmpty(),
+        // title: ''
     };
 
     this.onChange = (editorState) => {
@@ -19,16 +22,20 @@ class MyEditor extends React.Component {
     };
 
     this.submitNote = () => {
-      const userNote = this.state.editorState
-        .getCurrentContent().getPlainText();
+      // this will let us save the current content as rich text
+      const userNote = convertToRaw(this.state.editorState.getCurrentContent());
+      // console.log(convertToRaw(this.state.editorState.getCurrentContent()));
+      // const userNote = this.state.editorState
+      //   .getCurrentContent().getPlainText();
       const userTitle = this.state.title;
       const username = this.props.username;
       const url = 'api/save-note';
+
       request
         .post(url)
         .send({
           user_id: username,
-          text: userNote,
+          text: JSON.stringify(userNote),
           title: userTitle
         })
         .set('Accept', 'application/json')
@@ -39,6 +46,13 @@ class MyEditor extends React.Component {
         });
     };
   }
+
+  // componentWillReceiveProps(newProps) {
+  //   this.setState({
+  //     editorState: newProps.currentNote,
+  //     title: newProps.title
+  //   });
+  // }
 
   render() {
     return (
@@ -58,7 +72,7 @@ class MyEditor extends React.Component {
         </div>
         <div>
           <input
-            onClick={this.submitNote}
+            onClick={() => this.submitNote()}
             type="button"
             value="Submit"
           />
@@ -69,9 +83,10 @@ class MyEditor extends React.Component {
   }
 }
 
-
 MyEditor.propTypes = {
-  username: React.PropTypes.string
+  username: React.PropTypes.string,
+  currentNoteTitle: React.PropTypes.string,
+  currentNote: () => null
 };
 
 export default MyEditor;
