@@ -54,13 +54,8 @@ class SpeechToTextEditor extends React.Component {
 
     this.state = {
       // this will let us create an empty editor
-<<<<<<< 662a795b1dcb095f95bb35c802bec59b979128ff:client/plato/components/SpeechToTextEditor.jsx
-      editorState: EditorState.createEmpty(),
-      title: ''
-=======
       editorState: createEditorState(),
-      title: '',
->>>>>>> Move to medium-draft, polish oAuth, send plain text:client/components/SpeechToTextEditor.jsx
+      title: ''
     };
 
     // this method should mirror the MyEditor component
