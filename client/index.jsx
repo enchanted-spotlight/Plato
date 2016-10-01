@@ -7,6 +7,8 @@ import { Provider } from 'react-redux';
 
 import platoApp from './plato';
 
+console.log('platoApp components: ', platoApp.components);
+
 const loggerMiddleware = createLogger();
 
 const store = createStore(
