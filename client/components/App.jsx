@@ -1,7 +1,7 @@
 import React from 'react';
 import { EditorState, convertFromRaw } from 'draft-js';
 import request from 'superagent';
-import { Row, Col } from 'react-materialize';
+import { Row, Col, Navbar, NavItem } from 'react-materialize';
 
 import LogIn from './LogIn.jsx';
 import NoteList from './NoteList.jsx';
@@ -66,10 +66,16 @@ class App extends React.Component {
   render() {
     return (
       <div>
+        <Navbar brand="Plato" right>
+          <NavItem href="">Login</NavItem>
+          <NavItem href="">Signout</NavItem>
+        </Navbar>
         <LogIn fetchNotes={this.fetchNotes} setUsername={this.setUsername} />
         <Row>
-
-          <Col s={2} className="blue-grey lighten-3">
+          <div className="blue-grey lighten-3 column-header-lists">
+            <h3>All Notes</h3>
+          </div>
+          <Col s={2} className="blue-grey lighten-3 base-col-height">
             <NoteList
               username={this.state.username}
               notes={this.state.articles}
@@ -78,14 +84,14 @@ class App extends React.Component {
             />
           </Col>
 
-          <Col s={2} className="grey lighten-2">
+          <Col s={2} className="grey lighten-2 base-col-height">
             <SpeechToTextEditor
               username={this.state.username}
               fetchNotes={this.fetchNotes}
             />
           </Col>
 
-          <Col s={8}>
+          <Col s={8} className="base-col-height">
             <MyEditor
               username={this.state.username}
               currentNote={this.state.currentNote}

@@ -1,5 +1,6 @@
 import React from 'react';
 import request from 'superagent';
+import { Button } from 'react-materialize';
 
 const NoteItem = (props) => {
   const displayNote = () => {
@@ -19,9 +20,14 @@ const NoteItem = (props) => {
 
   return (
     <li>
-      <h3>{props.title}</h3>
-      <button onClick={() => displayNote()}> DISPLAY NOTE </button>
-      <button onClick={() => deleteNote()}> DELETE NOTE </button>
+      <p>{props.title}</p>
+      <Button
+        onClick={() => displayNote()}
+      > display </Button>
+      <Button
+        onClick={() => deleteNote()}
+        waves="light"
+      > deleteNote </Button>
     </li>
   );
 };

@@ -24,23 +24,21 @@ class NoteList extends React.Component {
   render() {
     return (
       <div className="notes-list">
-        <h2>Your Notes</h2>
-        <button onClick={() => console.log(this.state)}>
-        LOG state
-        </button>
-        <ul>
-          {this.state.note.map(element =>
-            <NoteItem
-              key={element._id}
-              _id={element._id}
-              title={element.title}
-              text={element.text}
-              username={this.state.username}
-              loadNote={this.props.loadNote}
-              fetchNotes={this.props.fetchNotes}
-            />
-          )}
-        </ul>
+        <div>
+          <ul>
+            {this.state.note.map(element =>
+              <NoteItem
+                key={element._id}
+                _id={element._id}
+                title={element.title}
+                text={element.text}
+                username={this.state.username}
+                loadNote={this.props.loadNote}
+                fetchNotes={this.props.fetchNotes}
+              />
+            )}
+          </ul>
+        </div>
       </div>
     );
   }
