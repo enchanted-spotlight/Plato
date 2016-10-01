@@ -11,19 +11,19 @@ class EditorToolbar extends React.Component {
     return (
       <div>
         <button onClick={this.props.toggleBold}>
-          I BOLD THINGS
+          Bold
         </button>
         <button onClick={this.props.toggleItalic}>
-          I ITALICIZE THINGS
+          Italic
         </button>
         <button onClick={this.props.toggleUnderline}>
-          I UNDERLINE THINGS
+          Underline
         </button>
         <button onClick={this.props.toggleCode}>
-          I CODIFY THINGS
+          Code
         </button>
         <button onClick={this.props.toggleStrikethrough}>
-          I STRIKETHROUGH
+          Strikethrough
         </button>
       </div>
     );
