@@ -7,7 +7,7 @@ class MyEditor extends React.Component {
     super(props);
     this.state = {
       editorState: props.currentNote,
-      title: props.currentNoteTitle
+      title: props.currentNoteTitle,
     };
 
     this.onChange = (editorState) => {
@@ -42,18 +42,49 @@ class MyEditor extends React.Component {
         });
     };
 
-    this.toggleBold = () => {
-      // if (this.state.editorState.getCurrentInlineStyle() === 1) {
-      //   const contentState = this.state.editorState.getCurrentContent();
-      //   const selectionState = this.state.editorState.getSelection();
-      //   const newContentState = Modifier.applyInlineStyle(contentState, selectionState, 'BOLD');
-      //   this.setState({ editorState: EditorState.createWithContent(newContentState) });        
-      // } else {
+    this.handleKeyCommand = (command) => {
+      const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
+      if (newState) {
+        this.onChange(newState);
+        return 'handled';
+      }
+      return 'not-handled';
+    };
 
-      // }
+    this.toggleBold = () => {
       this.setState({
         editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD')
       });
+    };
+
+    this.toggleItalic = () => {
+      this.setState({
+        editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC')
+      });
+    };
+
+    this.toggleUnderline = () => {
+      this.setState({
+        editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE')
+      });
+    };
+
+    this.toggleCode = () => {
+      this.setState({
+        editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'CODE')
+      });
+    };
+
+    this.toggleStrikethrough = () => {
+      this.setState({
+        editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'STRIKETHROUGH')
+      });
+    };
+
+    this.styleMap = {
+      STRIKETHROUGH: {
+        textDecoration: 'line-through',
+      },
     };
   }
 
@@ -77,9 +108,23 @@ class MyEditor extends React.Component {
           <button onClick={this.toggleBold}>
             I BOLD THINGS BITCH
           </button>
+          <button onClick={this.toggleItalic}>
+            I ITALICIZE THINGS BITCH
+          </button>
+          <button onClick={this.toggleUnderline}>
+            I UNDERLINE THINGS BITCH
+          </button>
+          <button onClick={this.toggleCode}>
+            I CODIFY THINGS BITCH
+          </button>
+          <button onClick={this.toggleStrikethrough}>
+            STRIKETHROUGH
+          </button>
           <Editor
+            customStyleMap={this.styleMap}
             editorState={this.state.editorState}
             onChange={e => this.onChange(e)}
+            handleKeyCommand={this.handleKeyCommand}
             placeholder="Type your note here... "
           />
         </div>
