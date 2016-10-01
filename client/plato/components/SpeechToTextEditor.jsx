@@ -59,7 +59,7 @@ class SpeechToTextEditor extends React.Component {
     this.state = {
       // this will let us create an empty editor
       editorState: EditorState.createEmpty(),
-      title: '',
+      title: ''
     };
 
     // this method should mirror the MyEditor component
