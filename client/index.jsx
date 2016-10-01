@@ -6,6 +6,8 @@ import createLogger from 'redux-logger';
 
 import platoApp from './plato';
 
+console.log('platoApp components: ', platoApp.components);
+
 const loggerMiddleware = createLogger();
 
 const store = createStore(
