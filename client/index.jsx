@@ -1,105 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
-import connect from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 
+import platoApp from './plato';
+
 const loggerMiddleware = createLogger();
 
-// Redux async docs:
-// http://redux.js.org/docs/advanced/AsyncActions.html
-
-/* ------------------- ACTIONS ---------------------------*/
-
-const USER_LOGIN = 'USER_LOGIN';
-const INVALIDATE_NOTES = 'INVALIDATE_NOTES';
-const REQUEST_NOTES = 'REQUEST_NOTES';
-const RECEIVE_NOTES = 'RECEIVE_NOTES';
-
-/* ------------------- ACTION CREATORS ---------------------------*/
-
-const loginUser = username => ({
-  type: USER_LOGIN,
-  username
-});
-
-// Async requires three actions:
-// 1. Inform reducers request initiated
-// 2. Inform reducers request completed
-// 3. Inform reducers taht request failed
-
-const requestNotes = username => ({
-  type: REQUEST_NOTES,
-  username
-});
-
-// We will handle errors in the reducer by checking status passed
-// TODO: normalize notes into object instead of array
-// (Improve access and let it be present in different scoped components.)
-// https://github.com/paularmstrong/normalizr
-const receiveNotes = (username, notes, status) => ({
-  type: RECEIVE_NOTES,
-  username,
-  notes,
-  status,
-  recievedAt: Date.now()
-});
-
-// Thunk action creator:
-const fetchNotes = username => (
-  (dispatch) => {
-    dispatch(requestNotes(username));
-    return fetch(`api/${username}`)
-      .then(response => response.json())
-      .then(json => dispatch(receiveNotes(username, json)));
-  }
-);
-
-/* ------------------- REDUCERS ---------------------------*/
-
-const username = (state = '', action) => {
-  if (action.type === USER_LOGIN) {
-    return action.username;
-  }
-  return state;
-};
-
-const notesInitialState = {
-  isFetching: false,
-  didInvalidate: false,
-  notes: []
-};
-const savedNotes = (state = notesInitialState, action) => {
-  if (action.type === INVALIDATE_NOTES) {
-    return {
-      ...state,
-      didInvalidate: true
-    };
-  }
-  if (action.type === REQUEST_NOTES) {
-    // For now we will wipe old notes out on new request
-    // By setting object back to initial state
-    // May want to refactor to have separate WIPE_NOTES action
-    return notesInitialState;
-  }
-  if (action.type === RECEIVE_NOTES) {
-    return {
-      ...state,
-      isFetching: false,
-      didInvalidate: false,
-      notes: action.notes
-    };
-  }
-  return state;
-};
-
-const platoApp = combineReducers({
-  username,
-  savedNotes
-});
 const store = createStore(
-  platoApp,
+  platoApp.reduce.default,
   window.devToolsExtension && window.devToolsExtension(),
   applyMiddleware(
     thunkMiddleware,
@@ -121,8 +31,8 @@ class Login extends React.Component {
         onSubmit={(e) => {
           e.preventDefault();
           // Dispath this.state.username so that store is updated
-          store.dispatch(loginUser(this.state.username));
-          store.dispatch(fetchNotes(this.state.username));
+          store.dispatch(platoApp.actions.loginUser(this.state.username));
+          store.dispatch(platoApp.actions.fetchNotes(this.state.username));
           this.setState({ username: '' });
         }}
       >

@@ -8,6 +8,11 @@ module.exports = {
     filename: 'bundle.js'
   },
   devtool: 'source-map',
+  resolve: {
+    root: [
+      path.resolve('./client/plato')
+    ]
+  },
   module: {
     loaders: [
       {
