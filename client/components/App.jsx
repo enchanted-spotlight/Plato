@@ -1,12 +1,14 @@
 import React from 'react';
 import { EditorState, convertFromRaw } from 'draft-js';
 import request from 'superagent';
+import { Row, Col } from 'react-materialize';
 
 import LogIn from './LogIn.jsx';
 import NoteList from './NoteList.jsx';
 import SearchBar from './SearchBar.jsx';
 import SpeechToTextEditor from './SpeechToTextEditor.jsx';
 import MyEditor from './MyEditor.jsx';
+// <SearchBar onTermChange={this.searchNotes} />
 
 
 class App extends React.Component {
@@ -63,31 +65,35 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="plato-app">
+      <div>
         <LogIn fetchNotes={this.fetchNotes} setUsername={this.setUsername} />
-        <h1>{this.state.username ?
-          `Howdy ${this.state.username}!`
-          : 'Howdy!'
-          }
-        </h1>
-        <SearchBar onTermChange={this.searchNotes} />
-        <h1>Your current Note:</h1>
-        <MyEditor
-          username={this.state.username}
-          currentNote={this.state.currentNote}
-          currentNoteTitle={this.state.currentNoteTitle}
-          fetchNotes={this.fetchNotes}
-        />
-        <SpeechToTextEditor
-          username={this.state.username}
-          fetchNotes={this.fetchNotes}
-        />
-        <NoteList
-          username={this.state.username}
-          notes={this.state.articles}
-          loadNote={this.loadNote}
-          fetchNotes={this.fetchNotes}
-        />
+        <Row>
+
+          <Col s={2} className="blue-grey lighten-3">
+            <NoteList
+              username={this.state.username}
+              notes={this.state.articles}
+              loadNote={this.loadNote}
+              fetchNotes={this.fetchNotes}
+            />
+          </Col>
+
+          <Col s={2} className="grey lighten-2">
+            <SpeechToTextEditor
+              username={this.state.username}
+              fetchNotes={this.fetchNotes}
+            />
+          </Col>
+
+          <Col s={8}>
+            <MyEditor
+              username={this.state.username}
+              currentNote={this.state.currentNote}
+              currentNoteTitle={this.state.currentNoteTitle}
+              fetchNotes={this.fetchNotes}
+            />
+          </Col>
+        </Row>
       </div>
     );
   }

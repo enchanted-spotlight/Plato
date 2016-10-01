@@ -13,12 +13,22 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <div className="search">
-        <h3>Search:</h3>
-        <input
-          type="text"
-          onChange={event => this.onInputChange(event.target.value)}
-        />
+      <div>
+        <nav>
+          <div className="nav-wrapper">
+            <a href="" className="brand-logo">Plato</a>
+            <ul id="nav-mobile" className="right hide-on-med-and-down">
+              <li><a href="">Login</a></li>
+            </ul>
+          </div>
+        </nav>
+        <div className="search">
+          <h3>Search:</h3>
+          <input
+            type="text"
+            onChange={event => this.onInputChange(event.target.value)}
+          />
+        </div>
       </div>
     );
   }
