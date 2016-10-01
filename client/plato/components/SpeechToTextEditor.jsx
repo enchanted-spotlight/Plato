@@ -5,6 +5,7 @@ import {
   Modifier,
   RichUtils,
   convertToRaw } from 'draft-js';
+import { Button, Row, Col } from 'react-materialize';
 import request from 'superagent';
 import EditorToolbar from './EditorToolbar.jsx';
 
@@ -187,7 +188,7 @@ class SpeechToTextEditor extends React.Component {
   render() {
     return (
       <div>
-        <div>
+        <Row>
           <input
             type="text"
             value={this.state.value}
@@ -209,19 +210,21 @@ class SpeechToTextEditor extends React.Component {
             spellCheck={this.spellCheck}
             placeholder="This is your audio transcription... "
           />
-        </div>
-        <div>
-          <input
-            onClick={this.submitNote}
-            type="button"
-            value="Submit"
-          />
-        </div>
-        <button onClick={() => this.toggleRecordingState()}>
-        CLICK ME TO TOGGLE RECORDING STATE
-        </button>
+        </Row>
+        <Row>
+          <Col s={12} className="center-align">
+            <Button
+              onClick={() => this.toggleRecordingState()}
+              floating className="red" icon="voicemail"
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col s={12} className="right-align">
+            <Button onClick={this.submitNote} waves="light">Submit</Button>
+          </Col>
+        </Row>
       </div>
-
     );
   }
 }
