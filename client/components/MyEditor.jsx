@@ -51,31 +51,31 @@ class MyEditor extends React.Component {
       return 'not-handled';
     };
 
-    this.toggleBold = () => {
+    this.toggleBold = (e) => {
       this.setState({
         editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD')
       });
     };
 
-    this.toggleItalic = () => {
+    this.toggleItalic = (e) => {
       this.setState({
         editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC')
       });
     };
 
-    this.toggleUnderline = () => {
+    this.toggleUnderline = (e) => {
       this.setState({
         editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE')
       });
     };
 
-    this.toggleCode = () => {
+    this.toggleCode = (e) => {
       this.setState({
         editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'CODE')
       });
     };
 
-    this.toggleStrikethrough = () => {
+    this.toggleStrikethrough = (e) => {
       this.setState({
         editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'STRIKETHROUGH')
       });
@@ -86,6 +86,8 @@ class MyEditor extends React.Component {
         textDecoration: 'line-through',
       },
     };
+
+    this.spellCheck = true;
   }
 
   componentWillReceiveProps(newProps) {
@@ -106,25 +108,26 @@ class MyEditor extends React.Component {
             placeholder="Title"
           />
           <button onClick={this.toggleBold}>
-            I BOLD THINGS BITCH
+            I BOLD THINGS
           </button>
           <button onClick={this.toggleItalic}>
-            I ITALICIZE THINGS BITCH
+            I ITALICIZE THINGS
           </button>
           <button onClick={this.toggleUnderline}>
-            I UNDERLINE THINGS BITCH
+            I UNDERLINE THINGS
           </button>
           <button onClick={this.toggleCode}>
-            I CODIFY THINGS BITCH
+            I CODIFY THINGS
           </button>
           <button onClick={this.toggleStrikethrough}>
-            STRIKETHROUGH
+            I STRIKETHROUGH
           </button>
           <Editor
             customStyleMap={this.styleMap}
             editorState={this.state.editorState}
             onChange={e => this.onChange(e)}
             handleKeyCommand={this.handleKeyCommand}
+            spellCheck={this.spellCheck}
             placeholder="Type your note here... "
           />
         </div>
