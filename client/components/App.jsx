@@ -18,6 +18,9 @@ class App extends React.Component {
       articles: [],
       // currentNote will represent the current "main" note,
       // we may want to change this later as we modularize things
+      // this parent state doesn't update from the child editor,
+      // but we can use this state to force the editor to re-render
+      // (eg, when we load a note)
       currentNote: EditorState.createEmpty(),
       currentNoteTitle: ''
     };
@@ -26,7 +29,6 @@ class App extends React.Component {
 
     // query DB, fetch all notes where username matches
     this.fetchNotes = (username) => {
-      console.log('fetchNotes executed');
       this.setState({ username });
       const urlUser = `api/${username}`;
       request('GET', urlUser)

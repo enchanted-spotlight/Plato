@@ -1,6 +1,12 @@
 import React from 'react';
-import { Editor, EditorState, Modifier, convertToRaw } from 'draft-js';
+import {
+  Editor,
+  EditorState,
+  Modifier,
+  RichUtils,
+  convertToRaw } from 'draft-js';
 import request from 'superagent';
+import EditorToolbar from './EditorToolbar.jsx';
 
 // travis, stop fucking shit up
 class SpeechToTextEditor extends React.Component {
@@ -119,6 +125,63 @@ class SpeechToTextEditor extends React.Component {
         console.log('Started the recording!');
       }
     };
+
+    // this will take a key binding command and put it through and see if the state changes
+    // after applying the command
+    this.handleKeyCommand = (command) => {
+      const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
+      if (newState) {
+        this.onChange(newState);
+        return 'handled';
+      }
+      return 'not-handled';
+    };
+
+    // this will take the current selection in the editor and apply/remove bold to it
+    this.toggleBold = () => {
+      this.setState({
+        editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD')
+      });
+    };
+
+    // this will take the current selection in the editor and apply/remove italics to it
+    this.toggleItalic = () => {
+      this.setState({
+        editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC')
+      });
+    };
+
+    // this will take the current selection in the editor and apply/remove underline to it
+    this.toggleUnderline = () => {
+      this.setState({
+        editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE')
+      });
+    };
+
+    // this will take the current selection in the editor and apply/remove code format to it
+    this.toggleCode = () => {
+      this.setState({
+        editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'CODE')
+      });
+    };
+
+    // this will take the current selection in the editor and apply/remove strikethrough to it
+    this.toggleStrikethrough = () => {
+      this.setState({
+        editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'STRIKETHROUGH')
+      });
+    };
+
+    // this lets us define custom styles by listing them here as well as the css that we
+    // want applied
+    this.styleMap = {
+      STRIKETHROUGH: {
+        textDecoration: 'line-through',
+      },
+    };
+
+    // enables spellchecker
+    this.spellCheck = true;
   }
 
   render() {
@@ -131,10 +194,20 @@ class SpeechToTextEditor extends React.Component {
             onChange={this.titleChange}
             placeholder="Title"
           />
+          <EditorToolbar
+            toggleBold={this.toggleBold}
+            toggleItalic={this.toggleItalic}
+            toggleUnderline={this.toggleUnderline}
+            toggleCode={this.toggleCode}
+            toggleStrikethrough={this.toggleStrikethrough}
+          />
           <Editor
+            customStyleMap={this.styleMap}
             editorState={this.state.editorState}
-            onChange={this.onChange}
-            placeholder="Type your note here... "
+            onChange={e => this.onChange(e)}
+            handleKeyCommand={this.handleKeyCommand}
+            spellCheck={this.spellCheck}
+            placeholder="This is your audio transcription... "
           />
         </div>
         <div>
