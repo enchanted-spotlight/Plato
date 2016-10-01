@@ -37,7 +37,6 @@ class LogIn extends React.Component {
     this.setState({ password: e.target.value });
   }
 
-
   render() {
     return (
       <div className="loginContainer">
