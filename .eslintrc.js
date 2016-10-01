@@ -43,8 +43,8 @@ module.exports = {
     "no-unused-expressions": "warn",
     "no-param-reassign": "warn",
     "no-console": "warn",
-    "react/forbid-prop-types": "warn",
     "consistent-return": "warn",
+    "react/forbid-prop-types": "warn",
     "import/no-extraneous-dependencies": [
       2,
       {"devDependencies": true}

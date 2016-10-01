@@ -10,7 +10,7 @@ import platoApp from './plato';
 const loggerMiddleware = createLogger();
 
 const store = createStore(
-  platoApp,
+  platoApp.reduce.default,
   window.devToolsExtension && window.devToolsExtension(),
   applyMiddleware(
     thunkMiddleware,
