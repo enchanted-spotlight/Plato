@@ -15,7 +15,7 @@ class MyEditor extends React.Component {
     super(props);
     this.state = {
       editorState: props.currentNote,
-      title: props.currentNoteTitle,
+      title: props.currentNoteTitle
     };
 
     // updates the editorstate when there is a change in the editorstate
