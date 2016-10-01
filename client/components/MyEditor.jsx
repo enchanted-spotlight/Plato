@@ -1,5 +1,5 @@
 import React from 'react';
-import { Editor, EditorState, convertToRaw } from 'draft-js';
+import { Editor, EditorState, RichUtils, Modifier, convertToRaw } from 'draft-js';
 import request from 'superagent';
 
 class MyEditor extends React.Component {
@@ -41,6 +41,20 @@ class MyEditor extends React.Component {
           }
         });
     };
+
+    this.toggleBold = () => {
+      // if (this.state.editorState.getCurrentInlineStyle() === 1) {
+      //   const contentState = this.state.editorState.getCurrentContent();
+      //   const selectionState = this.state.editorState.getSelection();
+      //   const newContentState = Modifier.applyInlineStyle(contentState, selectionState, 'BOLD');
+      //   this.setState({ editorState: EditorState.createWithContent(newContentState) });        
+      // } else {
+
+      // }
+      this.setState({
+        editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD')
+      });
+    };
   }
 
   componentWillReceiveProps(newProps) {
@@ -60,6 +74,9 @@ class MyEditor extends React.Component {
             onChange={this.titleChange}
             placeholder="Title"
           />
+          <button onClick={this.toggleBold}>
+            I BOLD THINGS BITCH
+          </button>
           <Editor
             editorState={this.state.editorState}
             onChange={e => this.onChange(e)}
