@@ -15,7 +15,6 @@ class LogIn extends React.Component {
     this.props.fetchNotes(this.state.username);
   }
 
-
   render() {
     return (
       <form
