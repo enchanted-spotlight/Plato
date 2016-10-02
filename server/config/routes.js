@@ -1,5 +1,5 @@
 const express = require('express');
-const passport = require('passport');
+const passport = require('./auth');
 
 const router = new express.Router();
 
@@ -11,7 +11,10 @@ router.get('/:user', notes.retrieveAllUserNotes);
 router.delete('/delete-note/:id', notes.deleteUserNote);
 
 // ---------- AUTH ---------- //
-router.get('/auth/login/local', passport.authenticate('local'));
+
+router.post('/auth/login/local', passport.authenticate('local'), function(req, res) {
+  res.status(200).send();
+});
 
 router.get('/auth/login/facebook', passport.authenticate('facebook'));
 router.get('this is a fake callback url', passport.authenticate('facebook', {
