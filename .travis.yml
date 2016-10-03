@@ -26,7 +26,6 @@ env:
 
 before_install:
   - if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi
-  - npm un bcrypt;npm i bcrypt --save;npm un node-gyp -g;npm i -g node-gyp && node-gyp clean
 
 script: mocha test/serverSpec.js
 
