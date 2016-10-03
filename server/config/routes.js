@@ -28,4 +28,6 @@ router.get('this is a fake callback url', passport.authenticate('twitter', {
   failureRedirect: 'redirect here on failure'
 }));
 
+router.post('/auth/signup', )
+
 module.exports = router;

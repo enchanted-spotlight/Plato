@@ -16,6 +16,13 @@ services:
 
 env:
   - TRAVIS=travis CXX=g++-4.8
+  - NODE_ENV=dev
+  - FACEBOOK_APP_ID=fakefbkey
+  - FACEBOOK_APP_SECRET=fakefbsecret
+  - TWITTER_CONSUMER_KEY=faketwitterkey
+  - TWITTER_CONSUMER_SECRET=faketwitterpw
+  - GOOGLE_CONSUMER_KEY=fakeconsumerkey
+  - GOOGLE_CONSUMER_SECRET=fakeconsumersecret
 
 before_install:
   - if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi
