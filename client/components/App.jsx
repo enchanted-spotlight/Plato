@@ -53,12 +53,18 @@ class App extends React.Component {
       this.setState({ currentNote: EditorState.createWithContent(fromRaw) });
       this.setState({ currentNoteTitle: title });
     };
+
+    // used by the login component to change the username state of the app
+    this.setUsername = (username) => {
+      this.setState({ username });
+      this.fetchNotes(username);
+    };
   }
 
   render() {
     return (
       <div className="plato-app">
-        <LogIn fetchNotes={this.fetchNotes} />
+        <LogIn fetchNotes={this.fetchNotes} setUsername={this.setUsername} />
         <h1>{this.state.username ?
           `Howdy ${this.state.username}!`
           : 'Howdy!'
