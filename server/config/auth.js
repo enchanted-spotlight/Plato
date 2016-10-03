@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
@@ -7,15 +8,20 @@ const Note = require('../models/note');
 
 passport.use(new LocalStrategy(
   (username, password, done) => {
-    User.findOne({ name: username }, (err, user) => {
-      if (err) { return done(err); }
+    User.findOne({ name: username.toUpperCase() }, (err, user) => {
+      if (err) {
+        return done(err);
+      }
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
       }
-      if (!user.validPassword(password)) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
+      bcrypt.compare(password, user.password, (err2, res) => {
+        if (err2 || !res) {
+          return done(null, false, { message: 'Error validing password' });
+        }
+        user.name = username;
+        return done(null, user);
+      });
     });
   }
 ));
@@ -45,3 +51,15 @@ passport.use(new TwitterStrategy({
     });
   }
 ));
+
+passport.serializeUser((user, done) => {
+  done(null, user._id);
+});
+
+passport.deserializeUser((id, done) => {
+  User.find({ _id: id }, (err, user) => {
+    done(err, user);
+  });
+});
+
+module.exports = passport;
