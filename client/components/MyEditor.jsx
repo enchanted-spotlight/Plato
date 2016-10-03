@@ -6,8 +6,10 @@ import {
   getDefaultKeyBinding,
   KeyBindingUtil
  } from 'draft-js';
+import { Button } from 'react-materialize';
 import request from 'superagent';
 import EditorToolbar from './EditorToolbar.jsx';
+
 
 const { hasCommandModifier } = KeyBindingUtil;
 class MyEditor extends React.Component {
@@ -145,11 +147,10 @@ class MyEditor extends React.Component {
           />
         </div>
         <div>
-          <input
+          <Button
             onClick={() => this.submitNote()}
-            type="button"
-            value="Submit"
-          />
+            waves="light"
+          > Submit </Button>
         </div>
       </div>
 

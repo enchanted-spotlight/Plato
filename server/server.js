@@ -5,11 +5,12 @@ require('./db');
 const express = require('express');
 const middleware = require('./config/middleware');
 // routing modules
+
 const noteRouter = require('./config/routes');
+
 
 const app = express();
 middleware(app, express);
-
 
 // routing
 app.use('/api', noteRouter);
