@@ -4,8 +4,9 @@ const passport = require('./auth');
 const router = new express.Router();
 
 const notes = require('../controllers/notes');
+const user = require('../controllers/users');
 
-// ---------- NOTES & USERS ---------- //
+// ---------- NOTES ---------- //
 router.post('/save-note', notes.saveNote);
 router.get('/:user', notes.retrieveAllUserNotes);
 router.delete('/delete-note/:id', notes.deleteUserNote);
@@ -28,6 +29,6 @@ router.get('this is a fake callback url', passport.authenticate('twitter', {
   failureRedirect: 'redirect here on failure'
 }));
 
-router.post('/auth/signup', )
+router.post('/auth/signup', user.signUp)
 
 module.exports = router;
