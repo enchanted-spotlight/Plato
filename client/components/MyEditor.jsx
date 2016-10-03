@@ -6,12 +6,10 @@ import {
   getDefaultKeyBinding,
   KeyBindingUtil
  } from 'draft-js';
-import request from 'superagent';
-<<<<<<< 1045a6c90614ac7ad58f1999ba8d7a23ad447936
-import EditorToolbar from './EditorToolbar.jsx';
-=======
 import { Button } from 'react-materialize';
->>>>>>> (refactor) MVP materialize and CSS
+import request from 'superagent';
+import EditorToolbar from './EditorToolbar.jsx';
+
 
 const { hasCommandModifier } = KeyBindingUtil;
 class MyEditor extends React.Component {
