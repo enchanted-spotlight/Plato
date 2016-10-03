@@ -13,9 +13,10 @@ router.delete('/delete-note/:id', notes.deleteUserNote);
 
 // ---------- AUTH ---------- //
 
-router.post('/auth/login/local', passport.authenticate('local'), function(req, res) {
+router.post('/auth/login/local', passport.authenticate('local'), (req, res) => {
   res.status(200).send();
 });
+
 
 router.get('/auth/login/facebook', passport.authenticate('facebook'));
 router.get('this is a fake callback url', passport.authenticate('facebook', {
@@ -29,6 +30,11 @@ router.get('this is a fake callback url', passport.authenticate('twitter', {
   failureRedirect: 'redirect here on failure'
 }));
 
-router.post('/auth/signup', user.signUp)
+router.post('/auth/signup', user.signUp);
+
+router.get('/auth/logout', (req, res) => {
+  req.logout();
+  res.status(200).send();
+});
 
 module.exports = router;

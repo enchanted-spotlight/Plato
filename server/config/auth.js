@@ -8,17 +8,20 @@ const Note = require('../models/note');
 
 passport.use(new LocalStrategy(
   (username, password, done) => {
-    User.findOne({ name: username, password }, (err, user) => {
+    User.findOne({ name: username.toUpperCase() }, (err, user) => {
       if (err) {
         return done(err);
       }
       if (!user) {
         return done(null, false, { message: 'Incorrect username.' });
       }
-      if (password !== user.password) {
-        return done(null, false, { message: 'Incorrect password.' });
-      }
-      return done(null, user);
+      bcrypt.compare(password, user.password, (err2, res) => {
+        if (err2 || !res) {
+          return done(null, false, { message: 'Error validing password' });
+        }
+        user.name = username;
+        return done(null, user);
+      });
     });
   }
 ));
@@ -50,7 +53,7 @@ passport.use(new TwitterStrategy({
 ));
 
 passport.serializeUser((user, done) => {
-  done(null, user.id);
+  done(null, user._id);
 });
 
 passport.deserializeUser((id, done) => {
