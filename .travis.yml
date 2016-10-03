@@ -15,7 +15,6 @@ services:
   - mongodb
 
 env:
-  - TRAVIS=travis CXX=g++-4.8
   - global:
     - NODE_ENV=dev
     - FACEBOOK_APP_ID=fakefbkey
@@ -27,6 +26,7 @@ env:
 
 before_install:
   - if [[ `npm -v` != 3* ]]; then npm i -g npm@3; fi
+  - npm un bcrypt;npm i bcrypt --save;npm un node-gyp -g;npm i -g node-gyp && node-gyp clean
 
 script: mocha test/serverSpec.js
 
