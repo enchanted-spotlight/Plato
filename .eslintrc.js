@@ -43,6 +43,7 @@ module.exports = {
     "no-unused-expressions": "warn",
     "no-param-reassign": "warn",
     "no-console": "warn",
+    "consistent-return": "warn",
     "import/no-extraneous-dependencies": [
       2,
       {"devDependencies": true}
