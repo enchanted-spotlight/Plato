@@ -25,9 +25,6 @@ class NoteList extends React.Component {
     return (
       <div className="notes-list">
         <h2>Your Notes</h2>
-        <button onClick={() => console.log(this.state)}>
-        LOG state
-        </button>
         <ul>
           {this.state.note.map(element =>
             <NoteItem

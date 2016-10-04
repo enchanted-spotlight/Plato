@@ -20,7 +20,6 @@ const PlatoApp = (props) => {
       <Login
         dispatcher={props.dispatcher}
       />
-      <h2>Your Notes:</h2>
       <NoteList
         notes={savedNotes.notes}
       />
