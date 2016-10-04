@@ -5,6 +5,9 @@ import { shallow } from 'enzyme';
 
 import NoteList from './../client/components/NoteList';
 
+const wrapper = shallow(<NoteList />);
+const inst = wrapper.instance();
+
 const notes = [
   {
     id: 1,
@@ -27,10 +30,11 @@ const notes = [
 ];
 
 describe('<NoteList />', () => {
-  const wrapper = shallow(<NoteList notes={notes} />);
-  it('should render component', () => {
-    expect(wrapper.find('h2')).to.have.length(1);
+  it('should exist and be a react component', () => {
+    expect(inst).to.be.instanceOf(NoteList);
+    expect(wrapper.is('.notes-list')).to.equal(true);
   });
+
 
   // Should exist
   it('should be a div with class notes-list', () => {

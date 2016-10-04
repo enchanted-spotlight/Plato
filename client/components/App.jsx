@@ -65,12 +65,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="plato-app">
         <Navbar brand="Plato" right>
           <NavItem href="">Login</NavItem>
           <NavItem href="">Signout</NavItem>
         </Navbar>
         <LogIn fetchNotes={this.fetchNotes} setUsername={this.setUsername} />
+        <SearchBar />
         <Row>
           <div className="blue-grey lighten-3 column-header-lists">
             <h3>All Notes</h3>
