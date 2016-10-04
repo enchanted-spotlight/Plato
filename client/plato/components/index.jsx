@@ -1,12 +1,15 @@
 import React from 'react';
-import { EditorState, convertFromRaw } from 'draft-js';
+import { convertFromRaw } from 'draft-js';
+import { Editor, createEditorState } from 'medium-draft';
 import request from 'superagent';
+import { Row, Col, Navbar, NavItem } from 'react-materialize';
 
 import Login from './Login.jsx';
 import NoteList from './NoteList.jsx';
 import SearchBar from './SearchBar.jsx';
 import SpeechToTextEditor from './SpeechToTextEditor.jsx';
-import MyEditor from './MyEditor.jsx';
+import MediumEditor from './MediumDraft.jsx';
+// <SearchBar onTermChange={this.searchNotes} />
 
 const PlatoApp = (props) => {
   console.log(props);
@@ -20,12 +23,14 @@ const PlatoApp = (props) => {
       <Login
         dispatcher={props.dispatcher}
       />
+      <h2>Your Notes:</h2>
       <NoteList
         notes={savedNotes.notes}
       />
     </div>
   );
 };
+
 
 export default PlatoApp;
 
