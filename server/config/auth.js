@@ -29,10 +29,13 @@ passport.use(new LocalStrategy(
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: 'http://www.example.com/auth/facebook/callback'
+  callbackURL: 'http://localhost:3000/api/auth/login/facebook/callback'
 },
   (accessToken, refreshToken, profile, done) => {
-    User.findOrCreate((err, user) => {
+    const newUser = { name: profile.id };
+    User.findOneAndUpdate({
+      name: profile.id,
+    }, newUser, { upsert: true }, (err, user) => {
       if (err) { return done(err); }
       return done(null, user);
     });
@@ -42,10 +45,14 @@ passport.use(new FacebookStrategy({
 passport.use(new TwitterStrategy({
   consumerKey: process.env.TWITTER_CONSUMER_KEY,
   consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-  callbackURL: 'http://www.example.com/auth/twitter/callback'
+  callbackURL: 'http://localhost:3000/api/auth/login/twitter/callback'
 },
   (token, tokenSecret, profile, done) => {
-    User.findOrCreate((err, user) => {
+    const newUser = { name: profile._json.name };
+    User.findOneAndUpdate({
+      name: profile._json.name,
+    }, newUser, { upsert: true }, (err, user) => {
+      console.log(err, user);
       if (err) { return done(err); }
       return done(null, user);
     });
@@ -53,6 +60,7 @@ passport.use(new TwitterStrategy({
 ));
 
 passport.serializeUser((user, done) => {
+  // serializes user with our _id from mongodb
   done(null, user._id);
 });
 

@@ -8,6 +8,7 @@ import NoteList from './NoteList.jsx';
 import SearchBar from './SearchBar.jsx';
 import SpeechToTextEditor from './SpeechToTextEditor.jsx';
 import MyEditor from './MyEditor.jsx';
+import MediumEditor from './MediumDraft.jsx';
 // <SearchBar onTermChange={this.searchNotes} />
 
 
@@ -93,11 +94,9 @@ class App extends React.Component {
           </Col>
 
           <Col s={8} className="base-col-height">
-            <MyEditor
+            <MediumEditor
               username={this.state.username}
-              currentNote={this.state.currentNote}
-              currentNoteTitle={this.state.currentNoteTitle}
-              fetchNotes={this.fetchNotes}
+              fetchNotes={this.state.fetchNotes}
             />
           </Col>
         </Row>
