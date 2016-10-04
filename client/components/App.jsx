@@ -8,7 +8,6 @@ import LogIn from './LogIn.jsx';
 import NoteList from './NoteList.jsx';
 import SearchBar from './SearchBar.jsx';
 import SpeechToTextEditor from './SpeechToTextEditor.jsx';
-import MyEditor from './MyEditor.jsx';
 import MediumEditor from './MediumDraft.jsx';
 // <SearchBar onTermChange={this.searchNotes} />
 
