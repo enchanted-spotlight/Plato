@@ -20,16 +20,18 @@ router.post('/auth/login/local', passport.authenticate('local'), (req, res) => {
 
 
 router.get('/auth/login/facebook', passport.authenticate('facebook'));
-router.get('this is a fake callback url', passport.authenticate('facebook', {
-  successRedirect: 'redirect here on success',
-  failureRedirect: 'redirect here on failure'
-}));
+router.get('/auth/login/facebook/callback',
+  passport.authenticate('facebook', {
+    successRedirect: '/',
+    failureRedirect: 'http://google.com'
+  }));
 
 router.get('/auth/login/twitter', passport.authenticate('twitter'));
-router.get('this is a fake callback url', passport.authenticate('twitter', {
-  successRedirect: 'redirect here on success',
-  failureRedirect: 'redirect here on failure'
-}));
+router.get('/auth/login/twitter/callback',
+  passport.authenticate('twitter', {
+    successRedirect: '/',
+    failureRedirect: 'http://google.com'
+  }));
 
 router.post('/auth/signup', user.signUp);
 

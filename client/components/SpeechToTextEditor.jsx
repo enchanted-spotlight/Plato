@@ -1,15 +1,10 @@
 import React from 'react';
-import {
-  Editor,
-  EditorState,
-  Modifier,
-  RichUtils,
-  convertToRaw } from 'draft-js';
-import { Button, Row, Col } from 'react-materialize';
+import ReactDOM from 'react-dom';
 import request from 'superagent';
-import EditorToolbar from './EditorToolbar.jsx';
+import { Button, Row, Col } from 'react-materialize';
+import { EditorState, Modifier, convertToRaw } from 'draft-js';
+import { Editor, createEditorState } from 'medium-draft';
 
-// travis, stop fucking shit up
 class SpeechToTextEditor extends React.Component {
   constructor(props) {
     super(props);
@@ -59,7 +54,7 @@ class SpeechToTextEditor extends React.Component {
 
     this.state = {
       // this will let us create an empty editor
-      editorState: EditorState.createEmpty(),
+      editorState: createEditorState(),
       title: '',
     };
 
@@ -77,6 +72,7 @@ class SpeechToTextEditor extends React.Component {
     this.submitNote = () => {
       // this will let us save the current content as rich text
       const userNote = convertToRaw(this.state.editorState.getCurrentContent());
+      const plainTextContent = this.state.editorState.getCurrentContent().getPlainText();
       const userTitle = this.state.title;
       const username = this.props.username;
       const url = 'api/save-note';
@@ -87,6 +83,7 @@ class SpeechToTextEditor extends React.Component {
         .send({
           user_id: username,
           text: JSON.stringify(userNote),
+          plainText: JSON.stringify(plainTextContent),
           title: userTitle
         })
         .set('Accept', 'application/json')
@@ -126,63 +123,6 @@ class SpeechToTextEditor extends React.Component {
         console.log('Started the recording!');
       }
     };
-
-    // this will take a key binding command and put it through and see if the state changes
-    // after applying the command
-    this.handleKeyCommand = (command) => {
-      const newState = RichUtils.handleKeyCommand(this.state.editorState, command);
-      if (newState) {
-        this.onChange(newState);
-        return 'handled';
-      }
-      return 'not-handled';
-    };
-
-    // this will take the current selection in the editor and apply/remove bold to it
-    this.toggleBold = () => {
-      this.setState({
-        editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD')
-      });
-    };
-
-    // this will take the current selection in the editor and apply/remove italics to it
-    this.toggleItalic = () => {
-      this.setState({
-        editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC')
-      });
-    };
-
-    // this will take the current selection in the editor and apply/remove underline to it
-    this.toggleUnderline = () => {
-      this.setState({
-        editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'UNDERLINE')
-      });
-    };
-
-    // this will take the current selection in the editor and apply/remove code format to it
-    this.toggleCode = () => {
-      this.setState({
-        editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'CODE')
-      });
-    };
-
-    // this will take the current selection in the editor and apply/remove strikethrough to it
-    this.toggleStrikethrough = () => {
-      this.setState({
-        editorState: RichUtils.toggleInlineStyle(this.state.editorState, 'STRIKETHROUGH')
-      });
-    };
-
-    // this lets us define custom styles by listing them here as well as the css that we
-    // want applied
-    this.styleMap = {
-      STRIKETHROUGH: {
-        textDecoration: 'line-through',
-      },
-    };
-
-    // enables spellchecker
-    this.spellCheck = true;
   }
 
   render() {
@@ -195,19 +135,9 @@ class SpeechToTextEditor extends React.Component {
             onChange={this.titleChange}
             placeholder="Title"
           />
-          <EditorToolbar
-            toggleBold={this.toggleBold}
-            toggleItalic={this.toggleItalic}
-            toggleUnderline={this.toggleUnderline}
-            toggleCode={this.toggleCode}
-            toggleStrikethrough={this.toggleStrikethrough}
-          />
           <Editor
-            customStyleMap={this.styleMap}
             editorState={this.state.editorState}
             onChange={e => this.onChange(e)}
-            handleKeyCommand={this.handleKeyCommand}
-            spellCheck={this.spellCheck}
             placeholder="This is your audio transcription... "
           />
         </Row>
