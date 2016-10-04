@@ -1,11 +1,11 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt-nodejs');
 const User = require('../models/user');
 
 const userController = {
   signUp: (req, res) => {
     // we should be taking the user's username and password
     // store into the database as username & hashed password
-    bcrypt.hash(req.body.password, 10, (err, hash) => {
+    bcrypt.hash(req.body.password, null, null, (err, hash) => {
       if (err) {
         res.status(500).send();
       } else {
