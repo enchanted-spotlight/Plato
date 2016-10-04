@@ -1,5 +1,6 @@
 import React from 'react';
-import { EditorState, convertFromRaw } from 'draft-js';
+import { convertFromRaw } from 'draft-js';
+import { Editor, createEditorState } from 'medium-draft';
 import request from 'superagent';
 import { Row, Col, Navbar, NavItem } from 'react-materialize';
 
@@ -24,7 +25,7 @@ class App extends React.Component {
       // this parent state doesn't update from the child editor,
       // but we can use this state to force the editor to re-render
       // (eg, when we load a note)
-      currentNote: EditorState.createEmpty(),
+      currentNote: createEditorState(), // returns an empty editor state
       currentNoteTitle: ''
     };
     // not functional yet
@@ -52,8 +53,7 @@ class App extends React.Component {
     // change state of app so that it forces the myEditor component
     // to render with a note that we tell it to render
     this.loadNote = (note, title) => {
-      const fromRaw = convertFromRaw(JSON.parse(note));
-      this.setState({ currentNote: EditorState.createWithContent(fromRaw) });
+      this.setState({ currentNote: createEditorState(JSON.parse(note)) });
       this.setState({ currentNoteTitle: title });
     };
 
@@ -96,7 +96,9 @@ class App extends React.Component {
           <Col s={8} className="base-col-height">
             <MediumEditor
               username={this.state.username}
-              fetchNotes={this.state.fetchNotes}
+              fetchNotes={this.fetchNotes}
+              currentNote={this.state.currentNote}
+              currentNoteTitle={this.state.currentNoteTitle}
             />
           </Col>
         </Row>
