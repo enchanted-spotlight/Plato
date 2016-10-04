@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt-nodejs');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
@@ -52,7 +52,6 @@ passport.use(new TwitterStrategy({
     User.findOneAndUpdate({
       name: profile._json.name,
     }, newUser, { upsert: true }, (err, user) => {
-      console.log(err, user);
       if (err) { return done(err); }
       return done(null, user);
     });
