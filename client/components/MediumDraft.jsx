@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import request from 'superagent';
+import { Button } from 'react-materialize';
+import { convertToRaw } from 'draft-js';
 
 import { Editor, createEditorState } from 'medium-draft';
 
@@ -9,8 +11,8 @@ class MediumEditor extends React.Component {
     super(props);
 
     this.state = {
-      editorState: createEditorState(), // for empty content
-      title: ''
+      editorState: this.props.currentNote, // for empty content
+      title: this.props.username
     };
 
     this.onChange = (editorState) => {
@@ -23,7 +25,8 @@ class MediumEditor extends React.Component {
 
     this.submitNote = () => {
       // this will let us save the current content as rich text
-      const userNote = this.state.editorState;
+      const userNote = convertToRaw(this.state.editorState.getCurrentContent());
+      const plainTextContent = this.state.editorState.getCurrentContent().getPlainText();
       const userTitle = this.state.title;
       const username = this.props.username;
       const url = 'api/save-note';
@@ -33,6 +36,7 @@ class MediumEditor extends React.Component {
         .send({
           user_id: username,
           text: JSON.stringify(userNote),
+          plainText: JSON.stringify(plainTextContent),
           title: userTitle
         })
         .set('Accept', 'application/json')
@@ -46,14 +50,36 @@ class MediumEditor extends React.Component {
     };
   }
 
+  componentWillReceiveProps(newProps) {
+    this.setState({
+      editorState: newProps.currentNote,
+      title: newProps.currentNoteTitle
+    });
+  }
+
+
   render() {
     const { editorState } = this.state;
     return (
-      <Editor
-        editorState={editorState}
-        onChange={this.onChange}
-        placeholder="Start typing your shit here ..."
-      />
+      <div>
+        <input
+          type="text"
+          value={this.state.title}
+          onChange={this.titleChange}
+          placeholder="Title"
+        />
+        <Editor
+          editorState={editorState}
+          onChange={this.onChange}
+          placeholder="Start typing your shit here ..."
+        />
+        <div>
+          <Button
+            onClick={() => this.submitNote()}
+            waves="light"
+          > Submit </Button>
+        </div>
+      </div>
     );
   }
 }
@@ -62,5 +88,6 @@ export default MediumEditor;
 
 MediumEditor.propTypes = {
   username: React.PropTypes.string,
-  fetchNotes: React.PropTypes.func
+  fetchNotes: React.PropTypes.func,
+  currentNote: () => null
 };
