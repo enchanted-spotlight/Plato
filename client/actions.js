@@ -26,6 +26,16 @@ export const receiveNotes = (username, notes, status) => ({
   recievedAt: Date.now()
 });
 
+export const onTextEditorChange = editorState => ({
+  type: t.TEXT_EDITOR_CHANGE,
+  editorState
+});
+
+export const onSessionCreate = sessionTitle => ({
+  type: t.CREATE_SESSION_TITLE,
+  sessionTitle
+});
+
 // Thunk action creator:
 export const fetchNotes = username => (
   (dispatch) => {
@@ -35,3 +45,4 @@ export const fetchNotes = username => (
       .then(json => dispatch(receiveNotes(username, json)));
   }
 );
+

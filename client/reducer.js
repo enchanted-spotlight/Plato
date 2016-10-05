@@ -47,6 +47,15 @@ const textEditor = (state = m.textEditorInitialState, action) => {
   return state;
 };
 
+const session = (state = m.currentSessionTitle, action) => {
+  if (action.type === t.CREATE_SESSION_TITLE) {
+    return {
+      ...state,
+      sessionTitle: action.sessionTitle
+    };
+  }
+  return state;
+};
 
 export default combineReducers({
   username,
