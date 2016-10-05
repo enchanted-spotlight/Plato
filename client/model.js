@@ -10,6 +10,6 @@ export const usernameInitialState = '';
 
 export const textEditorInitialState = createEditorState();
 
-export const speechToTextEditorInitialState = createEditorState();
+export const speechEditorInitialState = createEditorState();
 
 export const currentSessionTitle = '';

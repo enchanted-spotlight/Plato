@@ -47,7 +47,17 @@ const textEditor = (state = m.textEditorInitialState, action) => {
   return state;
 };
 
-const session = (state = m.currentSessionTitle, action) => {
+const speechEditor = (state = m.speechEditorInitialState, action) => {
+  if (action.type === t.SPEECH_EDITOR_CHANGE) {
+    return {
+      ...state,
+      editorState: action.editorState
+    };
+  }
+  return state;
+};
+
+const sessionTitle = (state = m.currentSessionTitle, action) => {
   if (action.type === t.CREATE_SESSION_TITLE) {
     return {
       ...state,
@@ -60,5 +70,7 @@ const session = (state = m.currentSessionTitle, action) => {
 export default combineReducers({
   username,
   savedNotes,
-  textEditor
+  textEditor,
+  speechEditor,
+  sessionTitle
 });

@@ -26,14 +26,19 @@ export const receiveNotes = (username, notes, status) => ({
   recievedAt: Date.now()
 });
 
+export const onSessionTitleCreate = sessionTitle => ({
+  type: t.CREATE_SESSION_TITLE,
+  sessionTitle
+});
+
 export const onTextEditorChange = editorState => ({
   type: t.TEXT_EDITOR_CHANGE,
   editorState
 });
 
-export const onSessionCreate = sessionTitle => ({
-  type: t.CREATE_SESSION_TITLE,
-  sessionTitle
+export const onSpeechEditorChange = editorState => ({
+  type: t.SPEECH_EDITOR_CHANGE,
+  editorState
 });
 
 // Thunk action creator:
