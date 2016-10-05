@@ -83,7 +83,9 @@ class LogIn extends React.Component {
 }
 
 LogIn.propTypes = {
-  setUsername: React.PropTypes.func
+  setUsername: React.PropTypes.func,
+  dispatcher: React.PropTypes.func
+
 };
 
 export default LogIn;

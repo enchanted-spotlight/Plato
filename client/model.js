@@ -5,3 +5,7 @@ export const notesInitialState = {
 };
 
 export const usernameInitialState = '';
+
+export const textEditor = {};
+
+export const speechToTextEditor = {};
