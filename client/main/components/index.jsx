@@ -6,9 +6,9 @@ import { Row, Col, Navbar, NavItem } from 'react-materialize';
 
 import Login from './Login.jsx';
 import NoteList from './NoteList.jsx';
-import SearchBar from './SearchBar.jsx';
+import SearchBar from './../../search-bar/components/SearchBar.jsx';
 import SpeechToTextEditor from './SpeechToTextEditor.jsx';
-import MediumEditor from './MediumDraft.jsx';
+import MediumEditor from './../../medium-draft/components/MediumDraft.jsx';
 // <SearchBar onTermChange={this.searchNotes} />
 
 const PlatoApp = (props) => {
@@ -18,18 +18,29 @@ const PlatoApp = (props) => {
     savedNotes
   } = props;
   return (
-    <div>
-      <h1>This is Plato Note Taker!</h1>
+    <div className="plato-app">
+      <Navbar brand="Plato" right>
+        <NavItem href="">Login</NavItem>
+        <NavItem href="">Signout</NavItem>
+      </Navbar>
+      <SearchBar />
       <Login
         dispatcher={props.dispatcher}
       />
       <NoteList
         notes={savedNotes.notes}
       />
+      <Col s={8} className="base-col-height">
+        <MediumEditor
+          username={this.state.username}
+          fetchNotes={this.fetchNotes}
+          currentNote={this.state.currentNote}
+          currentNoteTitle={this.state.currentNoteTitle}
+        />
+      </Col>
     </div>
   );
 };
-
 
 export default PlatoApp;
 

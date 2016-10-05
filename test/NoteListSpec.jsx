@@ -3,7 +3,7 @@ import { expect } from 'chai';
 import { shallow } from 'enzyme';
 // If this becomes a stateful component, you will have to use mount
 
-import NoteList from './../client/components/NoteList';
+import NoteList from './../client/main/components/NoteList';
 
 const wrapper = shallow(<NoteList />);
 const inst = wrapper.instance();

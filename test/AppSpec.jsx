@@ -4,14 +4,15 @@ import { shallow } from 'enzyme';
 import mongoose from 'mongoose';
 // If this becomes a stateful component, you will have to use mount
 
-import App from './../client/components/App';
+import platoApp from './../client/main';
 
-const wrapper = shallow(<App />);
+const PlatoApp = platoApp.components.default;
+const wrapper = shallow(<PlatoApp />);
 const inst = wrapper.instance();
 
-describe('<App /> Component', () => {
+describe('<PlatoApp /> Component', () => {
   it('should exist and be a react component', () => {
-    expect(inst).to.be.instanceOf(App);
+    expect(inst).to.be.instanceOf(PlatoApp);
     expect(wrapper.is('.plato-app')).to.equal(true);
   });
 

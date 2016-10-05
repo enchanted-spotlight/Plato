@@ -24,8 +24,6 @@ class NoteList extends React.Component {
   render() {
     return (
       <div className="notes-list">
-<<<<<<< 7fed729b7eee2d6de65afb62495796d1bb180036:client/plato/components/NoteList.jsx
-        <h2>Your Notes</h2>
         <ul>
           {this.state.note.map(element =>
             <NoteItem
@@ -39,23 +37,6 @@ class NoteList extends React.Component {
             />
           )}
         </ul>
-=======
-        <div>
-          <ul>
-            {this.state.note.map(element =>
-              <NoteItem
-                key={element._id}
-                _id={element._id}
-                title={element.title}
-                text={element.text}
-                username={this.state.username}
-                loadNote={this.props.loadNote}
-                fetchNotes={this.props.fetchNotes}
-              />
-            )}
-          </ul>
-        </div>
->>>>>>> (refactor) MVP materialize and CSS:client/components/NoteList.jsx
       </div>
     );
   }

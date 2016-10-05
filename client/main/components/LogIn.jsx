@@ -8,7 +8,7 @@ class LogIn extends React.Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
       dispatch: props.dispatcher
     };
   }
