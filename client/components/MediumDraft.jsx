@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import request from 'superagent';
 import { Button } from 'react-materialize';
 import { convertToRaw } from 'draft-js';
