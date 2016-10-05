@@ -1,16 +1,16 @@
 import { combineReducers } from 'redux';
 
 import * as t from './actionTypes';
-import { notesInitialState, usernameInitialState } from './model';
+import * as m from './model';
 
-const username = (state = usernameInitialState, action) => {
+const username = (state = m.usernameInitialState, action) => {
   if (action.type === t.USER_LOGIN) {
     return action.username;
   }
   return state;
 };
 
-const savedNotes = (state = notesInitialState, action) => {
+const savedNotes = (state = m.notesInitialState, action) => {
   if (action.type === t.INVALIDATE_NOTES) {
     return {
       ...state,
@@ -21,7 +21,10 @@ const savedNotes = (state = notesInitialState, action) => {
     // For now we will wipe old notes out on new request
     // By setting object back to initial state
     // May want to refactor to have separate WIPE_NOTES action
-    return notesInitialState;
+    return {
+      ...m.notesInitialState,
+      isFetching: true
+    };
   }
   if (action.type === t.RECEIVE_NOTES) {
     return {
@@ -34,7 +37,19 @@ const savedNotes = (state = notesInitialState, action) => {
   return state;
 };
 
+const textEditor = (state = m.textEditorInitialState, action) => {
+  if (action.type === t.TEXT_EDITOR_CHANGE) {
+    return {
+      ...state,
+      editorState: action.editorState
+    };
+  }
+  return state;
+};
+
+
 export default combineReducers({
   username,
-  savedNotes
+  savedNotes,
+  textEditor
 });

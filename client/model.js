@@ -1,3 +1,5 @@
+import createEditorState from 'medium-draft';
+
 export const notesInitialState = {
   isFetching: false,
   didInvalidate: false,
@@ -6,6 +8,6 @@ export const notesInitialState = {
 
 export const usernameInitialState = '';
 
-export const textEditor = {};
+export const textEditorInitialState = createEditorState();
 
-export const speechToTextEditor = {};
+export const speechToTextEditorInitialState = createEditorState();
