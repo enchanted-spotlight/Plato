@@ -72,7 +72,7 @@ class MediumEditor extends React.Component {
         <Editor
           editorState={editorState}
           onChange={this.onChange}
-          placeholder="Start typing your shit here ..."
+          placeholder="Start typing here ..."
         />
         <div>
           <Button

@@ -11,7 +11,7 @@ const userController = {
       } else {
         const newUser = new User({
           // save as uppercase for case-insensitive login
-          name: req.body.username.toUpperCase(),
+          email: req.body.username.toUpperCase(),
           password: hash
         });
 

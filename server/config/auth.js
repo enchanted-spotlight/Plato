@@ -8,6 +8,7 @@ const Note = require('../models/note');
 
 passport.use(new LocalStrategy(
   (username, password, done) => {
+    console.log(username, password);
     User.findOne({ email: username.toUpperCase() }, (err, user) => {
       if (err) {
         return done(err);
