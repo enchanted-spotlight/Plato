@@ -11,6 +11,8 @@ const NoteItem = props => (
       onClick={() => {
         const newEditorState = createEditorState(JSON.parse(props.text));
         props.store.dispatch(a.onTextEditorChange(newEditorState));
+        // need to change title of the note as well to match
+        props.store.dispatch(a.onSessionTitleCreate(props.title));
       }}
     > display </Button>
     <Button
@@ -27,7 +29,7 @@ NoteItem.propTypes = {
   title: React.PropTypes.string,
   store: React.PropTypes.object,
   noteId: React.PropTypes.string,
-  username: React.PropTypes.username
+  username: React.PropTypes.string
 };
 
 export default NoteItem;

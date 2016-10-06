@@ -83,6 +83,15 @@ const render = () => {
   );
 };
 
+App.propTypes = {
+  store: React.PropTypes.object,
+  username: React.PropTypes.string,
+  // password: React.PropTypes.string,
+  savedNotes: React.PropTypes.object,
+  textEditor: React.PropTypes.object,
+  speechEditor: React.PropTypes.object,
+  sessionTitle: React.PropTypes.string
+};
 
 store.subscribe(render);
 render();

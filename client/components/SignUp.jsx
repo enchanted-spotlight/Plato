@@ -45,7 +45,7 @@ class SignUp extends React.Component {
           <input
             type="text"
             onChange={e => this.changeUsernameState(e)}
-            placeholder="Username"
+            placeholder="E-mail"
           />
           <input
             type="password"
