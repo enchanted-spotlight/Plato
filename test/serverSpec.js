@@ -1,6 +1,7 @@
 // change to test travisci
 // chai documentation: http://chaijs.com/api/bdd/
 const chai = require('chai');
+const sinon = require('sinon');
 const request = require('supertest');
 const express = require('express');
 const mongoose = require('mongoose');
@@ -11,6 +12,7 @@ const expect = chai.expect;
 
 const User = require('./../server/models/user');
 const Note = require('./../server/models/note');
+const passport = require('../server/config/auth');
 
 describe('Plato', () => {
   before((done) => {
@@ -19,13 +21,15 @@ describe('Plato', () => {
 
   beforeEach((done) => {
     const testUser = new User({
-      name: 'testUser'
+      name: 'testUser',
+      password: 'testPassword'
     });
     testUser.save();
 
     const testNote = new Note({
       user_id: '000000',
-      text: 'hello',
+      text: {},
+      plainTextContent: 'hello this is a string',
       title: 'testNote'
     });
     testNote.save();
@@ -122,7 +126,7 @@ describe('Plato', () => {
       });
     });
     describe('DELETE /api/delete-note/:id', () => {
-      it('should delete an existing note', () => {
+      it('should delete an existing note', (done) => {
         // first get the mongo id by querying the database
         request(app)
           .get('/api/000000')
@@ -132,14 +136,92 @@ describe('Plato', () => {
               .delete('/api/delete-note/'.concat(id))
               .end((err2, res2) => {
                 expect(res2.status).to.equal(200);
+                done();
               });
           });
       });
-      it('should return 404 if the note doesnt exist', () => {
+      it('should return 404 if the note doesnt exist', (done) => {
         request(app)
           .delete('/api/delete-note/totallyfakeid')
           .end((err, res) => {
             expect(res.status).to.equal(500);
+            done();
+          });
+      });
+    });
+    describe('POST /api/auth/signup', () => {
+      it('should sign up a new user', (done) => {
+        request(app)
+          .post('/api/auth/signup')
+          .send({ username: 'beamMeUp', password: 'scotty' })
+          .end((err, res) => {
+            expect(res.status).to.equal(200);
+            done();
+          });
+      });
+      it('should not sign up an existing user', (done) => {
+        request(app)
+          .post('/api/auth/signup')
+          .send({ username: 'aNewUser', password: 'lmao' })
+          .end(() => {
+            request(app)
+              .post('/api/auth/signup')
+              .send({ username: 'aNewUser', password: 'rofllll' })
+              .end((err, res) => {
+                expect(res.status).to.equal(500);
+                done();
+              });
+          });
+      });
+      it('should encrypt a user\'s password when they signup', (done) => {
+        request(app)
+          .post('/api/auth/signup')
+          .send({ username: 'aNewUser', password: 'lmao' })
+          .end(() => {
+            User.find({ name: 'ANEWUSER' }, (err, user) => {
+              expect(user[0].password).to.not.equal('lmao');
+              done();
+            });
+          });
+      });
+    });
+    describe('POST /api/auth/login/local', () => {
+      it('should log in a valid user', (done) => {
+        request(app)
+          .post('/api/auth/signup')
+          .send({ username: 'beamMeUp', password: 'scotty' })
+          .end(() => {
+            request(app)
+              .post('/api/auth/login/local')
+              .send({ username: 'beamMeUp', password: 'scotty' })
+              .end((err, res) => {
+                expect(res.status).to.equal(200);
+                done();
+              });
+          });
+      });
+      it('should not log in an invalid login attempt', (done) => {
+        request(app)
+          .post('/api/auth/login/local')
+          .send({ username: 'thisUser', password: 'doesntExist' })
+          .end((err, res) => {
+            expect(res.status).to.equal(401);
+            done();
+          });
+      });
+      it('should serialize a user when they log in', (done) => {
+        const secretNinjaLogin = sinon.spy(passport, 'serializeUser');
+        request(app)
+          .post('/api/auth/signup')
+          .send({ username: 'howMany', password: 'fakeUsernames' })
+          .end(() => {
+            request(app)
+              .post('/api/auth/login/local')
+              .send({ username: 'howMany', password: 'fakeUsernames' })
+              .end((err, res) => {
+                expect(secretNinjaLogin.callCount).to.equal(1);
+                done();
+              });
           });
       });
     });
