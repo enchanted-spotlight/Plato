@@ -39,30 +39,21 @@ const savedNotes = (state = m.notesInitialState, action) => {
 
 const textEditor = (state = m.textEditorInitialState, action) => {
   if (action.type === t.TEXT_EDITOR_CHANGE) {
-    return {
-      ...state,
-      editorState: action.editorState
-    };
+    return action.editorState;
   }
   return state;
 };
 
 const speechEditor = (state = m.speechEditorInitialState, action) => {
   if (action.type === t.SPEECH_EDITOR_CHANGE) {
-    return {
-      ...state,
-      editorState: action.editorState
-    };
+    return action.editorState;
   }
   return state;
 };
 
 const sessionTitle = (state = m.currentSessionTitle, action) => {
   if (action.type === t.CREATE_SESSION_TITLE) {
-    return {
-      ...state,
-      sessionTitle: action.sessionTitle
-    };
+    return action.sessionTitle;
   }
   return state;
 };
