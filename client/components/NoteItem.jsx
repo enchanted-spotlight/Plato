@@ -1,21 +1,11 @@
 import React from 'react';
-import request from 'superagent';
 import { Button } from 'react-materialize';
+
+import * as t from './../actions.js';
 
 const NoteItem = (props) => {
   const displayNote = () => {
     props.loadNote(props.text, props.title);
-  };
-  const deleteNote = () => {
-    const urlId = `/api/delete-note/${props._id}`;
-    request('DELETE', urlId)
-      .end((err, res) => {
-        if (err) {
-          console.log('Error deleting the note');
-        } else {
-          props.fetchNotes(props.username);
-        }
-      });
   };
 
   return (
@@ -25,7 +15,10 @@ const NoteItem = (props) => {
         onClick={() => displayNote()}
       > display </Button>
       <Button
-        onClick={() => deleteNote()}
+        onClick={() => {
+          this.props.store.dispatch(t.deleteNote(this.props.noteId));
+          this.props.store.dispatch(t.fetchNotes(this.props.username));
+        }}
         waves="light"
       > deleteNote </Button>
     </li>

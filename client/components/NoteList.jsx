@@ -27,13 +27,13 @@ class NoteList extends React.Component {
         <ul>
           {this.state.note.map(element =>
             <NoteItem
+              store={this.props.store}
               key={element._id}
-              _id={element._id}
+              noteId={element._id}
               title={element.title}
               text={element.text}
               username={this.state.username}
               loadNote={this.props.loadNote}
-              fetchNotes={this.props.fetchNotes}
             />
           )}
         </ul>
@@ -45,8 +45,8 @@ class NoteList extends React.Component {
 NoteList.propTypes = {
   articles: React.PropTypes.arrayOf(React.PropTypes.object),
   loadNote: React.PropTypes.func,
-  fetchNotes: React.PropTypes.func,
-  username: React.PropTypes.string
+  username: React.PropTypes.string,
+  store: React.PropTypes.object
 };
 
 export default NoteList;

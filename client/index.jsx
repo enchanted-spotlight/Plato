@@ -27,14 +27,13 @@ const dispatcher = (action, value) => store.dispatch(action(value));
 
 const App = (props) => {
   const {
+    store,
     username,
     savedNotes,
     textEditor,
     speechEditor,
     sessionTitle
   } = props;
-  console.log('props: ', props);
-  console.log('sessionTitle: ', sessionTitle);
   return (
     <div className="plato-app">
       <Navbar brand="Plato" right>
@@ -43,16 +42,16 @@ const App = (props) => {
       </Navbar>
       <LogIn
         dispatcher={dispatcher}
-        // fetchNotes={this.fetchNotes}
-        // setUsername={this.setUsername}
       />
       <SearchBar />
       <Row>
-        <div className="blue-grey lighten-3 column-header-lists">
-          <h3>All Notes</h3>
-        </div>
         <Col s={2} className="blue-grey lighten-3 base-col-height">
+          <div className="blue-grey lighten-3 column-header-lists">
+            <h3>All Notes</h3>
+          </div>
           <NoteList
+            store={store}
+            username={username}
             notes={savedNotes.notes}
           />
         </Col>
@@ -75,6 +74,7 @@ const App = (props) => {
 const render = () => {
   ReactDOM.render(
     <App
+      store={store}
       {...store.getState()}
     />,
     document.getElementById('app')

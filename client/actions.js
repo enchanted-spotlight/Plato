@@ -1,3 +1,5 @@
+import request from 'superagent';
+
 import * as t from './actionTypes';
 
 export const loginUser = username => ({
@@ -45,9 +47,19 @@ export const onSpeechEditorChange = editorState => ({
 export const fetchNotes = username => (
   (dispatch) => {
     dispatch(requestNotes(username));
-    return fetch(`api/${username}`)
+    return fetch(`/api/${username}`)
       .then(response => response.json())
       .then(json => dispatch(receiveNotes(username, json)));
   }
 );
 
+export const deleteNote = noteId => (
+  request('DELETE', `/api/delete-note/${noteId}`)
+    .end((err, res) => {
+      if (err) {
+        console.log('Error deleting note');
+      } else if (res) {
+        fetchNotes(username);
+      }
+    })
+);
