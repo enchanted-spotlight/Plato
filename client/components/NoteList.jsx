@@ -22,6 +22,7 @@ const NoteList = props => (
   </div>
 );
 
+
 NoteList.propTypes = {
   notes: React.PropTypes.arrayOf(React.PropTypes.object),
   username: React.PropTypes.string,

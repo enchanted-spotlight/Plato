@@ -8,6 +8,9 @@ import NoteList from './../client/main/components/NoteList';
 const wrapper = shallow(<NoteList />);
 const inst = wrapper.instance();
 
+const wrapper = shallow(<NoteList />);
+const inst = wrapper.instance();
+
 const notes = [
   {
     id: 1,
