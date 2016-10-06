@@ -5,46 +5,25 @@ import React from 'react';
 // Is styling better that way?
 import NoteItem from './NoteItem.jsx';
 
-class NoteList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      note: props.articles || [],
-      username: props.username
-    };
-  }
-
-  componentWillReceiveProps(newProps) {
-    this.setState({
-      note: newProps.notes,
-      username: newProps.username
-    });
-  }
-
-  render() {
-    return (
-      <div className="notes-list">
-        <ul>
-          {this.state.note.map(element =>
-            <NoteItem
-              store={this.props.store}
-              key={element._id}
-              noteId={element._id}
-              title={element.title}
-              text={element.text}
-              username={this.state.username}
-              loadNote={this.props.loadNote}
-            />
-          )}
-        </ul>
-      </div>
-    );
-  }
-}
+const NoteList = props => (
+  <div className="notes-list">
+    <ul>
+      {props.notes.map(element =>
+        <NoteItem
+          store={props.store}
+          key={element._id}
+          noteId={element._id}
+          title={element.title}
+          text={element.text}
+          username={props.username}
+        />
+      )}
+    </ul>
+  </div>
+);
 
 NoteList.propTypes = {
-  articles: React.PropTypes.arrayOf(React.PropTypes.object),
-  loadNote: React.PropTypes.func,
+  notes: React.PropTypes.arrayOf(React.PropTypes.object),
   username: React.PropTypes.string,
   store: React.PropTypes.object
 };
