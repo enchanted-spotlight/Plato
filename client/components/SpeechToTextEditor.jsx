@@ -61,7 +61,9 @@ class SpeechToTextEditor extends React.Component {
 
     // this method should mirror the MyEditor component
     this.onChange = (editorState) => {
+      console.log(editorState, 'speech to text state');
       this.setState({ editorState });
+      console.log(editorState, 'speech to text changed');
     };
 
     // this method should mirror the MyEditor component
@@ -94,6 +96,7 @@ class SpeechToTextEditor extends React.Component {
           } else {
             this.props.fetchNotes(this.props.username);
           }
+          console.log(res, 'res');
         });
     };
 
@@ -110,6 +113,7 @@ class SpeechToTextEditor extends React.Component {
       const insert = Modifier.insertText(contentState, selection, string);
       const newEditorState = EditorState.push(editorState, insert, 'insert-fragment');
       this.setState({ editorState: newEditorState });
+      console.log('new editor state: ', this.state.editorState);
     };
 
     this.toggleRecordingState = () => {
