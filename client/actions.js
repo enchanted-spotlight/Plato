@@ -53,17 +53,6 @@ export const fetchNotes = username => (
   }
 );
 
-// export const deleteNote = (noteId, username) => (
-//   request('DELETE', `/api/delete-note/${noteId}`)
-//     .end((err, res) => {
-//       if (err) {
-//         console.log('Error deleting note');
-//       } else if (res) {
-//         fetchNotes(username);
-//       }
-//     })
-// );
-
 export const deleteNote = (noteId, username) => (
   (dispatch) => {
     request('DELETE', `/api/delete-note/${noteId}`)

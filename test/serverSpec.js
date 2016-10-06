@@ -178,7 +178,7 @@ describe('Plato', () => {
           .post('/api/auth/signup')
           .send({ username: 'aNewUser', password: 'lmao' })
           .end(() => {
-            User.find({ name: 'ANEWUSER' }, (err, user) => {
+            User.find({ email: 'ANEWUSER' }, (err, user) => {
               expect(user[0].password).to.not.equal('lmao');
               done();
             });
