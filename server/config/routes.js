@@ -14,6 +14,7 @@ router.post('/chat', chats.sendMessageToSlack);
 router.post('/save-note', notes.saveNote);
 router.get('/:user', notes.retrieveAllUserNotes);
 router.delete('/delete-note/:id', notes.deleteUserNote);
+router.post('/:user', notes.retrieveCertainUserNotes);
 
 // --------------- AUTH -------------- //
 
