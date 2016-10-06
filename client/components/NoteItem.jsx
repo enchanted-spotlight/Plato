@@ -11,6 +11,8 @@ const NoteItem = props => (
       onClick={() => {
         const newEditorState = createEditorState(JSON.parse(props.text));
         props.store.dispatch(a.onTextEditorChange(newEditorState));
+        // need to change title of the note as well to match
+        props.store.dispatch(a.onSessionTitleCreate(props.title));
       }}
     > display </Button>
     <Button

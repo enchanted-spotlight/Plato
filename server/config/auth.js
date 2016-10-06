@@ -8,7 +8,7 @@ const Note = require('../models/note');
 
 passport.use(new LocalStrategy(
   (username, password, done) => {
-    User.findOne({ name: username.toUpperCase() }, (err, user) => {
+    User.findOne({ email: username.toUpperCase() }, (err, user) => {
       if (err) {
         return done(err);
       }
@@ -19,7 +19,7 @@ passport.use(new LocalStrategy(
         if (err2 || !res) {
           return done(null, false, { message: 'Error validing password' });
         }
-        user.name = username;
+        user.email = username;
         return done(null, user);
       });
     });
@@ -32,9 +32,9 @@ passport.use(new FacebookStrategy({
   callbackURL: 'http://localhost:3000/api/auth/login/facebook/callback'
 },
   (accessToken, refreshToken, profile, done) => {
-    const newUser = { name: profile.id };
+    const newUser = { email: profile.id };
     User.findOneAndUpdate({
-      name: profile.id,
+      email: profile.id,
     }, newUser, { upsert: true }, (err, user) => {
       if (err) { return done(err); }
       return done(null, user);
@@ -48,9 +48,9 @@ passport.use(new TwitterStrategy({
   callbackURL: 'http://localhost:3000/api/auth/login/twitter/callback'
 },
   (token, tokenSecret, profile, done) => {
-    const newUser = { name: profile._json.name };
+    const newUser = { email: profile._json.name };
     User.findOneAndUpdate({
-      name: profile._json.name,
+      email: profile._json.name,
     }, newUser, { upsert: true }, (err, user) => {
       if (err) { return done(err); }
       return done(null, user);
