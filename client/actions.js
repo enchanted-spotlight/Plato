@@ -73,20 +73,22 @@ export const loginUser = formData => (
         }
       });
   }
-
-
 );
 
-
-export const deleteNote = noteId => (
-  request('DELETE', `/api/delete-note/${noteId}`)
-    .end((err, res) => {
-      if (err) {
-        console.log('Error deleting note');
-      } else if (res) {
-        fetchNotes(username);
-      }
-    })
+export const deleteNote = (noteId, username) => (
+  (dispatch) => {
+    request('DELETE', `/api/delete-note/${noteId}`)
+      .end((err, res) => {
+        if (err) {
+          console.log('Error deleting note');
+        } else {
+          dispatch(requestNotes(username));
+          return fetch(`/api/${username}`)
+            .then(response => response.json())
+            .then(json => dispatch(receiveNotes(username, json)));
+        }
+      });
+  }
 );
 
 export const loadArchivedChatMessages = messages => ({

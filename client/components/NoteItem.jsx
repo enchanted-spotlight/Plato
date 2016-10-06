@@ -17,8 +17,9 @@ const NoteItem = props => (
     > display </Button>
     <Button
       onClick={() => {
-        props.store.dispatch(a.deleteNote(props.noteId));
-        props.store.dispatch(a.fetchNotes(props.username));
+        console.log('username', props.username);
+        props.store.dispatch(a.deleteNote(props.noteId, props.username));
+        // props.store.dispatch(a.fetchNotes(props.username));
       }}
       waves="light"
     > deleteNote </Button>
