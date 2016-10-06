@@ -62,6 +62,8 @@ const App = (props) => {
 
         <Col s={8} className="base-col-height">
           <MediumDraft
+            store={store}
+            username={username}
             currentNote={textEditor}
             currentNoteTitle={sessionTitle}
           />

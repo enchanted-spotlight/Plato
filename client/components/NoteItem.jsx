@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from 'react-materialize';
 
-import * as t from './../actions.js';
+import * as a from './../actions.js';
 
 const NoteItem = (props) => {
   const displayNote = () => {
@@ -16,8 +16,8 @@ const NoteItem = (props) => {
       > display </Button>
       <Button
         onClick={() => {
-          this.props.store.dispatch(t.deleteNote(this.props.noteId));
-          this.props.store.dispatch(t.fetchNotes(this.props.username));
+          this.props.store.dispatch(a.deleteNote(this.props.noteId));
+          this.props.store.dispatch(a.fetchNotes(this.props.username));
         }}
         waves="light"
       > deleteNote </Button>

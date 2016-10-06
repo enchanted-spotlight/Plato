@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom';
 import request from 'superagent';
 import { Button } from 'react-materialize';
 import { convertToRaw } from 'draft-js';
-
 import { Editor, createEditorState } from 'medium-draft';
+
+import * as a from './../actions.js';
+
 
 class MediumEditor extends React.Component {
   constructor(props) {
@@ -44,7 +46,7 @@ class MediumEditor extends React.Component {
           if (err) {
             console.log('There is an error in submitNote: ', err);
           } else {
-            this.props.fetchNotes(this.props.username);
+            this.props.store.dispatch(a.fetchNotes(this.props.username));
           }
         });
     };
