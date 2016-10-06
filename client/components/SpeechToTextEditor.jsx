@@ -43,10 +43,10 @@ class SpeechToTextEditor extends React.Component {
 
       this.currentTime = new Date();
       if (this.currentTime - this.lastEventTime > 3500) {
-        this.addText('. ');
+        this.addText('\n');
+        this.lastEventTime = new Date();
       }
       // reset our lastEventTime to match our currentTime
-      this.lastEventTime = new Date();
       this.addText(window.transcript);
       // reset transcript to nothing so that we aren't duplicating results
       window.transcript = '';
@@ -55,7 +55,7 @@ class SpeechToTextEditor extends React.Component {
     this.state = {
       // this will let us create an empty editor
       editorState: createEditorState(),
-      title: '',
+      title: ''
     };
 
     // this method should mirror the MyEditor component

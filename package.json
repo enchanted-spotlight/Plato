@@ -5,8 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "npm run lint && nodemon server/server.js",
-    "test": "mocha --require ./test/setup.js --compilers jsx:babel-register -R list",
-    "lint": "eslint --ext .js --ext .jsx test server db public --ignore-path client/public/bundle.js",
+    "test": "mocha --require ./test/setup.js --compilers jsx:babel-register",
+    "lint": "eslint --ext .js --ext .jsx test server db client/components client/index.jsx --ignore-path client/public/bundle.js",
+    "watch": "babel --watch ./public --out-dir ./public/compiled --presets=es2015,react --ignore=node_modules,compiled --source-maps inline && node server/server.js",
     "build": "npm run lint && node_modules/.bin/webpack",
     "dev": "webpack --watch"
   },
@@ -31,6 +32,7 @@
   },
   "homepage": "https://github.com/enchanted-spotlight/Plato#readme",
   "dependencies": {
+    "babel-plugin-transform-object-rest-spread": "^6.16.0",
     "bcrypt-nodejs": "0.0.3",
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
@@ -49,7 +51,10 @@
     "react-dom": "^15.3.2",
     "react-materialize": "^0.17.0",
     "react-redux": "^4.4.5",
+    "react-router": "^2.8.1",
     "redux": "^3.6.0",
+    "redux-logger": "^2.6.1",
+    "redux-thunk": "^2.1.0",
     "superagent": "^2.3.0"
   },
   "devDependencies": {
