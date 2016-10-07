@@ -33,6 +33,11 @@ const NoteItem = props => (
       }}
       waves="light"
     > deleteNote </Button>
+    <Button
+      onClick={() => {
+        console.log('hi');
+      }}
+    />
   </li>
 );
 

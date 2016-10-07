@@ -44,6 +44,7 @@
     "express-session": "^1.14.1",
     "medium-draft": "^0.3.10",
     "mongoose": "^4.6.1",
+    "nodemailer": "^2.6.4",
     "nodemon": "^1.10.2",
     "passport": "^0.3.2",
     "passport-facebook": "^2.1.1",

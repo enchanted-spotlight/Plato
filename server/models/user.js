@@ -7,6 +7,7 @@ const userSchema = mongoose.Schema({
   TwitterId: String,
   slackId: String,
   slackToken: String,
+  slackUsername: String,
   googleId: String
 
 });
