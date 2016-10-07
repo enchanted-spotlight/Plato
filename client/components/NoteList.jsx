@@ -25,7 +25,7 @@ const NoteList = props => (
 
 NoteList.propTypes = {
   notes: React.PropTypes.arrayOf(React.PropTypes.object),
-  username: React.PropTypes.string,
+  username: React.PropTypes.string
 };
 
 export default NoteList;

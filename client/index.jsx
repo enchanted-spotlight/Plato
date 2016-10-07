@@ -43,7 +43,10 @@ const App = (props) => {
       <LogIn
         dispatcher={dispatcher}
       />
-      <SearchBar />
+      <SearchBar
+        store={store}
+        username={username}
+      />
       <Row>
         <Col s={2} className="blue-grey lighten-3 base-col-height">
           <div className="blue-grey lighten-3 column-header-lists">
