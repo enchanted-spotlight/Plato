@@ -16,6 +16,10 @@ middleware(app, express);
 
 // Slack API integration:
 const rtm = require('./rtm-client');
+const IncomingWebhooks = slack.IncomingWebhook;
+const slackUrl = process.env.SLACK_WEBHOOK_URL;
+
+const wh = new IncomingWebhooks(slackUrl);
 
 // Socket.io setup
 const http = require('http').Server(app);
@@ -26,21 +30,21 @@ io.on('connection', (socket) => {
   const testMessage = {
     type: 'message',
     channel: 'C2KE7FVV3',
-    user: 'U2KEC1PV5',
-    text: 'capture this message for data structure',
+    username: 'Jo-Jo',
+    text: 'My name is the coolest!',
     ts: '1475865416.000003',
     team: 'T2KE19RLG'
   };
+  wh.send(testMessage);
 
   rtm.on(RTM_EVENTS.MESSAGE, (message) => {
     console.log('A message was captured: ', message);
     const channel = 'C2KE7FVV3';
     socket.emit('incoming slack message', message);
-    // rtm.sendMessage('Jon is still testing!', channel, (err, msg) => {
-    //   msg.text = 'Updated!';
+    // rtm.sendMessage('testMessage', channel, (err, msg) => {
+    //   // msg.text = 'Updated!';
     // });
   });
-
 });
 
 // routing
