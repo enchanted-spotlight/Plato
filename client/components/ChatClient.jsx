@@ -1,5 +1,5 @@
 import React from 'react';
-import sendChatMessage from './../actions';
+import { sendChatMessage } from './../actions';
 
 import ChatMessagesDisplay from './ChatMessagesDisplay.jsx';
 
@@ -23,11 +23,11 @@ class ChatClient extends React.Component {
             // Form is not properly re rendering after setState
             // Redux conflict? This is a problem with all app's forms
             this.setState({ message: '' });
-            this.state.store.dispatch(sendChatMessage({
+            const submitObj = {
               user: this.state.user,
               message: this.state.message
-            })
-            );
+            };
+            this.state.store.dispatch(sendChatMessage(submitObj));
           }}
         >
           <input
