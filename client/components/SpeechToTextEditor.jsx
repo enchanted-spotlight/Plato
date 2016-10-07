@@ -13,6 +13,7 @@ class SpeechToTextEditor extends React.Component {
     // transcript will hold our audio transcript
     window.transcript = '';
     // this will prompt user for access to their microphone
+    // eslint-disable-next-line no-undef
     this.recognition = new webkitSpeechRecognition();
     // set language that we will be transcribing
     this.recognition.lang = 'en-US';
