@@ -65,12 +65,19 @@ const App = (props) => {
           <SpeechToTextEditor />
         </Col>
 
-        <Col s={8} className="base-col-height">
+        <Col s={6} className="base-col-height">
           <MediumDraft
             store={store}
             username={username}
             currentNote={textEditor}
             currentNoteTitle={sessionTitle}
+          />
+        </Col>
+
+        <Col s={2} className="base-col-height">
+          <ChatClient
+            store={store}
+            username={username}
           />
         </Col>
       </Row>

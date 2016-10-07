@@ -3,7 +3,7 @@ const passport = require('./auth');
 
 const router = new express.Router();
 
-const chats = require('../controllers/chats')
+const chats = require('../controllers/chats');
 const notes = require('../controllers/notes');
 const user = require('../controllers/users');
 
