@@ -63,3 +63,20 @@ export const deleteNote = noteId => (
       }
     })
 );
+
+export const sendChatMessage = messageObj => (
+  request
+    .post('/api/chat')
+    .set('Content-Type', 'application/json')
+    .send({
+      user: messageObj.user,
+      message: messageObj.message
+    })
+    .end((err, res) => {
+      if (err || !res.ok) {
+        console.log('sendChatMessage error: ', err);
+      } else {
+        console.log('Success with sendChatMessage: ', res);
+      }
+    })
+);

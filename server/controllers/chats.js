@@ -3,6 +3,7 @@ const Chat = require('./../rtm-client');
 // Controller to send messages from client to slack api
 const chatController = {
   sendMessageToSlack(req, res) {
+    // Will need to get user slack token at some point
     console.log('request arrived to sendMessageToSlack. req.body: ',
       req.body);
     const message = req.body.message;
