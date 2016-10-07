@@ -78,10 +78,6 @@ class LogIn extends React.Component {
           <a href="api/auth/login/google"> Sign in with Google </a>
         </div>
 
-        <div className="twitter-login">
-          <a href="api/auth/login/twitter"> Sign in with Twitter </a>
-        </div>
-
         <form
           className="local-login"
           onSubmit={(e) => {
