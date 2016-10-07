@@ -17,7 +17,11 @@ class SearchBar extends React.Component {
   }
 
   callAjax(value) {
-    this.props.store.dispatch(a.searchNotes(this.props.username, value));
+    if (value === '') {
+      this.props.store.dispatch(a.fetchNotes(this.props.username));
+    } else {
+      this.props.store.dispatch(a.searchNotes(this.props.username, value));
+    }
 
     // const urlUser = `api/${this.props.username}`;
     // const querySearch = { searchInput: value };
