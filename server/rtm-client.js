@@ -22,11 +22,4 @@ rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
   );
 });
 
-rtm.on(RTM_EVENTS.MESSAGE, (message) => {
-  console.log('A message was captured: ', message);
-  rtm.sendMessage('Jon is still testing!', channel, (err, msg) => {
-    msg.text = 'Updated!';
-  });
-});
-
 module.exports = rtm;
