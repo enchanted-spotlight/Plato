@@ -59,7 +59,6 @@ class LogIn extends React.Component {
         <div className="fbLogin">
           <a href="api/auth/login/facebook"> Sign in with Facebook </a>
         </div>
-<<<<<<< 37a2f3e56ea4dcd319003b145aaf27397311ce90
 
         <div className="twitterLogin">
           <a href="api/auth/login/twitter"> Sign in with Twitter </a>
@@ -72,13 +71,6 @@ class LogIn extends React.Component {
         <div className="googleLogin">
           <a href="api/auth/login/google"> Sign in with Google </a>
         </div>
-
-=======
-
-        <div className="twitterLogin">
-          <a href="api/auth/login/twitter"> Sign in with Twitter </a>
-        </div>
->>>>>>> (cleanup) Correct linting errors
         <form
           className="localLogin"
           onSubmit={(e) => {
