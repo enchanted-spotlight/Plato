@@ -11,6 +11,7 @@ import SearchBar from './components/SearchBar.jsx';
 import SpeechToTextEditor from './components/SpeechToTextEditor.jsx';
 import MediumDraft from './components/MediumDraft.jsx';
 import reducers from './reducer.js';
+import ChatClient from './components/ChatClient.jsx';
 
 const loggerMiddleware = createLogger();
 
