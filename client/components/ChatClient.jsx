@@ -38,12 +38,6 @@ class ChatClient extends React.Component {
             // Form is not properly re rendering after setState
             // Redux conflict? This is a problem with all app's forms
             this.setState({ message: '' });
-            const submitObj = {
-              user: this.props.user,
-              message: this.props.message
-            };
-            console.log('submit object: ', submitObj);
-            this.state.store.dispatch(sendChatMessage(submitObj));
           }}
         >
           <input
