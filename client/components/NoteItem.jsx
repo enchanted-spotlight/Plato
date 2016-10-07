@@ -4,7 +4,7 @@ import { createEditorState } from 'medium-draft';
 
 import * as a from './../actions.js';
 
-const NoteItem = (props) => (
+const NoteItem = props => (
   <li>
     <p>{props.title}</p>
     <Button
@@ -24,7 +24,10 @@ const NoteItem = (props) => (
 );
 
 NoteItem.propTypes = {
-  title: React.PropTypes.string
+  title: React.PropTypes.string,
+  store: React.PropTypes.object,
+  noteId: React.PropTypes.number,
+  username: React.PropTypes.string
 };
 
 export default NoteItem;

@@ -58,13 +58,9 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.8.1",
     "redux": "^3.6.0",
-<<<<<<< cf99d28819dedbc10dd1fb7364e00fbe7cfa1fba
-    "redux-logger": "^2.6.1",
-=======
     "redux-devtools-extension": "^1.0.0",
     "redux-logger": "^2.6.1",
     "redux-promise-middleware": "^4.0.0",
->>>>>>> Add dependencies
     "redux-thunk": "^2.1.0",
     "superagent": "^2.3.0"
   },
