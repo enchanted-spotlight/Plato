@@ -14,13 +14,18 @@ const rtm = new RtmClient(token, rtmOptions);
 rtm.start();
 
 rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
-  console.log(`Logged in as`, rtmStartData.self.name, `of team ${rtmStartData.team.name}, but not yet connected to a channel.`);
+  console.log(
+    'Logged in as',
+    rtmStartData.self.name,
+    `of team ${rtmStartData.team.name},
+    but not yet connected to a channel.`
+  );
 });
 
 rtm.on(RTM_EVENTS.MESSAGE, (message) => {
-  console.log(`A message was captured: `, message);
-  rtm.sendMessage('Dan is smelly!', channel, (err, msg) => {
-    msg.text = "Updated!";
+  console.log('A message was captured: ', message);
+  rtm.sendMessage('Jon is still testing!', channel, (err, msg) => {
+    msg.text = 'Updated!';
   });
 });
 

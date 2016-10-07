@@ -4,6 +4,7 @@ import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { Row, Col, Navbar, NavItem } from 'react-materialize';
+import io from 'socket.io-client';
 
 import LogIn from './components/LogIn.jsx';
 import NoteList from './components/NoteList.jsx';
@@ -12,6 +13,11 @@ import SpeechToTextEditor from './components/SpeechToTextEditor.jsx';
 import MediumDraft from './components/MediumDraft.jsx';
 import reducers from './reducer.js';
 import ChatClient from './components/ChatClient.jsx';
+
+const socket = io();
+socket.on('incoming slack message', (data) => {
+  console.log('client side socket received data: ', data);
+});
 
 const loggerMiddleware = createLogger();
 

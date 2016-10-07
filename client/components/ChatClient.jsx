@@ -40,9 +40,9 @@ class ChatClient extends React.Component {
   }
 }
 
-ChatClient.propTypes = {
-  store: React.PropType.object,
-  username: React.PropType.object
-};
+// ChatClient.propTypes = {
+//   store: React.PropType.object,
+//   username: React.PropType.object
+// };
 
 export default ChatClient;
