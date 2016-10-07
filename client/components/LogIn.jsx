@@ -57,14 +57,6 @@ class LogIn extends React.Component {
 
   changePasswordState(e) {
     this.setState({ password: e.target.value });
-=======
-    this.changeUsernameState = (e) => {
-      this.setState({ username: e.target.value });
-    };
-    this.changePasswordState = (e) => {
-      this.setState({ password: e.target.value });
-    };
->>>>>>> Set up Login form with provider and slight style changes
   }
 
   render() {
@@ -75,7 +67,6 @@ class LogIn extends React.Component {
         <div className="fb-login">
           <a href="api/auth/login/facebook"> Sign in with Facebook </a>
         </div>
-<<<<<<< fa303770db1c2615cfa23b03ed7b273a96d293dc
         <div className="twitterLogin">
           <a href="api/auth/login/twitter"> Sign in with Twitter </a>
         </div>
@@ -87,13 +78,11 @@ class LogIn extends React.Component {
         <div className="googleLogin">
           <a href="api/auth/login/google"> Sign in with Google </a>
         </div>
-=======
 
         <div className="twitter-login">
           <a href="api/auth/login/twitter"> Sign in with Twitter </a>
         </div>
 
->>>>>>> Set up Login form with provider and slight style changes
         <form
           className="local-login"
           onSubmit={(e) => {

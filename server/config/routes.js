@@ -28,8 +28,9 @@ router.get('/auth/login/facebook', passport.authenticate('facebook', { scope: ['
 router.get('/auth/login/facebook/callback',
   passport.authenticate('facebook', {
     failureRedirect: 'http://www.reactiongifs.com/captain-america-fail/',
-    successRedirect: '/'
-  }));
+  }), (req, res, stuff) => {
+    res.redirect('/');
+  });
 
 router.get('/auth/login/twitter', passport.authenticate('twitter', { scope: ['email'] }));
 router.get('/auth/login/twitter/callback',
