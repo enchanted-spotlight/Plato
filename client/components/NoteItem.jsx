@@ -26,9 +26,9 @@ const NoteItem = props => (
 
 NoteItem.propTypes = {
   title: React.PropTypes.string,
-  store: React.PropTypes.object,
-  noteId: React.PropTypes.string,
-  username: React.PropTypes.string
+  store: React.PropTypes.Object,
+  username: React.PropTypes.string,
+  noteId: React.PropTypes.string
 };
 
 export default NoteItem;
