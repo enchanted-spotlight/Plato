@@ -16,7 +16,6 @@ class LogIn extends React.Component {
       username: '',
       password: '',
     };
-<<<<<<< fa303770db1c2615cfa23b03ed7b273a96d293dc
   }
 
   componentWillMount() {
