@@ -23,19 +23,38 @@ router.post('/auth/login/local', passport.authenticate('local'), (req, res) => {
 });
 
 
-router.get('/auth/login/facebook', passport.authenticate('facebook'));
+router.get('/auth/login/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 router.get('/auth/login/facebook/callback',
   passport.authenticate('facebook', {
+    failureRedirect: 'http://www.reactiongifs.com/captain-america-fail/'
+  }), (req, res, stuff) => {
+    res.redirect('/');
+  });
+
+router.get('/auth/login/twitter', passport.authenticate('twitter', { scope: ['email'] }));
+router.get('/auth/login/twitter/callback',
+  passport.authenticate('twitter', {
+    failureRedirect: 'http://www.reactiongifs.com/captain-america-fail/'
+  }), (req, res) => {
+    res.redirect('/');
+  });
+
+router.get('/auth/login/slack', passport.authenticate('slack', { scope: ['identity.basic', 'identity.email'] }));
+router.get('/auth/login/slack/callback',
+  passport.authenticate('slack', {
+    successRedirect: '/',
+    failureRedirect: 'http://www.reactiongifs.com/captain-america-fail/'
+  }));
+
+router.get('/auth/login/google', passport.authenticate('google',
+  { scope: ['https://www.googleapis.com/auth/plus.login',
+  'https://www.googleapis.com/auth/plus.profile.emails.read'] }));
+router.get('/auth/login/google/callback',
+  passport.authenticate('google', {
     successRedirect: '/',
     failureRedirect: 'http://google.com'
   }));
 
-router.get('/auth/login/twitter', passport.authenticate('twitter'));
-router.get('/auth/login/twitter/callback',
-  passport.authenticate('twitter', {
-    successRedirect: '/',
-    failureRedirect: 'http://google.com'
-  }));
 
 router.post('/auth/signup', user.signUp);
 
