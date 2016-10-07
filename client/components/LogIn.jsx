@@ -13,6 +13,19 @@ class LogIn extends React.Component {
     };
   }
 
+  componentWillMount() {
+    request
+      .get('/api/auth/identify')
+      .end((err, res) => {
+        console.log(res.body);
+        this.setState({
+          username: res.body.email,
+        });
+        this.state.dispatch(t.loginUser, this.state.username);
+        this.state.dispatch(t.fetchNotes, this.state.username);
+      });
+  }
+
   // login the user via /api/auth/login/local
   onFormSubmit(e) {
     e.preventDefault();

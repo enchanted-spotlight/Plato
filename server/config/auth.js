@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt-nodejs');
+const cryptr = require('cryptr');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
@@ -42,8 +43,18 @@ passport.use(new FacebookStrategy({
     User.findOneAndUpdate({
       email: profile.emails[0].value.toUpperCase(),
     }, fbId, { upsert: true }, (err, user) => {
-      if (err) { return done(err); }
-      return done(null, user);
+      console.log(user);
+      if (err) {
+        return done(err);
+      } else if (user === null) {
+        User.findOne({ facebookId: profile.id }, (err2, user2) => {
+          console.log(user2);
+          if (err) { return done(err2); }
+          return done(null, user2);
+        });
+      } else {
+        return done(null, user);
+      }
     });
   }
 ));
@@ -88,7 +99,7 @@ passport.use(new SlackStrategy({
     const newUser = {
       $set: {
         slackId: profile.id,
-        slackToken: accessToken
+        slackToken: cryptr.encrypt(accessToken)
       }
     };
     User.findOneAndUpdate({
