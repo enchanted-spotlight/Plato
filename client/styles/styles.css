@@ -69,6 +69,9 @@
   padding: 15px 20px;
 }
 
+.session-container {
+  border: 3px solid #e6e600;
+}
 .sketch {
   position: relative;
 }

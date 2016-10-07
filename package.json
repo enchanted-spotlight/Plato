@@ -35,6 +35,11 @@
     "@slack/client": "^3.6.0",
     "babel-plugin-transform-object-rest-spread": "^6.16.0",
     "bcrypt-nodejs": "0.0.3",
+    "axios": "^0.14.0",
+    "babel-plugin-react-html-attrs": "^2.0.0",
+    "babel-plugin-transform-class-properties": "^6.3.13",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "bcrypt": "^0.8.7",
     "bluebird": "^3.4.6",
     "body-parser": "^1.15.2",
     "cryptr": "^2.0.0",
@@ -62,7 +67,13 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.8.1",
     "redux": "^3.6.0",
+<<<<<<< cf99d28819dedbc10dd1fb7364e00fbe7cfa1fba
     "redux-logger": "^2.6.1",
+=======
+    "redux-devtools-extension": "^1.0.0",
+    "redux-logger": "^2.6.1",
+    "redux-promise-middleware": "^4.0.0",
+>>>>>>> Add dependencies
     "redux-thunk": "^2.1.0",
     "sanitize-html": "^1.13.0",
     "sinon": "^1.17.6",
