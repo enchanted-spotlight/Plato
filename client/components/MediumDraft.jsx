@@ -88,7 +88,7 @@ class MediumEditor extends React.Component {
 export default MediumEditor;
 
 MediumEditor.propTypes = {
+  store: React.PropTypes.object,
   username: React.PropTypes.string,
-  fetchNotes: React.PropTypes.func,
   currentNote: () => null
 };
