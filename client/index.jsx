@@ -27,6 +27,7 @@ const dispatcher = (action, value) => store.dispatch(action(value));
 
 const App = (props) => {
   const {
+    // eslint-disable-next-line no-shadow
     store,
     username,
     savedNotes,
@@ -43,7 +44,10 @@ const App = (props) => {
       <LogIn
         dispatcher={dispatcher}
       />
-      <SearchBar />
+      <SearchBar
+        store={store}
+        username={username}
+      />
       <Row>
         <Col s={2} className="blue-grey lighten-3 base-col-height">
           <div className="blue-grey lighten-3 column-header-lists">
@@ -84,12 +88,12 @@ const render = () => {
 };
 
 App.propTypes = {
-  store: React.PropTypes.object,
+  store: React.PropTypes.Object,
   username: React.PropTypes.string,
   // password: React.PropTypes.string,
-  savedNotes: React.PropTypes.object,
-  textEditor: React.PropTypes.object,
-  speechEditor: React.PropTypes.object,
+  savedNotes: React.PropTypes.Object,
+  textEditor: React.PropTypes.Object,
+  speechEditor: React.PropTypes.Object,
   sessionTitle: React.PropTypes.string
 };
 

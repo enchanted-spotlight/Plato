@@ -2,11 +2,13 @@ const Note = require('./../models/note');
 
 const notesController = {
   saveNote(req, res) {
+    console.log(req.body);
     const update = {
       user_id: req.body.user_id,
       text: req.body.text,
       // where is the title going to be?
-      title: req.body.title
+      title: req.body.title,
+      plainTextContent: req.body.plainText
     };
     Note.findOneAndUpdate({
       user_id: req.body.user_id,
@@ -26,6 +28,18 @@ const notesController = {
       } else if (data.length === 0) {
         res.status(404).end();
       } else {
+        res.status(200).send(data);
+      }
+    });
+  },
+  retrieveCertainUserNotes(req, res) {
+    const userInput = req.body.searchInput;
+    console.log(req.body.searchInput);
+    Note.find({ user_id: req.params.user, $text: { $search: userInput } }, (err, data) => {
+      if (err) {
+        res.status(500).end();
+      } else {
+        console.log(data);
         res.status(200).send(data);
       }
     });

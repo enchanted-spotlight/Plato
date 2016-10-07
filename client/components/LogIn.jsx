@@ -71,7 +71,6 @@ class LogIn extends React.Component {
         <div className="googleLogin">
           <a href="api/auth/login/google"> Sign in with Google </a>
         </div>
-
         <form
           className="localLogin"
           onSubmit={(e) => {

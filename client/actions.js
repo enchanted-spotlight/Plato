@@ -68,3 +68,21 @@ export const deleteNote = (noteId, username) => (
       });
   }
 );
+
+export const searchNotes = (username, term) => (
+  (dispatch) => {
+    const urlUser = `api/${username}`;
+    dispatch(requestNotes(username));
+    request
+      .post(urlUser)
+      .send({ searchInput: term })
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+        if (err) {
+          console.log('There is an error in SearchBar:', err);
+        } else {
+          dispatch(receiveNotes(username, res.body));
+        }
+      });
+  }
+);

@@ -89,6 +89,6 @@ export default MediumEditor;
 
 MediumEditor.propTypes = {
   username: React.PropTypes.string,
-  store: React.PropTypes.object,
+  store: React.PropTypes.Object,
   currentNote: () => null
 };

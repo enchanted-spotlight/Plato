@@ -6,7 +6,7 @@ const noteSchema = mongoose.Schema({
   // notes should be an object (EntityMap)
   text: Object,
   // plainTextContent should be a string
-  plainTextContent: String,
+  plainTextContent: { type: String, text: true },
   // this should probably be unique for a user
   title: String
 });
