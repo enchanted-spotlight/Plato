@@ -73,7 +73,8 @@ export const loginUser = formData => (
         }
       });
   }
-  
+);
+
 export const searchNotes = (username, term) => (
   (dispatch) => {
     const urlUser = `api/${username}`;
@@ -90,18 +91,6 @@ export const searchNotes = (username, term) => (
         }
       });
   }
-);
-
-export const deleteNote = noteId => (
-  request('DELETE', `/api/delete-note/${noteId}`)
-    .end((err, res) => {
-      if (err) {
-        console.log('Error deleting note');
-      } else if (res) {
-        fetchNotes(username);
-      }
-    })
->>>>>>> (feat) Implement initial searching of notes
 );
 
 export const deleteNote = (noteId, username) => (
@@ -146,3 +135,4 @@ export const sendChatMessage = messageObj => (
       }
     })
 );
+
