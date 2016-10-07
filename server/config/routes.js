@@ -26,10 +26,9 @@ router.post('/auth/login/local', passport.authenticate('local'), (req, res) => {
 router.get('/auth/login/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 router.get('/auth/login/facebook/callback',
   passport.authenticate('facebook', {
-    failureRedirect: 'http://www.reactiongifs.com/captain-america-fail/'
-  }), (req, res, stuff) => {
-    res.redirect('/');
-  });
+    failureRedirect: 'http://www.reactiongifs.com/captain-america-fail/',
+    successRedirect: '/'
+  }));
 
 router.get('/auth/login/twitter', passport.authenticate('twitter', { scope: ['email'] }));
 router.get('/auth/login/twitter/callback',
@@ -62,6 +61,8 @@ router.get('/auth/logout', (req, res) => {
   req.logout();
   res.status(200).send();
 });
+
+router.get('/auth/identify', user.identifyUser);
 
 
 module.exports = router;
