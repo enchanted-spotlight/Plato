@@ -3,15 +3,19 @@ const passport = require('./auth');
 
 const router = new express.Router();
 
+const chats = require('../controllers/chats')
 const notes = require('../controllers/notes');
 const user = require('../controllers/users');
 
-// ---------- NOTES ---------- //
+// ------------ CHAT & SLACK ---------- //
+router.post('/chat', chats.sendMessageToSlack);
+
+// --------------- NOTES ------------- //
 router.post('/save-note', notes.saveNote);
 router.get('/:user', notes.retrieveAllUserNotes);
 router.delete('/delete-note/:id', notes.deleteUserNote);
 
-// ---------- AUTH ---------- //
+// --------------- AUTH -------------- //
 
 router.post('/auth/login/local', passport.authenticate('local'), (req, res) => {
   // should redirect to doc page instead of just returning a 200 status
