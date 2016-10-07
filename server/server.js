@@ -1,5 +1,7 @@
 require('dotenv').config();
+const slack = require('@slack/client');
 
+const RTM_EVENTS = slack.RTM_EVENTS;
 
 // Require db so it sets up connection
 require('./db');
@@ -11,6 +13,9 @@ const noteRouter = require('./config/routes');
 
 const app = express();
 middleware(app, express);
+
+// Slack API integration:
+const rtm = require('./rtm-client');
 
 // Socket.io setup
 const http = require('http').Server(app);
@@ -26,7 +31,16 @@ io.on('connection', (socket) => {
     ts: '1475865416.000003',
     team: 'T2KE19RLG'
   };
-  socket.emit('incoming slack message', testMessage);
+
+  rtm.on(RTM_EVENTS.MESSAGE, (message) => {
+    console.log('A message was captured: ', message);
+    const channel = 'C2KE7FVV3';
+    socket.emit('incoming slack message', message);
+    // rtm.sendMessage('Jon is still testing!', channel, (err, msg) => {
+    //   msg.text = 'Updated!';
+    // });
+  });
+
 });
 
 // routing
@@ -41,8 +55,6 @@ http.listen(3000, () => {
   console.log('Plato is listening on port 3000 ...');
 });
 
-// Slack API integration:
-require('./rtm-client');
 
 module.exports = app;
 
