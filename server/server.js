@@ -1,8 +1,11 @@
 require('dotenv').config();
+<<<<<<< 4d8fe1594da697100178395ca2fab85d0ffb0fda
 const slack = require('@slack/client');
 const request = require('superagent');
 
 const RTM_EVENTS = slack.RTM_EVENTS;
+=======
+>>>>>>> Create controller file for sending chat to slack
 
 // Require db so it sets up connection
 require('./db');
@@ -65,6 +68,4 @@ http.listen(3000, () => {
   console.log('Plato is listening on port 3000 ...');
 });
 
-
 module.exports = app;
-
