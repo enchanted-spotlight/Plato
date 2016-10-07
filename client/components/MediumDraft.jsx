@@ -1,6 +1,8 @@
 import React from 'react';
 import request from 'superagent';
 import { Button } from 'react-materialize';
+import ReactDOM from 'react-dom';
+
 import { convertToRaw } from 'draft-js';
 import { Editor, createEditorState } from 'medium-draft';
 
@@ -12,74 +14,68 @@ class MediumEditor extends React.Component {
     super(props);
 
     this.state = {
-      editorState: this.props.currentNote, // for empty content
-      title: this.props.username
-    };
-
-    this.onChange = (editorState) => {
-      this.setState({ editorState });
-    };
-
-    this.titleChange = (e) => {
-      this.setState({ title: e.target.value });
-    };
-
-    this.submitNote = () => {
-      // this will let us save the current content as rich text
-      const userNote = convertToRaw(this.state.editorState.getCurrentContent());
-      const plainTextContent = this.state.editorState.getCurrentContent().getPlainText();
-      const userTitle = this.state.title;
-      const username = this.props.username;
-      const url = 'api/save-note';
-      // submit the note to the server for storage in db
-      request
-        .post(url)
-        .send({
-          user_id: username,
-          text: JSON.stringify(userNote),
-          plainText: JSON.stringify(plainTextContent),
-          title: userTitle
-        })
-        .set('Accept', 'application/json')
-        .end((err, res) => {
-          if (err) {
-            console.log('There is an error in submitNote: ', err);
-          } else {
-            this.props.store.dispatch(a.fetchNotes(this.props.username));
-          }
-        });
+      currentNote: this.props.currentNote, // for empty content
+      title: this.props.currentNoteTitle
     };
   }
 
+    // this.onChange = (editorState) => {
+    //   this.setState({ editorState });
+    // };
+
+    // this.titleChange = (e) => {
+    //   this.setState({ title: e.target.value });
+    // };
+
+// <<<<<<< a18abbd683b85e58bcf3f9421605db7dc57a8efc
+//     this.submitNote = () => {
+//       // this will let us save the current content as rich text
+//       const userNote = convertToRaw(this.state.editorState.getCurrentContent());
+//       const plainTextContent = this.state.editorState.getCurrentContent().getPlainText();
+//       const userTitle = this.state.title;
+//       const username = this.props.username;
+//       const url = 'api/save-note';
+//       // submit the note to the server for storage in db
+//       request
+//         .post(url)
+//         .send({
+//           user_id: username,
+//           text: JSON.stringify(userNote),
+//           plainText: JSON.stringify(plainTextContent),
+//           title: userTitle
+//         })
+//         .set('Accept', 'application/json')
+//         .end((err, res) => {
+//           if (err) {
+//             console.log('There is an error in submitNote: ', err);
+//           } else {
+//             this.props.store.dispatch(a.fetchNotes(this.props.username));
+//           }
+//         });
+//     };
+// =======
+//     // removed submitNote here...
+// >>>>>>> Integrate Session component with methods from App MediumDraft and SpeechToTextEditor
+//   }
+
   componentWillReceiveProps(newProps) {
     this.setState({
-      editorState: newProps.currentNote,
+      currentNote: newProps.currentNote,
       title: newProps.currentNoteTitle
     });
   }
 
 
   render() {
-    const { editorState } = this.state;
+    // const { currentNote } = this.state;
+    console.log(this.props, 'medium draft state props');
     return (
       <div>
-        <input
-          type="text"
-          value={this.state.title}
-          onChange={this.titleChange}
-          placeholder="Title"
-        />
         <Editor
-          editorState={editorState}
-          onChange={this.onChange}
+          editorState={this.state.currentNote}
+          onChange={this.props.onNoteChange}
           placeholder="Start typing your shit here ..."
         />
-        <div>
-          <Button
-            onClick={() => this.submitNote()}
-            waves="light"
-          > Submit </Button>
-        </div>
       </div>
     );
   }
@@ -88,7 +84,7 @@ class MediumEditor extends React.Component {
 export default MediumEditor;
 
 MediumEditor.propTypes = {
-  username: React.PropTypes.string,
-  fetchNotes: React.PropTypes.func,
+  currentNoteTitle: React.PropTypes.string,
+  onNoteChange: React.PropTypes.func,
   currentNote: () => null
 };
