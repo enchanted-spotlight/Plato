@@ -72,7 +72,7 @@ class MediumEditor extends React.Component {
         <Editor
           editorState={editorState}
           onChange={this.onChange}
-          placeholder="Start typing your shit here ..."
+          placeholder="Start typing here ..."
         />
         <div>
           <Button
@@ -89,6 +89,6 @@ export default MediumEditor;
 
 MediumEditor.propTypes = {
   username: React.PropTypes.string,
-  fetchNotes: React.PropTypes.func,
+  store: React.PropTypes.object,
   currentNote: () => null
 };

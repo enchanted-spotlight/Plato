@@ -13,6 +13,19 @@ class LogIn extends React.Component {
     };
   }
 
+  componentWillMount() {
+    request
+      .get('/api/auth/identify')
+      .end((err, res) => {
+        console.log(res.body);
+        this.setState({
+          username: res.body.email,
+        });
+        this.state.dispatch(t.loginUser, this.state.username);
+        this.state.dispatch(t.fetchNotes, this.state.username);
+      });
+  }
+
   // login the user via /api/auth/login/local
   onFormSubmit(e) {
     e.preventDefault();
@@ -42,42 +55,51 @@ class LogIn extends React.Component {
 
   render() {
     return (
-    <div className="loginContainer">
-      <div className="fbLogin">
-        <a href="api/auth/login/facebook"> Sign in with Facebook </a>
-      </div>
+      <div className="loginContainer">
+        <div className="fbLogin">
+          <a href="api/auth/login/facebook"> Sign in with Facebook </a>
+        </div>
 
-      <div className="twitterLogin">
-        <a href="api/auth/login/twitter"> Sign in with Twitter </a>
+        <div className="twitterLogin">
+          <a href="api/auth/login/twitter"> Sign in with Twitter </a>
+        </div>
+
+        <div className="slackLogin">
+          <a href="api/auth/login/slack"> Sign in with Slack </a>
+        </div>
+
+        <div className="googleLogin">
+          <a href="api/auth/login/google"> Sign in with Google </a>
+        </div>
+
+        <form
+          className="localLogin"
+          onSubmit={(e) => {
+            console.log('onsubmit state: ', this.state);
+            e.preventDefault();
+            // Dispath this.state.username so that store is updated
+            this.state.dispatch(t.loginUser, this.state.username);
+            this.state.dispatch(t.fetchNotes, this.state.username);
+            this.setState({ username: '' });
+          }}
+        >
+          <h3>Login:</h3>
+          <input
+            type="text"
+            onChange={
+              e => this.setState({ username: e.target.value })
+            }
+          />
+          <input
+            type="password"
+            placeholder="Password"
+            onChange={e => this.changePasswordState(e)}
+          />
+          <input
+            type="submit"
+          />
+        </form>
       </div>
-      <form
-        className="localLogin"
-        onSubmit={(e) => {
-          console.log('onsubmit state: ', this.state);
-          e.preventDefault();
-          // Dispath this.state.username so that store is updated
-          this.state.dispatch(t.loginUser, this.state.username);
-          this.state.dispatch(t.fetchNotes, this.state.username);
-          this.setState({ username: '' });
-        }}
-      >
-        <h3>Login:</h3>
-        <input
-          type="text"
-          onChange={
-            e => this.setState({ username: e.target.value })
-          }
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          onChange={e => this.changePasswordState(e)}
-        />
-        <input
-          type="submit"
-        />
-      </form>
-    </div>
     );
   }
 }

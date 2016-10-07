@@ -11,7 +11,7 @@ const userController = {
       } else {
         const newUser = new User({
           // save as uppercase for case-insensitive login
-          name: req.body.username.toUpperCase(),
+          email: req.body.username.toUpperCase(),
           password: hash
         });
 
@@ -22,6 +22,15 @@ const userController = {
             res.status(200).send();
           }
         });
+      }
+    });
+  },
+  identifyUser: (req, res) => {
+    User.findOne({ _id: req.session.passport.user }, (err, user) => {
+      if (err) {
+        res.status(500).send();
+      } else {
+        res.status(200).send(user);
       }
     });
   }

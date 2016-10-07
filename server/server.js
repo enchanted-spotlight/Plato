@@ -15,6 +15,10 @@ middleware(app, express);
 // routing
 app.use('/api', noteRouter);
 
+app.get('/', (req, res) => {
+  console.log(req.user);
+});
+
 // initialize server
 app.listen(3000, () => {
   console.log('Plato is listening on port 3000 ...');
