@@ -12,30 +12,26 @@ class SearchBar extends React.Component {
     this.callAjax = debounce(750, this.callAjax);
   }
 
-  // onInputChange2(term) {
-  //   const urlUser = `api/${this.state.username}`;
-  //   console.log('This is firing');
-  //   request('POST', urlUser)
-  //   // this is going to have to change, res.text is no longer just a string
-  //     .then((res) => {
-  //       this.setState({ articles: JSON.parse(res.text) });
-  //     }, (err) => {
-  //       console.log('Error fetching user notes: ', err);
-  //       // if we have a 404, that means that the user doesn't have any notes
-  //       // in which case we dont need to display a note list
-  //       // to display an empty note list, we set articles = []
-  //       if (err.status === 404) {
-  //         this.setState({ articles: [] });
-  //       }
-  //     });
-  // }
-
   onInputChange(e) {
     this.callAjax(e.target.value);
   }
 
   callAjax(value) {
-    console.log('This is after the debounce BS: ', value);
+    this.props.store.dispatch(a.searchNotes(this.props.username, value));
+
+    // const urlUser = `api/${this.props.username}`;
+    // const querySearch = { searchInput: value };
+    // request
+    //   .post(urlUser)
+    //   .send(querySearch)
+    //   .set('Accept', 'application/json')
+    //   .end((err, res) => {
+    //     if (err) {
+    //       console.log('There is an error in SearchBar:', err);
+    //     } else {
+    //       this.props.store.dispatch(a.searchNotes());
+    //     }
+    //   });
   }
 
   render() {
@@ -54,7 +50,8 @@ class SearchBar extends React.Component {
 }
 
 SearchBar.propTypes = {
-  userName: React.PropTypes.string
+  username: React.PropTypes.string,
+  store: React.PropTypes.Object
 };
 
 export default SearchBar;
