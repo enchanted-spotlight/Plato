@@ -41,7 +41,7 @@ class NoteItem extends React.Component {
       e.preventDefault();
       this.toggleDisplayShare();
       request
-        .post('/api/share-note')
+        .post('/api/social/share-note')
         .send({
           noteId: this.props.noteId,
           email: this.state.email,
@@ -53,6 +53,7 @@ class NoteItem extends React.Component {
             console.log('Error sharing notes ... ');
           } else {
             // success
+            console.log('Shared the note!');
           }
         });
     };

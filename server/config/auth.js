@@ -45,12 +45,10 @@ passport.use(new FacebookStrategy({
     User.findOneAndUpdate({
       email: profile.emails[0].value.toUpperCase(),
     }, fbId, { upsert: true }, (err, user) => {
-      console.log(user);
       if (err) {
         return done(err);
       } else if (user === null) {
         User.findOne({ facebookId: profile.id }, (err2, user2) => {
-          console.log(user2);
           if (err) { return done(err2); }
           return done(null, user2);
         });

@@ -27,7 +27,7 @@ const emailController = {
             res.status(404).send();
           } else {
             const newNote = new Note({
-              user_id: req.body.email,
+              user_id: req.body.email.toUpperCase(),
               text: note.text,
               plainTextContent: note.plainTextContent,
               title: note.title
@@ -54,11 +54,8 @@ const emailController = {
 
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {
-        console.log('...we didn\'t send the message');
-        console.log(err);
         res.status(500).send();
       } else {
-        console.log('WE SENT THE MESSAGE!!!');
         res.status(200).send();
       }
     });

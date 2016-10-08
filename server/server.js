@@ -56,10 +56,6 @@ io.on('connection', (socket) => {
 // routing
 app.use('/api', noteRouter);
 
-app.get('/', (req, res) => {
-  console.log(req.user);
-});
-
 // initialize server
 http.listen(3000, () => {
   console.log('Plato is listening on port 3000 ...');
