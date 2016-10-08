@@ -1,13 +1,7 @@
 import React from 'react';
 
 const ChatMessagesDisplay = props => (
-  <div
-    className="chat-messages-display"
-  >
-    <h2>Chat:</h2>
-    {/*
-      map over messages retrieved from slack in props
-    */}
+  <div className="chat-messages-display">
     <ul>
       {props.messages.map(msg => <li>{msg.username}: {msg.text}</li>)}
     </ul>

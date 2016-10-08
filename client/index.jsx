@@ -27,7 +27,7 @@ const socket = io();
 socket.on('incoming slack message', (data) => {
   console.log('client side socket received single message: ', data);
   const parseData = JSON.parse(data);
-  store.dispatch(a.loadNewChatMessage(parseData.messages));
+  store.dispatch(a.loadNewChatMessage(parseData.messages.reverse()));
 });
 
 socket.on('slack message archive', (data) => {
