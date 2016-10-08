@@ -8,7 +8,16 @@ class SpeechToTextEditor extends React.Component {
   constructor(props) {
     super(props);
 
+
+    this.state = {
+      // this will let us create an empty editor
+      currentTranscript: this.props.transcript, // createEditorState(),
+      // editorState: createEditorState(),
+    };
+
     this.recording = false;
+
+    // this.recording = this.state.recording;
     // transcript will hold our audio transcript
     window.transcript = '';
     // this will prompt user for access to their microphone
@@ -53,14 +62,6 @@ class SpeechToTextEditor extends React.Component {
       window.transcript = '';
     };
 
-    // mutable: currentTranscript
-
-    this.state = {
-      // this will let us create an empty editor
-      currentTranscript: this.props.transcript // createEditorState(),
-      // editorState: createEditorState(),
-    };
-
     // add string to the editable portion of the editor
     this.addText = (string) => {
       // get state of the editor, move the selection to end
@@ -83,7 +84,14 @@ class SpeechToTextEditor extends React.Component {
 
     this.toggleRecordingState = () => {
       // toggling state is NOT instantaneous!!
+      // this.recording = !this.recording;
+
+      // toggle local state
       this.recording = !this.recording;
+      console.log('speech recording state: ', this.recording);
+      // toggle parent state
+      this.props.toggleTimer();
+
       if (!this.recording) {
         window.transcript = '';
         this.recognition.stop();
@@ -119,7 +127,9 @@ class SpeechToTextEditor extends React.Component {
 }
 
 SpeechToTextEditor.propTypes = {
+  recording: React.PropTypes.boolean,
   onTranscriptChange: React.PropTypes.func,
+  toggleTimer: React.PropTypes.func,
   transcript: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.instanceOf(Object)
