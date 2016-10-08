@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { sendChatMessage } from './../actions';
 
 import ChatMessagesDisplay from './ChatMessagesDisplay.jsx';
@@ -43,9 +44,15 @@ class ChatClient extends React.Component {
   }
 }
 
-ChatClient.propTypes = {
-  store: React.PropType.object,
-  username: React.PropType.object
-};
+const mapStateToProps = state => ({ messages: state.messages });
+const mapDispatchToProps = dispatch => (
+  { onMessageSubmit: messageObj => (
+    dispatch(sendChatMessage(messageObj))
+  ) }
+);
+// ChatClient.propTypes = {
+//   store: React.PropType.object,
+//   username: React.PropType.object
+// };
 
 export default ChatClient;

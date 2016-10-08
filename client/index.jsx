@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { render } from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
@@ -91,16 +91,12 @@ const App = (props) => {
   );
 };
 
-const render = () => {
-  ReactDOM.render(
-    <App
-      store={store}
-      {...store.getState()}
-    />,
-    document.getElementById('app')
-  );
-};
 
+render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('app')
+);
 
 store.subscribe(render);
-render();
