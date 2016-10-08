@@ -1,6 +1,6 @@
 .base-col-height {
-  height: 800px;
-  overflow: scroll;
+  min-height: 800px;
+  overflow: auto;
 }
 
 .column-header-lists{
