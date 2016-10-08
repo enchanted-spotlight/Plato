@@ -67,7 +67,6 @@ export const loginUser = formData => (
           console.log('error logging in!');
         } else {
           // successful login
-          console.log('loginUser res: ', res);
           dispatch(setUsername(formData.username));
           dispatch(fetchNotes(formData.username));
         }
