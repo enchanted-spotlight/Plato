@@ -69,11 +69,9 @@ class LogIn extends React.Component {
         <div className="twitterLogin">
           <a href="api/auth/login/twitter"> Sign in with Twitter </a>
         </div>
-
         <div className="slackLogin">
           <a href="api/auth/login/slack"> Sign in with Slack </a>
         </div>
-
         <div className="googleLogin">
           <a href="api/auth/login/google"> Sign in with Google </a>
         </div>
