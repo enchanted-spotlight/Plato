@@ -7,12 +7,7 @@ import ChatMessagesDisplay from './ChatMessagesDisplay.jsx';
 class ChatClient extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      store: props.store,
-      message: '',
-      user: props.username
-    };
-    console.log('ChatClient constructor state value: ', this.state.store.getState());
+    console.log('chat client props: ', props);
   }
   render() {
     return (
@@ -50,9 +45,15 @@ const mapDispatchToProps = dispatch => (
     dispatch(sendChatMessage(messageObj))
   ) }
 );
+
+const ChatClientContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ChatClient);
+
 // ChatClient.propTypes = {
 //   store: React.PropType.object,
 //   username: React.PropType.object
 // };
 
-export default ChatClient;
+export default ChatClientContainer;
