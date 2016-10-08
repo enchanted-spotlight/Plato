@@ -18,15 +18,45 @@ class Session extends React.Component {
       text from notes
       username
     */
+    this.recording = false;
+    this.time = 0;
+
     this.state = {
-      time: 0,
       username: this.props.username,
       currentNoteTitle: this.props.currentNoteTitle,
       transcript: createEditorState(),
-      currentNote: createEditorState()
+      currentNote: createEditorState(),
+    };
+    
+    this.toggleTimer = () => {
+      this.recording = !this.recording;
+
+      console.log('recording state: ', this.recording);
+
+      // if recording,
+      if (this.recording) {
+        // start timer
+        this.timer();
+      }
+    };
+
+    this.timer = () => {
+      console.log('timer invoked!!!!!!!!!!@@@@@@@@@@@@@@@');
+      setTimeout(this.recordTimeAndChunk, 5000);
+    };
+
+    this.recordTimeAndChunk = () => {
+      console.log('before time! ', this.time);
+      this.time += 5;
+      console.log('after time! ', this.time);
+      if (this.recording) {
+        this.timer();
+      }
     };
 
     this.onTranscriptChange = (transcriptState) => {
+      console.log('new transcript: ', transcriptState.getCurrentContent()
+        .getPlainText());
       this.setState({ transcript: transcriptState });
     };
 
@@ -117,6 +147,7 @@ class Session extends React.Component {
           />
           <Col s={2} className="grey lighten-2 base-col-height">
             <SpeechToTextEditor
+              toggleTimer={this.toggleTimer}
               transcript={this.state.transcript}
               fetchNotes={this.props.fetchNotes}
               titleChange={this.titleChange}
