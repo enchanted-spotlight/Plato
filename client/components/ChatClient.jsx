@@ -12,10 +12,12 @@ class ChatClient extends React.Component {
   render() {
     return (
       <div className="chat-client-container">
+        <h2>Chat:</h2>
         <ChatMessagesDisplay
           messages={this.props.messages}
         />
         <form
+          className="chat-client-input"
           onSubmit={(e) => {
             e.preventDefault();
             console.log('Message input on chat client: ', this.state.message);
