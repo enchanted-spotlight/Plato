@@ -7,16 +7,10 @@ import createLogger from 'redux-logger';
 import { Row, Col, Navbar, NavItem } from 'react-materialize';
 import io from 'socket.io-client';
 
+import * as a from './actions.js';
 import reducers from './reducer.js';
 import ChatClientComponent from './components/ChatClient.jsx';
 
-const socket = io();
-socket.on('incoming slack message', (data) => {
-  console.log('client side socket received data: ', data);
-});
-socket.on('slack message archive', (data) => {
-  // console.log('message history received: ', data);
-});
 
 const loggerMiddleware = createLogger();
 
@@ -29,9 +23,26 @@ const store = createStore(
   )
 );
 
+const socket = io();
+socket.on('incoming slack message', (data) => {
+  console.log('client side socket received single message: ', data);
+  const parseData = JSON.parse(data);
+  store.dispatch(a.loadNewChatMessage(parseData.messages));
+});
+
+socket.on('slack message archive', (data) => {
+  // console.log('message history received: ', data);
+  // Can we initiate reducer and stuff from outside redux component?
+  // We want the on incoming event to call an action and start reducer chain
+  // so components can rerender from socket event
+  // do we need socket somewhere else?
+  const parseData = JSON.parse(data);
+  store.dispatch(a.loadArchivedChatMessages(parseData.messages));
+});
+
 const App = () => (
   <Row>
-    <Col s={2} className="base-col-height">
+    <Col s={5} className="base-col-height">
       <ChatClientComponent />
     </Col>
   </Row>

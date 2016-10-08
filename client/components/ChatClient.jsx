@@ -12,7 +12,9 @@ class ChatClient extends React.Component {
   render() {
     return (
       <div className="chat-client-container">
-        <ChatMessagesDisplay />
+        <ChatMessagesDisplay
+          messages={this.props.messages}
+        />
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -39,7 +41,12 @@ class ChatClient extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({ messages: state.messages });
+const mapStateToProps = state => (
+  {
+    username: state.username,
+    messages: state.chatMessages
+  }
+);
 const mapDispatchToProps = dispatch => (
   { onMessageSubmit: messageObj => (
     dispatch(sendChatMessage(messageObj))

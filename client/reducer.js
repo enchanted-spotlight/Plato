@@ -58,10 +58,24 @@ const sessionTitle = (state = m.currentSessionTitle, action) => {
   return state;
 };
 
+const chatMessages = (state = m.chatMessagesInitialState, action) => {
+  if (action.type === t.LOAD_ARCHIVED_CHAT_MESSAGES) {
+    return action.messages;
+  }
+  if (action.type === t.LOAD_NEW_CHAT_MESSAGE) {
+    // return {
+    //   ...state,
+    //   messages: messages.push(action.messages)
+    // };
+  }
+  return state;
+};
+
 export default combineReducers({
   username,
   savedNotes,
   textEditor,
   speechEditor,
-  sessionTitle
+  sessionTitle,
+  chatMessages
 });
