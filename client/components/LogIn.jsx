@@ -32,8 +32,7 @@ class LogIn extends React.Component {
         <div className="fb-login">
           <a href="api/auth/login/facebook"> Sign in with Facebook </a>
         </div>
-
-        <div className="twitter-login">
+        <div className="twitterLogin">
           <a href="api/auth/login/twitter"> Sign in with Twitter </a>
         </div>
 
@@ -44,7 +43,6 @@ class LogIn extends React.Component {
         <div className="googleLogin">
           <a href="api/auth/login/google"> Sign in with Google </a>
         </div>
-
         <form
           className="local-login"
           onSubmit={(e) => {
