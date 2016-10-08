@@ -87,6 +87,16 @@ export const searchNotes = (username, term) => (
   }
 );
 
+export const loadArchivedChatMessages = messages => ({
+  type: t.LOAD_ARCHIVED_CHAT_MESSAGES,
+  messages
+});
+
+export const loadNewChatMessage = message => ({
+  type: t.LOAD_NEW_CHAT_MESSAGE,
+  message
+})
+
 export const sendChatMessage = messageObj => (
   request
     .post('/api/chat')
