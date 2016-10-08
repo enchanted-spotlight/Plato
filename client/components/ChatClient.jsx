@@ -11,6 +11,7 @@ class ChatClient extends React.Component {
       message: '',
       user: props.username
     };
+    console.log('ChatClient constructor state value: ', this.state.store.getState());
   }
   render() {
     return (
@@ -23,7 +24,7 @@ class ChatClient extends React.Component {
             // Form is not properly re rendering after setState
             // Redux conflict? This is a problem with all app's forms
             this.setState({ message: '' });
-            console.log('store values? ', this.context.store);
+            console.log('store values? ', this.store.getState());
             const submitObj = {
               user: this.state.user,
               message: this.state.message
@@ -42,9 +43,9 @@ class ChatClient extends React.Component {
   }
 }
 
-// ChatClient.propTypes = {
-//   store: React.PropType.object,
-//   username: React.PropType.object
-// };
+ChatClient.propTypes = {
+  store: React.PropType.object,
+  username: React.PropType.object
+};
 
 export default ChatClient;

@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { Row, Col, Navbar, NavItem } from 'react-materialize';
@@ -19,7 +20,7 @@ socket.on('incoming slack message', (data) => {
   console.log('client side socket received data: ', data);
 });
 socket.on('slack message archive', (data) => {
-  console.log('message history received: ', data);
+  // console.log('message history received: ', data);
 });
 
 const loggerMiddleware = createLogger();
