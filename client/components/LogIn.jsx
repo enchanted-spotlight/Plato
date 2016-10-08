@@ -53,7 +53,8 @@ class LogIn extends React.Component {
           }}
         >
           <input
-            type="text"
+            type="email"
+            placeholder="E-mail"
             value={this.state.username}
             onChange={this.changeUsernameState}
           />

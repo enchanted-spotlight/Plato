@@ -69,7 +69,7 @@ router.get('/auth/identify', user.identifyUser);
 
 // ---------- E-MAIL ---------- //
 
-router.post('/email', email.emailNotification);
+router.post('/share-note', email.emailNotification);
 
 
 module.exports = router;
