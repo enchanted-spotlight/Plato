@@ -4,10 +4,24 @@ import { sendChatMessage } from './../actions';
 
 import ChatMessagesDisplay from './ChatMessagesDisplay.jsx';
 
+const mapStateToProps = state => ({
+  username: state.username,
+  messages: state.chatMessages
+});
+
+const mapDispatchToProps = dispatch => ({
+  onMessageSubmit: messageObj => (
+    dispatch(sendChatMessage(messageObj))
+  )
+});
+
 class ChatClient extends React.Component {
   constructor(props) {
     super(props);
-    console.log('chat client props: ', props);
+    this.state = {
+      message: '',
+      ...props
+    };
   }
   render() {
     return (
@@ -24,10 +38,9 @@ class ChatClient extends React.Component {
             // Form is not properly re rendering after setState
             // Redux conflict? This is a problem with all app's forms
             this.setState({ message: '' });
-            console.log('store values? ', this.store.getState());
             const submitObj = {
-              user: this.state.user,
-              message: this.state.message
+              user: this.props.user,
+              message: this.props.message
             };
             console.log('submit object: ', submitObj);
             this.state.store.dispatch(sendChatMessage(submitObj));
@@ -35,6 +48,7 @@ class ChatClient extends React.Component {
         >
           <input
             type="text"
+            value={this.state.message}
             onChange={e => this.setState({ message: e.target.value })}
           />
         </form>
@@ -43,25 +57,13 @@ class ChatClient extends React.Component {
   }
 }
 
-const mapStateToProps = state => (
-  {
-    username: state.username,
-    messages: state.chatMessages
-  }
-);
-const mapDispatchToProps = dispatch => (
-  { onMessageSubmit: messageObj => (
-    dispatch(sendChatMessage(messageObj))
-  ) }
-);
-
 const ChatClientContainer = connect(
   mapStateToProps,
   mapDispatchToProps
 )(ChatClient);
 
 // ChatClient.propTypes = {
-//   store: React.PropType.object,
+//   messages: React.PropType.array,
 //   username: React.PropType.object
 // };
 

@@ -10,7 +10,7 @@ import io from 'socket.io-client';
 import * as a from './actions.js';
 import reducers from './reducer.js';
 import ChatClientComponent from './components/ChatClient.jsx';
-
+import LogInContainer from './components/LogIn.jsx';
 
 const loggerMiddleware = createLogger();
 
@@ -25,9 +25,9 @@ const store = createStore(
 
 const socket = io();
 socket.on('incoming slack message', (data) => {
-  console.log('client side socket received single message: ', data);
+  // console.log('client side socket received single message: ', data);
   const parseData = JSON.parse(data);
-  store.dispatch(a.loadNewChatMessage(parseData.messages.reverse()));
+  store.dispatch(a.loadNewChatMessage(parseData.messages));
 });
 
 socket.on('slack message archive', (data) => {
@@ -37,15 +37,34 @@ socket.on('slack message archive', (data) => {
   // so components can rerender from socket event
   // do we need socket somewhere else?
   const parseData = JSON.parse(data);
-  store.dispatch(a.loadArchivedChatMessages(parseData.messages));
+  store.dispatch(a.loadArchivedChatMessages(parseData.messages.reverse()));
 });
 
 const App = () => (
-  <Row>
-    <Col s={5} className="base-col-height">
-      <ChatClientComponent />
-    </Col>
-  </Row>
+  <div className="plato-app">
+
+    <Navbar brand="Plato" right>
+      <NavItem href="">Login</NavItem>
+      <NavItem href="">Signout</NavItem>
+    </Navbar>
+
+
+    <Row>
+      <Col
+        s={5}
+        className="base-col-height"
+      >
+        <ChatClientComponent />
+      </Col>
+      <Col
+        s={3}
+        className="login"
+      >
+        <LogInContainer />
+      </Col>
+    </Row>
+
+  </div>
 );
 
 render(

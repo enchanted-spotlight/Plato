@@ -2,7 +2,7 @@ import request from 'superagent';
 
 import * as t from './actionTypes';
 
-export const loginUser = username => ({
+export const setUsername = username => ({
   type: t.USER_LOGIN,
   username
 });
@@ -43,7 +43,7 @@ export const onSpeechEditorChange = editorState => ({
   editorState
 });
 
-// Thunk action creator:
+/* ------------------ THUNK ACTION CREATORS -----------------*/
 export const fetchNotes = username => (
   (dispatch) => {
     dispatch(requestNotes(username));
@@ -52,6 +52,31 @@ export const fetchNotes = username => (
       .then(json => dispatch(receiveNotes(username, json)));
   }
 );
+
+export const loginUser = formData => (
+  (dispatch) => {
+    request
+      .post('/api/auth/login/local')
+      .send({
+        username: formData.username,
+        password: formData.password
+      })
+      .end((err, res) => {
+        if (err) {
+          // do something on error
+          console.log('error logging in!');
+        } else {
+          // successful login
+          console.log('loginUser res: ', res);
+          dispatch(setUsername(formData.username));
+          dispatch(fetchNotes(formData.username));
+        }
+      });
+  }
+
+
+);
+
 
 export const deleteNote = noteId => (
   request('DELETE', `/api/delete-note/${noteId}`)
