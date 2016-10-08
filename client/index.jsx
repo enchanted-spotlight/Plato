@@ -18,6 +18,9 @@ const socket = io();
 socket.on('incoming slack message', (data) => {
   console.log('client side socket received data: ', data);
 });
+socket.on('slack message archive', (data) => {
+  console.log('message history received: ', data);
+});
 
 const loggerMiddleware = createLogger();
 

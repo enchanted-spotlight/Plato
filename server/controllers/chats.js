@@ -1,18 +1,33 @@
+const slack = require('@slack/client');
+
+const IncomingWebhooks = slack.IncomingWebhook;
+const slackUrl = process.env.SLACK_WEBHOOK_URL;
+const wh = new IncomingWebhooks(slackUrl);
+
 const Chat = require('./../rtm-client');
 
 // Controller to send messages from client to slack api
 const chatController = {
   sendMessageToSlack(req, res) {
+    console.log('username in req: ', req.body);
+    const message = {
+      type: 'message',
+      channel: 'C2KE7FVV3',
+      username: req.body.user,
+      text: req.body.message
+    };
+    wh.send(message, msg => res.status(200).send(msg));
+
     // Will need to get user slack token at some point
-    console.log('request arrived to sendMessageToSlack. req.body: ',
-      req.body);
-    const message = req.body.message;
+    // console.log('request arrived to sendMessageToSlack. req.body: ',
+      // req.body);
+    // const message = req.body.message;
     // const message = 'Should accept req.body.message in sendMessageToSlack';
-    Chat.sendMessage(message, 'C2KE7FVV3', (err, msg) => {
-      // What does this call back get as the msg object? err?
-      msg.text = 'Updated!';
-      res.status(200).send(msg);
-    });
+    // Chat.sendMessage(message, 'C2KE7FVV3', (err, msg) => {
+    //   // What does this call back get as the msg object? err?
+    //   msg.text = 'Updated!';
+    //   res.status(200).send(msg);
+    // });
   },
   sendMessagesToClient() {
     // Maybe have Slack --> client handled in rtm-client.js?

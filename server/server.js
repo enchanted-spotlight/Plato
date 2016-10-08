@@ -46,21 +46,10 @@ io.on('connection', (socket) => {
     });
 
   console.log('A user connected via socket.io!');
-  const testMessage = {
-    type: 'message',
-    channel: 'C2KE7FVV3',
-    username: 'Jo-Jo',
-    text: 'My name is the coolest!'
-  };
-  // wh.send(testMessage);
 
   rtm.on(RTM_EVENTS.MESSAGE, (message) => {
     console.log('A message was captured: ', message);
-
     socket.emit('incoming slack message', message);
-    // rtm.sendMessage('testMessage', channel, (err, msg) => {
-    //   // msg.text = 'Updated!';
-    // });
   });
 });
 
