@@ -11,7 +11,7 @@ import * as a from './actions.js';
 import reducers from './reducer.js';
 import ChatClientComponent from './components/ChatClient.jsx';
 import LogInContainer from './components/LogIn.jsx';
-import SearchBar from './components/SearchBar.jsx';
+import SearchBarContainer from './components/SearchBar.jsx';
 
 const loggerMiddleware = createLogger();
 
@@ -49,7 +49,9 @@ const App = () => (
       <NavItem href="">Signout</NavItem>
     </Navbar>
 
-    <SearchBar />
+    <SearchBarContainer />
+
+
 
     <Row>
       <Col

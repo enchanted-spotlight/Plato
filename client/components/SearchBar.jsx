@@ -1,41 +1,33 @@
 import React from 'react';
-import request from 'superagent';
-import { Button } from 'react-materialize';
+import { connect } from 'react-redux';
 import { debounce } from 'throttle-debounce';
 
 import * as a from './../actions.js';
 
+const mapStateToProps = state => ({
+  username: state.username
+});
+
+const mapDispatchToProps = dispatch => ({
+  searchBounce: (user, value) => {
+    if (value === '') {
+      dispatch(a.fetchNotes(user));
+    } else {
+      dispatch(a.searchNotes(user, value));
+    }
+  }
+});
+
 class SearchBar extends React.Component {
   constructor(props) {
     super(props);
-    this.onInputChange = this.onInputChange.bind(this);
-    this.callAjax = debounce(750, this.callAjax);
-  }
-
-  onInputChange(e) {
-    this.callAjax(e.target.value);
-  }
-
-  callAjax(value) {
-    if (value === '') {
-      this.props.store.dispatch(a.fetchNotes(this.props.username));
-    } else {
-      this.props.store.dispatch(a.searchNotes(this.props.username, value));
-    }
-
-    // const urlUser = `api/${this.props.username}`;
-    // const querySearch = { searchInput: value };
-    // request
-    //   .post(urlUser)
-    //   .send(querySearch)
-    //   .set('Accept', 'application/json')
-    //   .end((err, res) => {
-    //     if (err) {
-    //       console.log('There is an error in SearchBar:', err);
-    //     } else {
-    //       this.props.store.dispatch(a.searchNotes());
-    //     }
-    //   });
+    this.state = {
+      username: props.username,
+      searchBounce: debounce(750, props.searchBounce)
+    };
+    this.onInputChange = (e) => {
+      this.state.searchBounce(this.state.username, e.target.value);
+    };
   }
 
   render() {
@@ -53,9 +45,9 @@ class SearchBar extends React.Component {
   }
 }
 
-SearchBar.propTypes = {
-  username: React.PropTypes.string,
-  store: React.PropTypes.Object
-};
+const SearchBarContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SearchBar);
 
-export default SearchBar;
+export default SearchBarContainer;
