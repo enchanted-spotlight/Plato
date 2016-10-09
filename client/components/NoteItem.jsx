@@ -1,8 +1,22 @@
 import React from 'react';
 import { Button } from 'react-materialize';
 import { createEditorState } from 'medium-draft';
+import { connect } from 'react-redux';
 
 import * as a from './../actions.js';
+
+const mapStateToProps = state => ({
+  username: state.username
+});
+const mapDispatchToProps = dispatch => ({
+  loadNote: (newEditorState, title) => {
+    dispatch(a.onTextEditorChange(newEditorState));
+    dispatch(a.onSessionTitleCreate(title));
+  },
+  deleteNote: (noteId, username) => (
+    dispatch(a.deleteNote(noteId, username))
+  )
+});
 
 const NoteItem = props => (
   <li>
@@ -10,14 +24,12 @@ const NoteItem = props => (
     <Button
       onClick={() => {
         const newEditorState = createEditorState(JSON.parse(props.text));
-        props.store.dispatch(a.onTextEditorChange(newEditorState));
-        // need to change title of the note as well to match
-        props.store.dispatch(a.onSessionTitleCreate(props.title));
+        props.loadNote(newEditorState, props.title);
       }}
     > display </Button>
     <Button
       onClick={() => {
-        props.store.dispatch(a.deleteNote(props.noteId, props.username));
+        props.deleteNote(props.noteId, props.username);
       }}
       waves="light"
     > deleteNote </Button>
@@ -31,4 +43,10 @@ NoteItem.propTypes = {
   noteId: React.PropTypes.string
 };
 
-export default NoteItem;
+const NoteItemContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NoteItem);
+
+
+export default NoteItemContainer;

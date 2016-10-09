@@ -12,6 +12,7 @@ import reducers from './reducer.js';
 import ChatClientComponent from './components/ChatClient.jsx';
 import LogInContainer from './components/LogIn.jsx';
 import SearchBarContainer from './components/SearchBar.jsx';
+import NoteListContainer from './components/NoteList.jsx';
 
 const loggerMiddleware = createLogger();
 
@@ -51,9 +52,13 @@ const App = () => (
 
     <SearchBarContainer />
 
-
-
     <Row>
+      <Col s={2} className="blue-grey lighten-3 base-col-height">
+        <div className="blue-grey lighten-3 column-header-lists">
+          <h3>All Notes</h3>
+        </div>
+        <NoteListContainer />
+      </Col>
       <Col
         s={5}
         className="base-col-height"
