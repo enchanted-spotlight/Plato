@@ -6,6 +6,7 @@ import { createEditorState } from 'medium-draft';
 
 import SpeechToTextEditor from './SpeechToTextEditor.jsx';
 import MediumEditor from './MediumDraft.jsx';
+import * as t from './../actions';
 
 class Session extends React.Component {
   constructor(props) {
@@ -22,17 +23,15 @@ class Session extends React.Component {
     this.time = 0;
 
     this.state = {
+      index: this.time / 5,
       username: this.props.username,
       currentNoteTitle: this.props.currentNoteTitle,
       transcript: createEditorState(),
       currentNote: createEditorState(),
+      dispatch: this.props.dispatcher
     };
-    
     this.toggleTimer = () => {
       this.recording = !this.recording;
-
-      console.log('recording state: ', this.recording);
-
       // if recording,
       if (this.recording) {
         // start timer
@@ -41,27 +40,26 @@ class Session extends React.Component {
     };
 
     this.timer = () => {
-      console.log('timer invoked!!!!!!!!!!@@@@@@@@@@@@@@@');
+      console.log('timer invoked!!!!!!!!!!');
       setTimeout(this.recordTimeAndChunk, 5000);
     };
 
     this.recordTimeAndChunk = () => {
-      console.log('before time! ', this.time);
       this.time += 5;
-      console.log('after time! ', this.time);
+      console.log('time! ', this.time);
       if (this.recording) {
         this.timer();
       }
     };
 
     this.onTranscriptChange = (transcriptState) => {
-      console.log('new transcript: ', transcriptState.getCurrentContent()
-        .getPlainText());
       this.setState({ transcript: transcriptState });
     };
 
     this.onNoteChange = (noteState) => {
-      this.setState({ currentNote: noteState });
+      this.setState({
+        currentNote: noteState
+      });
     };
 
     // done.
@@ -96,23 +94,17 @@ class Session extends React.Component {
         text: JSON.stringify(userTranscript),
         plainText: JSON.stringify(plainTranscriptContent)
       };
-
-      console.log(transcriptPkg, 'transcript package');
-
-      const pkg = {
-        time: this.state.time,
+      const sessionPkg = {
         user_id: username, // string
         title: userTitle, // string
         notes: notePkg, // object
         transcript: transcriptPkg // object
       };
 
-      console.log(pkg, 'this willl be sent. this is the package!!!');
-
       // send pkg to db
       request
         .post(url)
-        .send(pkg)
+        .send(sessionPkg)
         .set('Accept', 'application/json')
         .end((err) => {
           if (err) {
@@ -120,7 +112,12 @@ class Session extends React.Component {
           } else {
             // fetch notes
             // this.props.fetchNotes(this.state.username);
-
+            // this.props.savedNotes();
+            console.log(
+              'Pending post implementation, but this ' +
+              'session package should be sent to db: '
+              , sessionPkg);
+            this.state.dispatch(t.fetchNotes, this.state.username);
           }
         });
     };
@@ -149,8 +146,6 @@ class Session extends React.Component {
             <SpeechToTextEditor
               toggleTimer={this.toggleTimer}
               transcript={this.state.transcript}
-              fetchNotes={this.props.fetchNotes}
-              titleChange={this.titleChange}
               onTranscriptChange={this.onTranscriptChange}
             />
           </Col>
@@ -159,24 +154,18 @@ class Session extends React.Component {
             <MediumEditor
               currentNote={this.state.currentNote}
               currentNoteTitle={this.state.currentNoteTitle}
-              fetchNotes={this.props.fetchNotes}
-              titleChange={this.titleChange}
               onNoteChange={this.onNoteChange}
+              submitNote={this.submitNote}
             />
           </Col>
         </Row>
-        <Button
-          onClick={() => this.submitNote()}
-          waves="light"
-        >Submit
-        </Button>
       </div>
     );
   }
 }
 
 Session.propTypes = {
-  fetchNotes: React.PropTypes.func,
+  dispatcher: React.PropTypes.func,
   currentNoteTitle: React.PropTypes.string,
   username: React.PropTypes.string,
 };

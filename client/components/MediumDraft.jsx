@@ -28,7 +28,6 @@ class MediumEditor extends React.Component {
 
 
   render() {
-    // const { currentNote } = this.state;
     console.log(this.props, 'medium draft state props');
     return (
       <div>
@@ -37,6 +36,11 @@ class MediumEditor extends React.Component {
           onChange={this.props.onNoteChange}
           placeholder="Start typing here ..."
         />
+        <Button
+          onClick={() => this.props.submitNote()}
+          waves="light"
+        >Submit
+        </Button>
       </div>
     );
   }
@@ -45,6 +49,7 @@ class MediumEditor extends React.Component {
 export default MediumEditor;
 
 MediumEditor.propTypes = {
+  submitNote: React.PropTypes.func,
   currentNoteTitle: React.PropTypes.string,
   onNoteChange: React.PropTypes.func,
   currentNote: () => null
