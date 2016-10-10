@@ -2,7 +2,7 @@ const Session = require('./../models/session');
 
 const sessionController = {
   saveSession(req, res) {
-    console.log(req.body);
+    console.log('BODY @@@@@@@@@@@@@:  ', req.body);
     const update = {
       user_id: req.body.user_id,
       title: req.body.title,
@@ -27,6 +27,7 @@ const sessionController = {
   },
   retrieveAllUserSessions(req, res) {
     Session.find({ user_id: req.params.user }, (err, data) => {
+      console.log(data, 'DATA!!!!!@@@@@@@@@@@@@@@');
       if (err) {
         res.status(500).end();
       } else if (data.length === 0) {

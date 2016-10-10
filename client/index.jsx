@@ -63,7 +63,7 @@ const App = (props) => {
         <Col s={10} className="session-container">
           <Session
             username={username}
-            speechEditor={speechEditor}
+            transcript={speechEditor}
             currentNote={textEditor}
             currentNoteTitle={sessionTitle}
             dispatcher={dispatcher}

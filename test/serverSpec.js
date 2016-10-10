@@ -30,9 +30,9 @@ describe('Plato', () => {
     const testSession = new Session({
       user_id: '000000',
       title: 'testNote',
-      notesText: {},
+      notesText: '',
       notesPlainText: 'heh-lo dis a shtring',
-      transcriptText: {},
+      transcriptText: '',
       transcriptPlainText: 'hello this is a string'
     });
     testSession.save();
@@ -43,7 +43,7 @@ describe('Plato', () => {
   afterEach((done) => {
     // clear collections when we're done with the test
     mongoose.connection.collections.users.remove();
-    mongoose.connection.collections.session.remove();
+    mongoose.connection.collections.sessions.remove();
     done();
   });
   // --------------- UNIT TEST ---------------//
@@ -93,10 +93,8 @@ describe('Plato', () => {
           .send({
             user_id: '123123123',
             title: 'testttt',
-            notesText: 'lolololol',
-            notesPlainText: 'lsp',
-            transcriptText: 'finn',
-            transcriptPlainText: 'princess of OOO'
+            notes: { text: 'lolololol', plainText: 'lolololol' },
+            transcript: { text: 'finn', plainText: 'finn' }
           })
           .end((err, res) => {
             expect(res.status).to.equal(200);
@@ -108,31 +106,24 @@ describe('Plato', () => {
           .post('/api/save-session')
           .send({
             user_id: '123123123',
-            notesText: 'lolololol',
-            notesPlainText: 'lsp',
             title: 'GODZILLA',
-            transcriptText: 'finn',
-            transcriptPlainText: 'beemo'
+            notes: { text: 'lolololol', plainText: 'lolololol' },
+            transcript: { text: 'finn', plainText: 'finn' }
           })
           .end(() => {
             request(app)
               .post('/api/save-session')
               .send({
                 user_id: '123123123',
-                notesText: 'roflcopter',
-                notesPlainText: 'lsp',
                 title: 'GODZILLA',
-                transcriptText: 'finn',
-                transcriptPlainText: 'beemo'
+                notes: { text: 'roflcopter', plainText: 'roflcopter' },
+                transcript: { text: 'finn', plainText: 'finn' }
               })
               .end(() => {
                 request(app)
                 .get('/api/123123123')
                 .end((err, res) => {
-                  //
-                  console.log(res, 'res');
-                  const text = JSON.parse(res.notesText)[0];
-                  expect(text.notesText).to.equal('roflcopter');
+                  expect(res.body[0].notesText).to.equal('roflcopter');
                   done();
                 });
               });
@@ -145,7 +136,8 @@ describe('Plato', () => {
         request(app)
           .get('/api/000000')
           .end((err, res) => {
-            const id = JSON.parse(res.notesText)[0]._id;
+            console.log(res.body, 'BODY@@@@@@@@@@@@@@@@@');
+            const id = res.body[0]._id;
             request(app)
               .delete('/api/delete-session/'.concat(id))
               .end((err2, res2) => {
