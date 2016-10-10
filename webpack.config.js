@@ -8,13 +8,24 @@ module.exports = {
     filename: 'bundle.js'
   },
   devtool: 'source-map',
+  resolve: {
+    root: [
+      path.resolve('./client/plato')
+    ]
+  },
   module: {
     loaders: [
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel',
-        query: { presets: ['react', 'es2015', 'stage-0'] }
+        query: {
+          presets: [
+            'react',
+            'es2015',
+            'stage-0'
+          ]
+        }
       }
     ]
   },

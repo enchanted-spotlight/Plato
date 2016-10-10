@@ -1,33 +1,52 @@
 import React from 'react';
-import request from 'superagent';
+import { Button } from 'react-materialize';
+import { createEditorState } from 'medium-draft';
+import { connect } from 'react-redux';
 
-const NoteItem = (props) => {
-  const displayNote = () => {
-    props.loadNote(props.text, props.title);
-  };
-  const deleteNote = () => {
-    const urlId = `/api/delete-note/${props._id}`;
-    request('DELETE', urlId)
-      .end((err, res) => {
-        if (err) {
-          console.log('Error deleting the note');
-        } else {
-          props.fetchNotes(props.username);
-        }
-      });
-  };
+import * as a from './../actions.js';
 
-  return (
-    <li>
-      <h3>{props.title}</h3>
-      <button onClick={() => displayNote()}> DISPLAY NOTE </button>
-      <button onClick={() => deleteNote()}> DELETE NOTE </button>
-    </li>
-  );
-};
+const mapStateToProps = state => ({
+  username: state.username
+});
+const mapDispatchToProps = dispatch => ({
+  loadNote: (newEditorState, title) => {
+    dispatch(a.onTextEditorChange(newEditorState));
+    dispatch(a.onSessionTitleCreate(title));
+  },
+  deleteNote: (noteId, username) => (
+    dispatch(a.deleteNote(noteId, username))
+  )
+});
+
+const NoteItem = props => (
+  <li>
+    <p>{props.title}</p>
+    <Button
+      onClick={() => {
+        const newEditorState = createEditorState(JSON.parse(props.text));
+        props.loadNote(newEditorState, props.title);
+      }}
+    > display </Button>
+    <Button
+      onClick={() => {
+        props.deleteNote(props.noteId, props.username);
+      }}
+      waves="light"
+    > deleteNote </Button>
+  </li>
+);
 
 NoteItem.propTypes = {
-  title: React.PropTypes.string
+  title: React.PropTypes.string,
+  deleteNote: React.PropTypes.func,
+  username: React.PropTypes.string,
+  noteId: React.PropTypes.string
 };
 
-export default NoteItem;
+const NoteItemContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NoteItem);
+
+
+export default NoteItemContainer;

@@ -1,56 +1,43 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 // import SearchBar from './SearchBar.jsx';
 // Eventually use searchbar inside browse notes?
 // Is styling better that way?
 import NoteItem from './NoteItem.jsx';
 
-class NoteList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      note: props.articles || [],
-      username: props.username
-    };
-  }
+const mapStateToProps = state => ({
+  username: state.username,
+  notes: state.savedNotes.notes
+});
+const mapDispatchToProps = dispatch => ({});
 
-  componentWillReceiveProps(newProps) {
-    this.setState({
-      note: newProps.notes,
-      username: newProps.username
-    });
-  }
-
-  render() {
-    return (
-      <div className="notes-list">
-        <h2>Your Notes</h2>
-        <button onClick={() => console.log(this.state)}>
-        LOG state
-        </button>
-        <ul>
-          {this.state.note.map(element =>
-            <NoteItem
-              key={element._id}
-              _id={element._id}
-              title={element.title}
-              text={element.text}
-              username={this.state.username}
-              loadNote={this.props.loadNote}
-              fetchNotes={this.props.fetchNotes}
-            />
-          )}
-        </ul>
-      </div>
-    );
-  }
-}
+const NoteList = props => (
+  <div className="notes-list">
+    <ul>
+      {props.notes.map(element =>
+        <NoteItem
+          store={props.store}
+          key={element._id}
+          noteId={element._id}
+          title={element.title}
+          text={element.text}
+          username={props.username}
+        />
+      )}
+    </ul>
+  </div>
+);
 
 NoteList.propTypes = {
-  articles: React.PropTypes.arrayOf(React.PropTypes.object),
-  loadNote: React.PropTypes.func,
-  fetchNotes: React.PropTypes.func,
-  username: React.PropTypes.string
+  username: React.PropTypes.string,
+  notes: React.PropTypes.arrayOf(React.PropTypes.object),
 };
 
-export default NoteList;
+const NoteListContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(NoteList);
+
+
+export default NoteListContainer;

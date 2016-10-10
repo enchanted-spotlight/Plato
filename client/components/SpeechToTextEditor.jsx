@@ -1,8 +1,10 @@
 import React from 'react';
-import { Editor, EditorState, Modifier, convertToRaw } from 'draft-js';
+import ReactDOM from 'react-dom';
 import request from 'superagent';
+import { Button, Row, Col } from 'react-materialize';
+import { EditorState, Modifier, convertToRaw } from 'draft-js';
+import { Editor, createEditorState } from 'medium-draft';
 
-// travis, stop fucking shit up
 class SpeechToTextEditor extends React.Component {
   constructor(props) {
     super(props);
@@ -11,6 +13,7 @@ class SpeechToTextEditor extends React.Component {
     // transcript will hold our audio transcript
     window.transcript = '';
     // this will prompt user for access to their microphone
+    // eslint-disable-next-line no-undef
     this.recognition = new webkitSpeechRecognition();
     // set language that we will be transcribing
     this.recognition.lang = 'en-US';
@@ -41,10 +44,10 @@ class SpeechToTextEditor extends React.Component {
 
       this.currentTime = new Date();
       if (this.currentTime - this.lastEventTime > 3500) {
-        this.addText('. ');
+        this.addText('\n');
+        this.lastEventTime = new Date();
       }
       // reset our lastEventTime to match our currentTime
-      this.lastEventTime = new Date();
       this.addText(window.transcript);
       // reset transcript to nothing so that we aren't duplicating results
       window.transcript = '';
@@ -52,8 +55,8 @@ class SpeechToTextEditor extends React.Component {
 
     this.state = {
       // this will let us create an empty editor
-      editorState: EditorState.createEmpty(),
-      title: '',
+      editorState: createEditorState(),
+      title: ''
     };
 
     // this method should mirror the MyEditor component
@@ -70,6 +73,7 @@ class SpeechToTextEditor extends React.Component {
     this.submitNote = () => {
       // this will let us save the current content as rich text
       const userNote = convertToRaw(this.state.editorState.getCurrentContent());
+      const plainTextContent = this.state.editorState.getCurrentContent().getPlainText();
       const userTitle = this.state.title;
       const username = this.props.username;
       const url = 'api/save-note';
@@ -80,6 +84,7 @@ class SpeechToTextEditor extends React.Component {
         .send({
           user_id: username,
           text: JSON.stringify(userNote),
+          plainText: JSON.stringify(plainTextContent),
           title: userTitle
         })
         .set('Accept', 'application/json')
@@ -124,7 +129,7 @@ class SpeechToTextEditor extends React.Component {
   render() {
     return (
       <div>
-        <div>
+        <Row>
           <input
             type="text"
             value={this.state.value}
@@ -133,22 +138,24 @@ class SpeechToTextEditor extends React.Component {
           />
           <Editor
             editorState={this.state.editorState}
-            onChange={this.onChange}
-            placeholder="Type your note here... "
+            onChange={e => this.onChange(e)}
+            placeholder="This is your audio transcription... "
           />
-        </div>
-        <div>
-          <input
-            onClick={this.submitNote}
-            type="button"
-            value="Submit"
-          />
-        </div>
-        <button onClick={() => this.toggleRecordingState()}>
-        CLICK ME TO TOGGLE RECORDING STATE
-        </button>
+        </Row>
+        <Row>
+          <Col s={12} className="center-align">
+            <Button
+              onClick={() => this.toggleRecordingState()}
+              floating className="red" icon="voicemail"
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col s={12} className="right-align">
+            <Button onClick={this.submitNote} waves="light">Submit</Button>
+          </Col>
+        </Row>
       </div>
-
     );
   }
 }
