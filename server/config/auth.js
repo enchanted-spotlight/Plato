@@ -157,4 +157,4 @@ passport.serializeUser((user, done) => {
 //   });
 // });
 
-// module.exports = passport;
+module.exports = passport;

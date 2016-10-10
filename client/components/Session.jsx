@@ -72,7 +72,7 @@ class Session extends React.Component {
       const username = this.state.username;
       const url = 'api/save-note';
 
-      // package for notes
+      // PACKAGE FOR NOTES
       // this will let us save the current content as rich text
       const userNote = convertToRaw(this.state.currentNote.getCurrentContent());
       const plainTextContent = this.state.currentNote.getCurrentContent()
@@ -83,17 +83,18 @@ class Session extends React.Component {
         plainText: JSON.stringify(plainTextContent)
       };
 
-      // package for transcript
+      // PACKAGE FOR TRANSCRIPT
       const userTranscript = convertToRaw(this.state
         .transcript.getCurrentContent());
       const plainTranscriptContent = this.state
         .transcript.getCurrentContent().getPlainText();
 
-      // package for transcript
       const transcriptPkg = {
         text: JSON.stringify(userTranscript),
         plainText: JSON.stringify(plainTranscriptContent)
       };
+
+      // PACKAGE TO BE SENT TO DB:
       const sessionPkg = {
         user_id: username, // string
         title: userTitle, // string
