@@ -74,6 +74,26 @@ export const loginUser = formData => (
   }
 );
 
+export const submitSignUp = (formData) => (
+  (dispatch) => {
+    if (formData.password === formData.verifyPassword) {
+      request
+        .post('/api/auth/signup')
+        .send({
+          username: formData.username,
+          password: formData.password
+        })
+        .end((err, res) => {
+          if (err) {
+            // error handling
+          }
+        });
+    } else {
+      // passwords don't match, throw error here
+    }
+  }
+);
+
 export const searchNotes = (username, term) => (
   (dispatch) => {
     const urlUser = `api/${username}`;
