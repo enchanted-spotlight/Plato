@@ -24,14 +24,12 @@ class MediumEditor extends React.Component {
 
     this.state = {
       currentNote: this.props.currentNote, // for empty content
-      title: this.props.currentNoteTitle
     };
   }
 
   componentWillReceiveProps(newProps) {
     this.setState({
-      currentNote: newProps.currentNote,
-      title: newProps.currentNoteTitle
+      currentNote: newProps.currentNote
     });
   }
 
@@ -46,7 +44,7 @@ class MediumEditor extends React.Component {
           placeholder="Start typing here ..."
         />
         <Button
-          onClick={() => this.props.submitNote()}
+          onClick={() => this.props.submitSession()}
           waves="light"
         >Submit
         </Button>
@@ -63,8 +61,7 @@ const MediumEditorContainer = connect(
 export default MediumEditorContainer;
 
 MediumEditor.propTypes = {
-  submitNote: React.PropTypes.func,
-  currentNoteTitle: React.PropTypes.string,
+  submitSession: React.PropTypes.func,
   onNoteChange: React.PropTypes.func,
   currentNote: () => null
 };
