@@ -85,6 +85,7 @@ class LogIn extends React.Component {
           <h3>Login:</h3>
           <input
             type="text"
+            placeholder="Username"
             onChange={
               e => this.setState({ username: e.target.value })
             }
