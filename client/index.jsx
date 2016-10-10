@@ -7,6 +7,7 @@ import { Row, Col, Navbar, NavItem } from 'react-materialize';
 
 import LogIn from './components/LogIn.jsx';
 import NoteList from './components/NoteList.jsx';
+import Session from './components/Session.jsx';
 import SearchBar from './components/SearchBar.jsx';
 import SpeechToTextEditor from './components/SpeechToTextEditor.jsx';
 import MediumDraft from './components/MediumDraft.jsx';
@@ -59,22 +60,36 @@ const App = (props) => {
             notes={savedNotes.notes}
           />
         </Col>
-
-        <Col s={2} className="grey lighten-2 base-col-height">
-          <SpeechToTextEditor />
-        </Col>
-
-        <Col s={8} className="base-col-height">
-          <MediumDraft
-            store={store}
+        <Col s={10} className="session-container">
+          <Session
             username={username}
+            transcript={speechEditor}
             currentNote={textEditor}
             currentNoteTitle={sessionTitle}
+            dispatcher={dispatcher}
           />
         </Col>
       </Row>
     </div>
   );
+};
+
+App.propTypes = {
+  store: React.PropTypes.object,
+  username: React.PropTypes.string,
+  savedNotes: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.instanceOf(Object)
+  ]),
+  textEditor: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.instanceOf(Object)
+  ]),
+  speechEditor: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.instanceOf(Object)
+  ]),
+  sessionTitle: React.PropTypes.string
 };
 
 const render = () => {
@@ -88,14 +103,28 @@ const render = () => {
 };
 
 App.propTypes = {
-  store: React.PropTypes.Object,
+  store: React.PropTypes.object,
   username: React.PropTypes.string,
   // password: React.PropTypes.string,
-  savedNotes: React.PropTypes.Object,
-  textEditor: React.PropTypes.Object,
-  speechEditor: React.PropTypes.Object,
+  savedNotes: React.PropTypes.object,
+  textEditor: React.PropTypes.object,
+  speechEditor: React.PropTypes.object,
   sessionTitle: React.PropTypes.string
 };
 
 store.subscribe(render);
 render();
+/*
+<Col s={2} className="grey lighten-2 base-col-height">
+  <SpeechToTextEditor />
+</Col>
+
+<Col s={8} className="base-col-height">
+  <MediumDraft
+    store={store}
+    username={username}
+    currentNote={textEditor}
+    currentNoteTitle={sessionTitle}
+  />
+</Col>
+*/

@@ -8,16 +8,20 @@ import NoteItem from './NoteItem.jsx';
 const NoteList = props => (
   <div className="notes-list">
     <ul>
-      {props.notes.map(element =>
+      {
+      // console.log('notelist props: ', props)
+      props.notes.map(element =>
         <NoteItem
           store={props.store}
           key={element._id}
           noteId={element._id}
           title={element.title}
-          text={element.text}
+          notesText={element.notesText}
+          transcriptText={element.transcriptText}
           username={props.username}
         />
-      )}
+      )
+    }
     </ul>
   </div>
 );

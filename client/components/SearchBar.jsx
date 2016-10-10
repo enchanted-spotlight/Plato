@@ -55,7 +55,7 @@ class SearchBar extends React.Component {
 
 SearchBar.propTypes = {
   username: React.PropTypes.string,
-  store: React.PropTypes.Object
+  store: React.PropTypes.object
 };
 
 export default SearchBar;

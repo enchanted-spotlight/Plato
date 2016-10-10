@@ -151,10 +151,10 @@ passport.serializeUser((user, done) => {
   done(null, user._id);
 });
 
-passport.deserializeUser((id, done) => {
-  User.find({ _id: id }, (err, user) => {
-    done(err, user);
-  });
-});
+// passport.deserializeUser((id, done) => {
+//   User.find({ _id: id }, (err, user) => {
+//     done(err, user);
+//   });
+// });
 
 module.exports = passport;
