@@ -9,15 +9,18 @@ const NoteItem = props => (
     <p>{props.title}</p>
     <Button
       onClick={() => {
-        const newEditorState = createEditorState(JSON.parse(props.text));
-        props.store.dispatch(a.onTextEditorChange(newEditorState));
-        // need to change title of the note as well to match
+        console.log('note item props: ', props);
+        const newTextEditorState = createEditorState(JSON.parse(props.notesText));
+        const newTranscriptEditorState = createEditorState(JSON.parse(props.transcriptText));
         props.store.dispatch(a.onSessionTitleCreate(props.title));
+        props.store.dispatch(a.onTextEditorChange(newTextEditorState));
+        props.store.dispatch(a.onSpeechEditorChange(newTranscriptEditorState));
+        // need to change title of the note as well to match
       }}
     > display </Button>
     <Button
       onClick={() => {
-        props.store.dispatch(a.deleteNote(props.noteId, props.username));
+        props.store.dispatch(a.deleteSession(props.noteId, props.username));
       }}
       waves="light"
     > deleteNote </Button>
@@ -26,7 +29,7 @@ const NoteItem = props => (
 
 NoteItem.propTypes = {
   title: React.PropTypes.string,
-  store: React.PropTypes.func,
+  store: React.PropTypes.object,
   username: React.PropTypes.string,
   noteId: React.PropTypes.string
 };
