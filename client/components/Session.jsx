@@ -118,7 +118,8 @@ class Session extends React.Component {
   componentWillReceiveProps(newProps) {
     this.setState({
       currentNote: newProps.currentNote,
-      currentNoteTitle: newProps.currentNoteTitle
+      currentNoteTitle: newProps.currentNoteTitle,
+      transcript: newProps.transcript
     });
   }
 

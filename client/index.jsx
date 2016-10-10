@@ -37,6 +37,7 @@ socket.on('incoming chat message', (data) => {
 socket.on('chat room archive', (data) => {
   store.dispatch(a.loadArchivedChatMessages(data));
 });
+
 // =======
 // const App = (props) => {
 //   const {
@@ -85,7 +86,7 @@ socket.on('chat room archive', (data) => {
 //     </div>
 //   );
 // };
-// >>>>>>> Pass down more props from index
+// >>>>>>> Fix transcript state and tests
 
 
 const App = () => (
