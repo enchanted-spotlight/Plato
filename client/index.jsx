@@ -4,12 +4,15 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import { Row, Col, Navbar, NavItem } from 'react-materialize';
 import io from 'socket.io-client';
+import { Router, Route, hashHistory } from 'react-router';
+
+import App from './components/App.jsx';
 
 import * as a from './actions.js';
 
 import reducers from './reducer.js';
+<<<<<<< b1498e6ce133d3fc22c0a78644727eb18d72bd80
 import ChatClientComponent from './components/ChatClient.jsx';
 import LogInContainer from './components/LogIn.jsx';
 import SearchBarContainer from './components/SearchBar.jsx';
@@ -19,6 +22,8 @@ import NoteListContainer from './components/NoteList.jsx';
 import SessionContainer from './components/Session.jsx';
 import SignUpContainer from './components/SignUp.jsx';
 import Canvas from './components/Canvas.jsx';
+=======
+>>>>>>> Begin to implement react-router
 
 const loggerMiddleware = createLogger();
 
@@ -83,10 +88,13 @@ const App = () => (
   </div>
 );
 
+
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <Router history={hashHistory}>
+        <Route path="/" component={App} />
+      </Router>
     </Provider>,
     document.getElementById('app')
   );
