@@ -14,6 +14,7 @@ import LogInContainer from './components/LogIn.jsx';
 import SearchBarContainer from './components/SearchBar.jsx';
 import NoteListContainer from './components/NoteList.jsx';
 import MediumEditor from './components/MediumDraft.jsx';
+import SpeechToTextEditor from './components/SpeechToTextEditor.jsx';
 
 const loggerMiddleware = createLogger();
 
@@ -65,6 +66,9 @@ const App = () => (
         className="base-col-height"
       >
         <MediumEditor />
+      </Col>
+      <Col s={2} className="grey lighten-2 base-col-height">
+        <SpeechToTextEditor />
       </Col>
       <Col
         s={3}
