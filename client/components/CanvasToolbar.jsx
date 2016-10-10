@@ -24,7 +24,10 @@ class CanvasToolbar extends React.Component {
     return (
       <div>
         <span className="saveCanvas">
-          <Button floating className="red" onClick={this.props.saveCanvas} icon="save" />
+          <Button floating className="red" onClick={() => this.props.saveCanvas()} icon="save" />
+        </span>
+        <span className="newCanvas">
+          <Button floating className="red" onClick={() => this.props.newCanvas()} icon="not_interested" />
         </span>
         <span className="strokeStyle">
           <Button floating className="red" onClick={() => this.props.updateStyle("red")} />
@@ -51,7 +54,8 @@ CanvasToolbar.propTypes = {
   incrementLineWidth: React.PropTypes.func,
   decrementLineWidth: React.PropTypes.func,
   incrementCanvasHeight: React.PropTypes.func,
-  incrementCanvasWidth: React.PropTypes.func
+  incrementCanvasWidth: React.PropTypes.func,
+  newCanvas: React.PropTypes.func
 };
 
 export default CanvasToolbar;

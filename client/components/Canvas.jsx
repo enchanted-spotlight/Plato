@@ -88,6 +88,12 @@ class Canvas extends React.Component {
       ctxLoadTarget.putImageData(savedCanvas, 0, 0);
     };
 
+    this.newCanvas = () => {
+      const canvasToClear = document.querySelector('.paint');
+      const ctxToClear = canvasToClear.getContext('2d');
+      ctxToClear.clearRect(0, 0, canvasToClear.width, canvasToClear.height);
+    };
+
     // this will set up the canvas and the contexts
     this.canvasSetup = (width, height) => {
       const canvas = document.querySelector('.paint');
@@ -211,6 +217,7 @@ class Canvas extends React.Component {
           decrementLineWidth={this.decrementLineWidth}
           updateStyle={this.updateStyle}
           saveCanvas={this.saveCanvas}
+          newCanvas={this.newCanvas}
           incrementCanvasHeight={this.incrementCanvasHeight}
           incrementCanvasWidth={this.incrementCanvasWidth}
         />
