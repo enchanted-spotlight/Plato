@@ -213,4 +213,3 @@ export const loadNewChatMessage = message => ({
   type: t.LOAD_NEW_CHAT_MESSAGE,
   message
 });
-

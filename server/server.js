@@ -33,6 +33,7 @@ const io = require('socket.io').listen(http);
 const chats = require('./controllers/chats');
 
 io.on('connection', (socket) => {
+
   console.log('A user connected via socket.io!');
 
   socket.on('load chat room',
