@@ -64,6 +64,7 @@ const App = (props) => {
             currentNoteTitle={sessionTitle}
             savedNotes={savedNotes}
             store={store}
+            dispatcher={dispatcher}
           />
         </Col>
       </Row>

@@ -126,7 +126,6 @@ class SpeechToTextEditor extends React.Component {
 }
 
 SpeechToTextEditor.propTypes = {
-  recording: React.PropTypes.boolean,
   onTranscriptChange: React.PropTypes.func,
   toggleTimer: React.PropTypes.func,
   transcript: React.PropTypes.oneOfType([

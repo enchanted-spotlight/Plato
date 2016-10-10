@@ -19,45 +19,6 @@ class MediumEditor extends React.Component {
     };
   }
 
-    // this.onChange = (editorState) => {
-    //   this.setState({ editorState });
-    // };
-
-    // this.titleChange = (e) => {
-    //   this.setState({ title: e.target.value });
-    // };
-
-// <<<<<<< a18abbd683b85e58bcf3f9421605db7dc57a8efc
-//     this.submitNote = () => {
-//       // this will let us save the current content as rich text
-//       const userNote = convertToRaw(this.state.editorState.getCurrentContent());
-//       const plainTextContent = this.state.editorState.getCurrentContent().getPlainText();
-//       const userTitle = this.state.title;
-//       const username = this.props.username;
-//       const url = 'api/save-note';
-//       // submit the note to the server for storage in db
-//       request
-//         .post(url)
-//         .send({
-//           user_id: username,
-//           text: JSON.stringify(userNote),
-//           plainText: JSON.stringify(plainTextContent),
-//           title: userTitle
-//         })
-//         .set('Accept', 'application/json')
-//         .end((err, res) => {
-//           if (err) {
-//             console.log('There is an error in submitNote: ', err);
-//           } else {
-//             this.props.store.dispatch(a.fetchNotes(this.props.username));
-//           }
-//         });
-//     };
-// =======
-//     // removed submitNote here...
-// >>>>>>> Integrate Session component with methods from App MediumDraft and SpeechToTextEditor
-//   }
-
   componentWillReceiveProps(newProps) {
     this.setState({
       currentNote: newProps.currentNote,
@@ -67,7 +28,6 @@ class MediumEditor extends React.Component {
 
 
   render() {
-    // const { currentNote } = this.state;
     console.log(this.props, 'medium draft state props');
     return (
       <div>
@@ -76,6 +36,11 @@ class MediumEditor extends React.Component {
           onChange={this.props.onNoteChange}
           placeholder="Start typing your shit here ..."
         />
+        <Button
+          onClick={() => this.props.submitNote()}
+          waves="light"
+        >Submit
+        </Button>
       </div>
     );
   }
@@ -84,6 +49,7 @@ class MediumEditor extends React.Component {
 export default MediumEditor;
 
 MediumEditor.propTypes = {
+  submitNote: React.PropTypes.func,
   currentNoteTitle: React.PropTypes.string,
   onNoteChange: React.PropTypes.func,
   currentNote: () => null
