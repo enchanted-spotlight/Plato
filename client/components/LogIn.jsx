@@ -16,46 +16,12 @@ class LogIn extends React.Component {
       username: '',
       password: '',
     };
-  }
-
-  componentWillMount() {
-    request
-      .get('/api/auth/identify')
-      .end((err, res) => {
-        console.log(res.body);
-        this.setState({
-          username: res.body.email,
-        });
-        this.state.dispatch(t.loginUser, this.state.username);
-        this.state.dispatch(t.fetchNotes, this.state.username);
-      });
-  }
-
-  // login the user via /api/auth/login/local
-  onFormSubmit(e) {
-    e.preventDefault();
-    request
-      .post('/api/auth/login/local')
-      .send({
-        username: this.state.username,
-        password: this.state.password
-      })
-      .end((err, res) => {
-        if (err) {
-          // do something on error
-        } else {
-          // successful login
-          this.props.setUsername(this.state.username);
-        }
-      });
-  }
-
-  changeUsernameState(e) {
-    this.setState({ username: e.target.value });
-  }
-
-  changePasswordState(e) {
-    this.setState({ password: e.target.value });
+    this.changeUsernameState = (e) => {
+      this.setState({ username: e.target.value });
+    };
+    this.changePasswordState = (e) => {
+      this.setState({ password: e.target.value });
+    };
   }
 
   render() {
