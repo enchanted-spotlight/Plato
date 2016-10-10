@@ -66,8 +66,6 @@ const App = (props) => {
             speechEditor={speechEditor}
             currentNote={textEditor}
             currentNoteTitle={sessionTitle}
-            savedNotes={savedNotes}
-            store={store}
             dispatcher={dispatcher}
           />
         </Col>
