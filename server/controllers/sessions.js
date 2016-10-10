@@ -26,6 +26,7 @@ const sessionController = {
   },
   retrieveAllUserSessions(req, res) {
     Session.find({ user_id: req.params.user }, (err, data) => {
+      console.log(data, 'DATA!!!!!@@@@@@@@@@@@@@@');
       if (err) {
         res.status(500).end();
       } else if (data.length === 0) {

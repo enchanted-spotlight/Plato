@@ -46,6 +46,7 @@ socket.on('slack message archive', (data) => {
   const parseData = JSON.parse(data);
   store.dispatch(a.loadArchivedChatMessages(parseData.messages.reverse()));
 });
+
 // =======
 // const App = (props) => {
 //   const {
@@ -94,7 +95,7 @@ socket.on('slack message archive', (data) => {
 //     </div>
 //   );
 // };
-// >>>>>>> Pass down more props from index
+// >>>>>>> Fix transcript state and tests
 
 const App = () => (
   <div className="plato-app">
