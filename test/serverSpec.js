@@ -11,7 +11,7 @@ const should = chai.should();
 const expect = chai.expect;
 
 const User = require('./../server/models/user');
-const Note = require('./../server/models/note');
+// const Note = require('./../server/models/note');
 const Session = require('./../server/models/session');
 const passport = require('../server/config/auth');
 
@@ -136,7 +136,6 @@ describe('Plato', () => {
         request(app)
           .get('/api/000000')
           .end((err, res) => {
-            console.log(res.body, 'BODY@@@@@@@@@@@@@@@@@');
             const id = res.body[0]._id;
             request(app)
               .delete('/api/delete-session/'.concat(id))
