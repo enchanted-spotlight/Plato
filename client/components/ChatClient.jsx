@@ -5,7 +5,8 @@ import { sendChatMessage } from './../actions';
 import ChatMessagesDisplay from './ChatMessagesDisplay.jsx';
 
 const mapStateToProps = state => ({
-  messages: state.chatMessages
+  messages: state.chatMessages,
+  username: state.username
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -22,6 +23,13 @@ class ChatClient extends React.Component {
       ...props
     };
   }
+  componentWillReceiveProps(newProps) {
+    if (this.props.username !== newProps.username) {
+      this.setState({
+        username: newProps.username
+      });
+    }
+  }
   render() {
     return (
       <div className="chat-client-container">
@@ -33,9 +41,15 @@ class ChatClient extends React.Component {
           className="chat-client-input"
           onSubmit={(e) => {
             e.preventDefault();
-            console.log('Message input on chat client: ', this.state.message);
             // Form is not properly re rendering after setState
             // Redux conflict? This is a problem with all app's forms
+            const messageObj = {
+              username: this.state.username,
+              text: this.state.message,
+              type: 'message'
+            };
+            console.log('MessageObj on chat client: ', messageObj);
+            this.state.onMessageSubmit(messageObj);
             this.setState({ message: '' });
           }}
         >

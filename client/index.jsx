@@ -31,9 +31,8 @@ const store = createStore(
 
 const socket = io();
 socket.on('incoming slack message', (data) => {
-  // console.log('client side socket received single message: ', data);
-  const parseData = JSON.parse(data);
-  store.dispatch(a.loadNewChatMessage(parseData.messages));
+  console.log('client side socket received single message: ', data);
+  store.dispatch(a.loadNewChatMessage(data));
 });
 
 socket.on('slack message archive', (data) => {

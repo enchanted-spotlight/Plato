@@ -33,18 +33,274 @@ const io = require('socket.io')(http);
 io.on('connection', (socket) => {
   // socket connection will be initiated when chat is opened
   // on connection, we will get channel message history
-  const endpoint = 'channels.history';
-  request
-    .get(slackAPIUrl + endpoint)
-    .query({ token })
-    .query({ channel })
-    .query({ pretty: 1 })
-    .end((err, res) => {
-      // send array of messages to client to fill out chat
-      // console.log('superagent messages response: ', res.text);
-      socket.emit('slack message archive', res.text);
-    });
-
+  // const endpoint = 'channels.history';
+  // request
+  //   .get(slackAPIUrl + endpoint)
+  //   .query({ token })
+  //   .query({ channel })
+  //   .query({ pretty: 1 })
+  //   .end((err, res) => {
+  //     // send array of messages to client to fill out chat
+  //     // console.log('superagent messages response: ', res.text);
+  //     socket.emit('slack message archive', res.text);
+  //   });
+  const welcomeMessage =  JSON.stringify({
+    messages: [
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Welcome to PlatoNotes\' Chat!',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Join the conversation by typing below.',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Welcome to PlatoNotes\' Chat!',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Join the conversation by typing below.',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Welcome to PlatoNotes\' Chat!',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Join the conversation by typing below.',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Welcome to PlatoNotes\' Chat!',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Join the conversation by typing below.',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Welcome to PlatoNotes\' Chat!',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Join the conversation by typing below.',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Welcome to PlatoNotes\' Chat!',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Join the conversation by typing below.',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Welcome to PlatoNotes\' Chat!',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Join the conversation by typing below.',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Welcome to PlatoNotes\' Chat!',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Join the conversation by typing below.',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Welcome to PlatoNotes\' Chat!',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Join the conversation by typing below.',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Welcome to PlatoNotes\' Chat!',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Join the conversation by typing below.',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Welcome to PlatoNotes\' Chat!',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Join the conversation by typing below.',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Welcome to PlatoNotes\' Chat!',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Join the conversation by typing below.',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Welcome to PlatoNotes\' Chat!',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Join the conversation by typing below.',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Welcome to PlatoNotes\' Chat!',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Join the conversation by typing below.',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Welcome to PlatoNotes\' Chat!',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Join the conversation by typing below.',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Welcome to PlatoNotes\' Chat!',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Join the conversation by typing below.',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Welcome to PlatoNotes\' Chat!',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Join the conversation by typing below.',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Welcome to PlatoNotes\' Chat!',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      },
+      {
+        type: 'message',
+        username: 'Platano(tes)',
+        text: 'Join the conversation by typing below.',
+        ts: '1476139610.000014',
+        team: 'T2KE19RLG'
+      }
+    ]
+  });
+  socket.emit('slack message archive', welcomeMessage);
   console.log('A user connected via socket.io!');
 
   rtm.on(RTM_EVENTS.MESSAGE, (message) => {

@@ -155,21 +155,25 @@ export const loadArchivedChatMessages = messages => ({
 export const loadNewChatMessage = message => ({
   type: t.LOAD_NEW_CHAT_MESSAGE,
   message
-})
+});
 
-export const sendChatMessage = messageObj => (
-  request
-    .post('/api/chat')
-    .set('Content-Type', 'application/json')
-    .send({
-      user: messageObj.user,
-      message: messageObj.message
-    })
-    .end((err, res) => {
-      if (err || !res.ok) {
-        console.log('sendChatMessage error: ', err);
-      } else {
-        console.log('Success with sendChatMessage: ', res);
-      }
-    })
-);
+export const sendChatMessage = (message) => {
+  console.log('message inside sendChatMessage: ', message);
+  return (loadNewChatMessage(message));
+
+// Send it to slack portion:
+  // request
+  //   .post('/api/chat')
+  //   .set('Content-Type', 'application/json')
+  //   .send({
+  //     user: messageObj.user,
+  //     message: messageObj.message
+  //   })
+  //   .end((err, res) => {
+  //     if (err || !res.ok) {
+  //       console.log('sendChatMessage error: ', err);
+  //     } else {
+  //       console.log('Success with sendChatMessage: ', res);
+  //     }
+  //   })
+};
