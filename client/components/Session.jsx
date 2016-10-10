@@ -111,9 +111,6 @@ class Session extends React.Component {
           if (err) {
             console.log('There is an error in submitNote: ', err);
           } else {
-            // fetch notes
-            // this.props.fetchNotes(this.state.username);
-            // this.props.savedNotes();
             console.log(
               'Pending post implementation, but this ' +
               'session package should be sent to db: '
