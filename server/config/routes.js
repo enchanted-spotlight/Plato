@@ -4,18 +4,19 @@ const passport = require('./auth');
 const router = new express.Router();
 
 const chats = require('../controllers/chats');
-const notes = require('../controllers/notes');
+const sessions = require('../controllers/sessions');
 const user = require('../controllers/users');
 const email = require('./email');
 
 // ------------ CHAT & SLACK ---------- //
 router.post('/chat', chats.sendMessageToSlack);
 
-// --------------- NOTES ------------- //
-router.post('/save-note', notes.saveNote);
-router.get('/:user', notes.retrieveAllUserNotes);
-router.delete('/delete-note/:id', notes.deleteUserNote);
-router.post('/:user', notes.retrieveCertainUserNotes);
+
+// ---------- SESSIONS ---------- //
+router.post('/save-session', sessions.saveSession);
+router.get('/:user', sessions.retrieveAllUserSessions);
+router.delete('/delete-session/:id', sessions.deleteUserSession);
+router.post('/:user', sessions.retrieveCertainUserSessions);
 
 // --------------- AUTH -------------- //
 
