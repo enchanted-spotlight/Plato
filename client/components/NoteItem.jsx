@@ -26,7 +26,7 @@ const NoteItem = props => (
 
 NoteItem.propTypes = {
   title: React.PropTypes.string,
-  store: React.PropTypes.Object,
+  store: React.PropTypes.func,
   username: React.PropTypes.string,
   noteId: React.PropTypes.string
 };
