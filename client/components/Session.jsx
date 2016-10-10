@@ -11,20 +11,12 @@ import * as t from './../actions';
 class Session extends React.Component {
   constructor(props) {
     super(props);
-    /*
-    eventually, cache will need to send obj whose props are: TTTNN
-      time
-      title
-      text from transcript
-      text from notes
-      username
-    */
+
     this.recording = false;
     this.time = 0;
 
     this.state = {
       index: this.time / 5,
-      username: this.props.username,
       currentNoteTitle: this.props.currentNoteTitle,
       transcript: createEditorState(),
       currentNote: createEditorState(),
@@ -41,15 +33,16 @@ class Session extends React.Component {
 
     this.timer = () => {
       console.log('timer invoked!!!!!!!!!!');
-      setTimeout(this.recordTimeAndChunk, 5000);
+      setTimeout(this.recordTimeAndSubmit, 5000);
     };
 
-    this.recordTimeAndChunk = () => {
+    this.recordTimeAndSubmit = () => {
       this.time += 5;
       console.log('time! ', this.time);
       if (this.recording) {
         this.timer();
       }
+      // this.submitSession();
     };
 
     this.onTranscriptChange = (transcriptState) => {
@@ -67,10 +60,10 @@ class Session extends React.Component {
       this.setState({ currentNoteTitle: e.target.value });
     };
 
-    this.submitNote = () => {
+    this.submitSession = () => {
       const userTitle = this.state.currentNoteTitle;
-      const username = this.state.username;
-      const url = 'api/save-note';
+      const username = this.props.username;
+      const url = 'api/save-session';
 
       // PACKAGE FOR NOTES
       // this will let us save the current content as rich text
@@ -96,6 +89,7 @@ class Session extends React.Component {
 
       // PACKAGE TO BE SENT TO DB:
       const sessionPkg = {
+        time: this.time,
         user_id: username, // string
         title: userTitle, // string
         notes: notePkg, // object
@@ -115,7 +109,7 @@ class Session extends React.Component {
               'Pending post implementation, but this ' +
               'session package should be sent to db: '
               , sessionPkg);
-            this.state.dispatch(t.fetchNotes, this.state.username);
+            this.state.dispatch(t.fetchSessions, username);
           }
         });
     };
@@ -136,7 +130,7 @@ class Session extends React.Component {
         <Row>
           <input
             type="text"
-            value={this.state.title}
+            value={this.state.currentNoteTitle}
             onChange={this.titleChange}
             placeholder="Title"
           />
@@ -153,7 +147,7 @@ class Session extends React.Component {
               currentNote={this.state.currentNote}
               currentNoteTitle={this.state.currentNoteTitle}
               onNoteChange={this.onNoteChange}
-              submitNote={this.submitNote}
+              submitSession={this.submitSession}
             />
           </Col>
         </Row>
