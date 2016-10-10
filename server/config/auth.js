@@ -145,7 +145,6 @@ passport.use(new GoogleStrategy({
   }
 ));
 
-
 passport.serializeUser((user, done) => {
   // serializes user with our _id from mongodb
   done(null, user._id);

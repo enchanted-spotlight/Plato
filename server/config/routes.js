@@ -3,16 +3,20 @@ const passport = require('./auth');
 
 const router = new express.Router();
 
+const chats = require('../controllers/chats');
 const notes = require('../controllers/notes');
 const user = require('../controllers/users');
 
-// ---------- NOTES ---------- //
+// ------------ CHAT & SLACK ---------- //
+router.post('/chat', chats.sendMessageToSlack);
+
+// --------------- NOTES ------------- //
 router.post('/save-note', notes.saveNote);
 router.get('/:user', notes.retrieveAllUserNotes);
 router.delete('/delete-note/:id', notes.deleteUserNote);
 router.post('/:user', notes.retrieveCertainUserNotes);
 
-// ---------- AUTH ---------- //
+// --------------- AUTH -------------- //
 
 router.post('/auth/login/local', passport.authenticate('local'), (req, res) => {
   // should redirect to doc page instead of just returning a 200 status
@@ -24,8 +28,9 @@ router.get('/auth/login/facebook', passport.authenticate('facebook', { scope: ['
 router.get('/auth/login/facebook/callback',
   passport.authenticate('facebook', {
     failureRedirect: 'http://www.reactiongifs.com/captain-america-fail/',
-    successRedirect: '/'
-  }));
+  }), (req, res, stuff) => {
+    res.redirect('/');
+  });
 
 router.get('/auth/login/twitter', passport.authenticate('twitter', { scope: ['email'] }));
 router.get('/auth/login/twitter/callback',

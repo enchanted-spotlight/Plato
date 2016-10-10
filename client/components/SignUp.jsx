@@ -1,5 +1,14 @@
 import React from 'react';
-import request from 'superagent';
+import { connect } from 'react-redux';
+
+import * as a from './../actions';
+
+const mapStateToProps = state => ({
+
+});
+const mapDispatchToProps = dispatch => ({
+  submitSignUp: formData => dispatch(a.submitSignUp(formData))
+});
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -9,6 +18,7 @@ class SignUp extends React.Component {
       password: '',
       verifyPassword: ''
     };
+    this.submitSignUp = props.submitSignUp;
   }
 
   changeUsernameState(e) {
@@ -19,29 +29,26 @@ class SignUp extends React.Component {
     this.setState({ password: e.target.value });
   }
 
-  // form validation
-  verifyPassword() {
-    if (this.state.password === this.state.verifyPassword) {
-      request
-        .post('/api/auth/signup')
-        .send({
-          username: this.state.username,
-          password: this.state.password
-        })
-        .end((err, res) => {
-          if (err) {
-            // error handling
-          }
-        });
-    } else {
-      // passwords don't match, throw error here
-    }
+  changeVerifyPasswordState(e) {
+    this.setState({ verifyPassword: e.target.value });
   }
 
   render() {
     return (
       <div className="signUpContainer">
-        <form className="signUpForm">
+        <form
+          className="signUpForm"
+          onSubmit={(e) => {
+            e.preventDefault();
+            const formData = {
+              username: this.state.username,
+              password: this.state.password,
+              verifyPassword: this.state.verifyPassword
+            };
+            console.log('SignUp\'s form data: ', formData);
+            this.submitSignUp(formData);
+          }}
+        >
           <input
             type="text"
             onChange={e => this.changeUsernameState(e)}
@@ -63,3 +70,14 @@ class SignUp extends React.Component {
     );
   }
 }
+
+SignUp.propTypes = {
+  submitSignUp: React.PropTypes.func
+};
+
+const SignUpContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SignUp);
+
+export default SignUpContainer;

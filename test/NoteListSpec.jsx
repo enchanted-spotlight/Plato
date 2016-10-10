@@ -14,19 +14,19 @@
 // const notes = [
 //   {
 //     id: 1,
-//     user_id: 'Jon',
+//     user_id: 'JON',
 //     title: 'JavaScript Intro',
 //     text: 'JavaScript is super fun.'
 //   },
 //   {
 //     id: 2,
-//     user_id: 'Jon',
+//     user_id: 'JON',
 //     title: 'JavaScript for Beginners',
 //     text: 'Functions on objects are methods.'
 //   },
 //   {
 //     id: 3,
-//     user_id: 'Jon',
+//     user_id: 'JON',
 //     title: 'JavaScript Frameworks',
 //     text: 'Angular sure is nice, but this React stuff seems cool too.'
 //   },

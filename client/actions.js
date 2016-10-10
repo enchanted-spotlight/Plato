@@ -2,7 +2,7 @@ import request from 'superagent';
 
 import * as t from './actionTypes';
 
-export const loginUser = username => ({
+export const setUsername = username => ({
   type: t.USER_LOGIN,
   username
 });
@@ -43,7 +43,7 @@ export const onSpeechEditorChange = editorState => ({
   editorState
 });
 
-// Thunk action creator:
+/* ------------------ THUNK ACTION CREATORS -----------------*/
 export const fetchNotes = username => (
   (dispatch) => {
     dispatch(requestNotes(username));
@@ -53,19 +53,44 @@ export const fetchNotes = username => (
   }
 );
 
-export const deleteNote = (noteId, username) => (
+export const loginUser = formData => (
   (dispatch) => {
-    request('DELETE', `/api/delete-note/${noteId}`)
+    request
+      .post('/api/auth/login/local')
+      .send({
+        username: formData.username,
+        password: formData.password
+      })
       .end((err, res) => {
         if (err) {
-          console.log('Error deleting note');
+          // do something on error
+          console.log('error logging in!');
         } else {
-          dispatch(requestNotes(username));
-          return fetch(`/api/${username}`)
-            .then(response => response.json())
-            .then(json => dispatch(receiveNotes(username, json)));
+          // successful login
+          dispatch(setUsername(formData.username));
+          dispatch(fetchNotes(formData.username));
         }
       });
+  }
+);
+
+export const submitSignUp = (formData) => (
+  (dispatch) => {
+    if (formData.password === formData.verifyPassword) {
+      request
+        .post('/api/auth/signup')
+        .send({
+          username: formData.username,
+          password: formData.password
+        })
+        .end((err, res) => {
+          if (err) {
+            // error handling
+          }
+        });
+    } else {
+      // passwords don't match, throw error here
+    }
   }
 );
 
@@ -85,4 +110,47 @@ export const searchNotes = (username, term) => (
         }
       });
   }
+);
+
+export const deleteNote = (noteId, username) => (
+  (dispatch) => {
+    request('DELETE', `/api/delete-note/${noteId}`)
+      .end((err, res) => {
+        if (err) {
+          console.log('Error deleting note');
+        } else {
+          dispatch(requestNotes(username));
+          return fetch(`/api/${username}`)
+            .then(response => response.json())
+            .then(json => dispatch(receiveNotes(username, json)));
+        }
+      });
+  }
+);
+
+export const loadArchivedChatMessages = messages => ({
+  type: t.LOAD_ARCHIVED_CHAT_MESSAGES,
+  messages
+});
+
+export const loadNewChatMessage = message => ({
+  type: t.LOAD_NEW_CHAT_MESSAGE,
+  message
+})
+
+export const sendChatMessage = messageObj => (
+  request
+    .post('/api/chat')
+    .set('Content-Type', 'application/json')
+    .send({
+      user: messageObj.user,
+      message: messageObj.message
+    })
+    .end((err, res) => {
+      if (err || !res.ok) {
+        console.log('sendChatMessage error: ', err);
+      } else {
+        console.log('Success with sendChatMessage: ', res);
+      }
+    })
 );

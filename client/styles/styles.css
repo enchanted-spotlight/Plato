@@ -1,6 +1,30 @@
 .base-col-height {
-  height: 800px;
-  overflow: scroll;
+  min-height: 800px;
+  overflow: auto;
+}
+
+.chat-client-container{
+  max-height: 500px;
+  overflow: hidden;
+  background: #eeeeee;
+  border: solid #A1A1A1 1px;
+}
+
+.chat-client-container>h2{
+  margin: 0;
+}
+
+.chat-messages-display{
+  padding: 0 1em 0 1em;
+  max-height: 350px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: white;
+  border-top: solid #A1A1A1 1px;
+}
+
+.chat-client-input{
+  background: white;
 }
 
 .column-header-lists{

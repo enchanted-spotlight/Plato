@@ -3,9 +3,17 @@ import request from 'superagent';
 import { Button } from 'react-materialize';
 import { convertToRaw } from 'draft-js';
 import { Editor, createEditorState } from 'medium-draft';
+import { connect } from 'react-redux';
 
 import * as a from './../actions.js';
 
+const mapStateToProps = store => ({
+  username: store.username,
+  currentNote: store.textEditor,
+  currentNoteTitle: store.sessionTitle
+});
+const mapDispatchToProps = dispatch => ({
+});
 
 class MediumEditor extends React.Component {
   constructor(props) {
@@ -45,7 +53,7 @@ class MediumEditor extends React.Component {
           if (err) {
             console.log('There is an error in submitNote: ', err);
           } else {
-            this.props.store.dispatch(a.fetchNotes(this.props.username));
+            // this.props.store.dispatch(a.fetchNotes(this.props.username));
           }
         });
     };
@@ -85,10 +93,14 @@ class MediumEditor extends React.Component {
   }
 }
 
-export default MediumEditor;
+const MediumEditorContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MediumEditor);
+
+export default MediumEditorContainer;
 
 MediumEditor.propTypes = {
   username: React.PropTypes.string,
-  store: React.PropTypes.Object,
   currentNote: () => null
 };
