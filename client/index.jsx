@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
@@ -13,6 +13,7 @@ import ChatClientComponent from './components/ChatClient.jsx';
 import LogInContainer from './components/LogIn.jsx';
 import SearchBarContainer from './components/SearchBar.jsx';
 import NoteListContainer from './components/NoteList.jsx';
+import MediumEditor from './components/MediumDraft.jsx';
 
 const loggerMiddleware = createLogger();
 
@@ -50,10 +51,10 @@ const App = () => (
       <NavItem href="">Signout</NavItem>
     </Navbar>
 
-    <SearchBarContainer />
 
     <Row>
       <Col s={2} className="blue-grey lighten-3 base-col-height">
+        <SearchBarContainer />
         <div className="blue-grey lighten-3 column-header-lists">
           <h3>All Notes</h3>
         </div>
@@ -63,24 +64,27 @@ const App = () => (
         s={5}
         className="base-col-height"
       >
-        <ChatClientComponent />
+        <MediumEditor />
       </Col>
       <Col
         s={3}
         className="login"
       >
         <LogInContainer />
+        <ChatClientComponent />
       </Col>
     </Row>
 
   </div>
 );
 
-render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
-  document.getElementById('app')
-);
+const render = () => {
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById('app')
+  );
+};
 
 store.subscribe(render);
