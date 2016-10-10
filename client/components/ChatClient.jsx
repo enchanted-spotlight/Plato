@@ -5,7 +5,6 @@ import { sendChatMessage } from './../actions';
 import ChatMessagesDisplay from './ChatMessagesDisplay.jsx';
 
 const mapStateToProps = state => ({
-  username: state.username,
   messages: state.chatMessages
 });
 
@@ -57,7 +56,7 @@ const ChatClientContainer = connect(
 )(ChatClient);
 
 ChatClient.propTypes = {
-  messages: React.PropType.array,
+  messages: () => null
 };
 
 export default ChatClientContainer;
