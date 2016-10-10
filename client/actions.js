@@ -12,7 +12,7 @@ export const loginUser = username => ({
 // 2. Inform reducers request completed
 // 3. Inform reducers request failed
 
-export const requestNotes = username => ({
+export const requestSessions = username => ({
   type: t.REQUEST_NOTES,
   username
 });
@@ -20,7 +20,7 @@ export const requestNotes = username => ({
 // TODO: normalize notes into object instead of array
 // (Improve access and let it be present in different scoped components.)
 // https://github.com/paularmstrong/normalizr
-export const receiveNotes = (username, notes, status) => ({
+export const receiveSessions = (username, notes, status) => ({
   type: t.RECEIVE_NOTES,
   username,
   notes,
@@ -44,26 +44,26 @@ export const onSpeechEditorChange = editorState => ({
 });
 
 // Thunk action creator:
-export const fetchNotes = username => (
+export const fetchSessions = username => (
   (dispatch) => {
-    dispatch(requestNotes(username));
+    dispatch(requestSessions(username));
     return fetch(`/api/${username}`)
       .then(response => response.json())
-      .then(json => dispatch(receiveNotes(username, json)));
+      .then(json => dispatch(receiveSessions(username, json)));
   }
 );
 
-export const deleteNote = (noteId, username) => (
+export const deleteSession = (noteId, username) => (
   (dispatch) => {
-    request('DELETE', `/api/delete-note/${noteId}`)
+    request('DELETE', `/api/delete-session/${noteId}`)
       .end((err, res) => {
         if (err) {
           console.log('Error deleting note');
         } else {
-          dispatch(requestNotes(username));
+          dispatch(requestSessions(username));
           return fetch(`/api/${username}`)
             .then(response => response.json())
-            .then(json => dispatch(receiveNotes(username, json)));
+            .then(json => dispatch(receiveSessions(username, json)));
         }
       });
   }
@@ -72,7 +72,7 @@ export const deleteNote = (noteId, username) => (
 export const searchNotes = (username, term) => (
   (dispatch) => {
     const urlUser = `api/${username}`;
-    dispatch(requestNotes(username));
+    dispatch(requestSessions(username));
     request
       .post(urlUser)
       .send({ searchInput: term })
@@ -81,7 +81,7 @@ export const searchNotes = (username, term) => (
         if (err) {
           console.log('There is an error in SearchBar:', err);
         } else {
-          dispatch(receiveNotes(username, res.body));
+          dispatch(receiveSessions(username, res.body));
         }
       });
   }
