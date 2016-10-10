@@ -3,8 +3,10 @@ const mongoose = require('mongoose');
 const sessionSchema = mongoose.Schema({
   user_id: String,
   title: String,
-  notes: Object,
-  transcript: Object
+  notesText: Object,
+  notesPlainText: { type: String, text: true },
+  transcriptText: Object,
+  transcriptPlainText: { type: String, text: true }
 });
 
 module.exports = mongoose.model('Session', sessionSchema);
