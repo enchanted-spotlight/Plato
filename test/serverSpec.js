@@ -12,6 +12,7 @@ const expect = chai.expect;
 
 const User = require('./../server/models/user');
 const Note = require('./../server/models/note');
+const Session = require('./../server/models/session');
 const passport = require('../server/config/auth');
 
 describe('Plato', () => {
@@ -26,13 +27,15 @@ describe('Plato', () => {
     });
     testUser.save();
 
-    const testNote = new Note({
+    const testSession = new Session({
       user_id: '000000',
-      text: {},
-      plainTextContent: 'hello this is a string',
-      title: 'testNote'
+      title: 'testNote',
+      notesText: {},
+      notesPlainText: 'heh-lo dis a shtring',
+      transcriptText: {},
+      transcriptPlainText: 'hello this is a string'
     });
-    testNote.save();
+    testSession.save();
 
     done();
   });
@@ -40,7 +43,7 @@ describe('Plato', () => {
   afterEach((done) => {
     // clear collections when we're done with the test
     mongoose.connection.collections.users.remove();
-    mongoose.connection.collections.notes.remove();
+    mongoose.connection.collections.session.remove();
     done();
   });
   // --------------- UNIT TEST ---------------//
@@ -84,13 +87,16 @@ describe('Plato', () => {
       });
     });
     describe('POST /api/save-session', () => {
-      it('should save a note', (done) => {
+      it('should save a session', (done) => {
         request(app)
           .post('/api/save-session')
           .send({
             user_id: '123123123',
-            text: 'lolololol',
-            title: 'testttt'
+            title: 'testttt',
+            notesText: 'lolololol',
+            notesPlainText: 'lsp',
+            transcriptText: 'finn',
+            transcriptPlainText: 'princess of OOO'
           })
           .end((err, res) => {
             expect(res.status).to.equal(200);
@@ -102,23 +108,31 @@ describe('Plato', () => {
           .post('/api/save-session')
           .send({
             user_id: '123123123',
-            text: 'lolololol',
-            title: 'GODZILLA'
+            notesText: 'lolololol',
+            notesPlainText: 'lsp',
+            title: 'GODZILLA',
+            transcriptText: 'finn',
+            transcriptPlainText: 'beemo'
           })
           .end(() => {
             request(app)
-              .post('/api/save-note')
+              .post('/api/save-session')
               .send({
                 user_id: '123123123',
-                text: 'roflcopter',
-                title: 'GODZILLA'
+                notesText: 'roflcopter',
+                notesPlainText: 'lsp',
+                title: 'GODZILLA',
+                transcriptText: 'finn',
+                transcriptPlainText: 'beemo'
               })
               .end(() => {
                 request(app)
                 .get('/api/123123123')
                 .end((err, res) => {
-                  const text = JSON.parse(res.text)[0];
-                  expect(text.text).to.equal('roflcopter');
+                  //
+                  console.log(res, 'res');
+                  const text = JSON.parse(res.notesText)[0];
+                  expect(text.notesText).to.equal('roflcopter');
                   done();
                 });
               });
@@ -126,12 +140,12 @@ describe('Plato', () => {
       });
     });
     describe('DELETE /api/delete-session/:id', () => {
-      it('should delete an existing note', (done) => {
+      it('should delete an existing session', (done) => {
         // first get the mongo id by querying the database
         request(app)
           .get('/api/000000')
           .end((err, res) => {
-            const id = JSON.parse(res.text)[0]._id;
+            const id = JSON.parse(res.notesText)[0]._id;
             request(app)
               .delete('/api/delete-session/'.concat(id))
               .end((err2, res2) => {
