@@ -103,6 +103,13 @@ class SpeechToTextEditor extends React.Component {
     };
   }
 
+  componentWillReceiveProps(newProps) {
+    console.log(newProps, 'new props from session into stt');
+    this.setState({
+      currentTranscript: newProps.transcript
+    });
+  }
+
   render() {
     return (
       <div>
