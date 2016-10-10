@@ -5,6 +5,9 @@ import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { Row, Col, Navbar, NavItem } from 'react-materialize';
+import { Router, Route, hashHistory } from 'react-router';
+
+import App from './components/App.jsx';
 
 import * as a from './actions.js';
 
@@ -74,10 +77,13 @@ const App = () => (
   </div>
 );
 
+
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <Router history={hashHistory}>
+        <Route path="/" component={App} />
+      </Router>
     </Provider>,
     document.getElementById('app')
   );

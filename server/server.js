@@ -1,6 +1,7 @@
 require('dotenv').config();
 const slack = require('@slack/client');
 const request = require('superagent');
+const path = require('path');
 
 const RTM_EVENTS = slack.RTM_EVENTS;
 
@@ -64,6 +65,9 @@ io.on('connection', (socket) => {
 
 // routing
 app.use('/api', noteRouter);
+app.get('/*', (req, res) => {
+  res.sendfile(path.join(__dirname, '/../client/index.html'));
+});
 
 // initialize server
 http.listen(3000, () => {
