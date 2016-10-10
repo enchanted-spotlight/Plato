@@ -15,6 +15,7 @@ import SearchBarContainer from './components/SearchBar.jsx';
 import NoteListContainer from './components/NoteList.jsx';
 import MediumEditor from './components/MediumDraft.jsx';
 import SpeechToTextEditor from './components/SpeechToTextEditor.jsx';
+import SignUpContainer from './components/SignUp.jsx';
 
 const loggerMiddleware = createLogger();
 
@@ -74,6 +75,7 @@ const App = () => (
         s={3}
         className="login"
       >
+        <SignUpContainer />
         <LogInContainer />
         <ChatClientComponent />
       </Col>
