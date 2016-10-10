@@ -83,10 +83,10 @@ describe('Plato', () => {
           });
       });
     });
-    describe('POST /api/save-note', () => {
+    describe('POST /api/save-session', () => {
       it('should save a note', (done) => {
         request(app)
-          .post('/api/save-note')
+          .post('/api/save-session')
           .send({
             user_id: '123123123',
             text: 'lolololol',
@@ -97,9 +97,9 @@ describe('Plato', () => {
             done();
           });
       });
-      it('should update an existing note', (done) => {
+      it('should update an existing session', (done) => {
         request(app)
-          .post('/api/save-note')
+          .post('/api/save-session')
           .send({
             user_id: '123123123',
             text: 'lolololol',
@@ -125,7 +125,7 @@ describe('Plato', () => {
           });
       });
     });
-    describe('DELETE /api/delete-note/:id', () => {
+    describe('DELETE /api/delete-session/:id', () => {
       it('should delete an existing note', (done) => {
         // first get the mongo id by querying the database
         request(app)
@@ -133,7 +133,7 @@ describe('Plato', () => {
           .end((err, res) => {
             const id = JSON.parse(res.text)[0]._id;
             request(app)
-              .delete('/api/delete-note/'.concat(id))
+              .delete('/api/delete-session/'.concat(id))
               .end((err2, res2) => {
                 expect(res2.status).to.equal(200);
                 done();
@@ -142,7 +142,7 @@ describe('Plato', () => {
       });
       it('should return 404 if the note doesnt exist', (done) => {
         request(app)
-          .delete('/api/delete-note/totallyfakeid')
+          .delete('/api/delete-session/totallyfakeid')
           .end((err, res) => {
             expect(res.status).to.equal(500);
             done();
