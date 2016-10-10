@@ -56,9 +56,8 @@ const ChatClientContainer = connect(
   mapDispatchToProps
 )(ChatClient);
 
-// ChatClient.propTypes = {
-//   messages: React.PropType.array,
-//   username: React.PropType.object
-// };
+ChatClient.propTypes = {
+  messages: React.PropType.array,
+};
 
 export default ChatClientContainer;
