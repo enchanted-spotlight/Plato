@@ -46,6 +46,7 @@ export const onSpeechEditorChange = editorState => ({
 /* ------------------ THUNK ACTION CREATORS -----------------*/
 export const fetchNotes = username => (
   (dispatch) => {
+    console.log('fetching notes');
     dispatch(requestNotes(username));
     return fetch(`/api/${username}`)
       .then(response => response.json())
@@ -74,7 +75,25 @@ export const loginUser = formData => (
   }
 );
 
-export const submitSignUp = (formData) => (
+// this will get the user's identity from their session
+// if the session exists
+export const getIdentity = () => (
+  (dispatch) => {
+    request
+      .get('api/auth/identify')
+      .end((err, res) => {
+        if (err) {
+          console.log('Error identifying!');
+        } else {
+          const response = JSON.parse(res.text);
+          dispatch(setUsername(response.email));
+          dispatch(fetchNotes(response.email));
+        }
+      });
+  }
+);
+
+export const submitSignUp = formData => (
   (dispatch) => {
     if (formData.password === formData.verifyPassword) {
       request

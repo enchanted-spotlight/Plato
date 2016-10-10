@@ -6,7 +6,7 @@ const router = new express.Router();
 const chats = require('../controllers/chats');
 const notes = require('../controllers/notes');
 const user = require('../controllers/users');
-const email = require('../controllers/email');
+const email = require('./email');
 
 // ------------ CHAT & SLACK ---------- //
 router.post('/chat', chats.sendMessageToSlack);

@@ -13,6 +13,7 @@ const mapStateToProps = store => ({
   currentNoteTitle: store.sessionTitle
 });
 const mapDispatchToProps = dispatch => ({
+  fetchNotes: username => dispatch(a.fetchNotes(username))
 });
 
 class MediumEditor extends React.Component {
@@ -33,6 +34,7 @@ class MediumEditor extends React.Component {
     };
 
     this.submitNote = () => {
+      console.log('Submitted Note');
       // this will let us save the current content as rich text
       const userNote = convertToRaw(this.state.editorState.getCurrentContent());
       const plainTextContent = this.state.editorState.getCurrentContent().getPlainText();
@@ -56,6 +58,9 @@ class MediumEditor extends React.Component {
             // this.props.store.dispatch(a.fetchNotes(this.props.username));
           }
         });
+
+      console.log(this.props.username);
+      this.props.fetchNotes(this.props.username);
     };
   }
 
@@ -102,5 +107,6 @@ export default MediumEditorContainer;
 
 MediumEditor.propTypes = {
   username: React.PropTypes.string,
+  fetchNotes: React.PropTypes.func,
   currentNote: () => null
 };
