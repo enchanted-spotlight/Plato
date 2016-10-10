@@ -63,3 +63,32 @@
   text-align: center;
   padding: 15px 20px;
 }
+
+.sketch {
+  position: relative;
+}
+
+.paint {
+  outline: 2px solid gray;
+}
+
+#tmpCanvas {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  top: 0px;
+  cursor: crosshair;
+}
+
+.strokeStyle {
+  margin-left: 25px;
+}
+
+.lineWidth {
+  margin-left: 25px;
+}
+
+.canvasHeight {
+  float: right;
+}

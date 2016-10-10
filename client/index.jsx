@@ -47,7 +47,6 @@ socket.on('slack message archive', (data) => {
 
 const App = () => (
   <div className="plato-app">
-
     <Navbar brand="Plato" right>
       <NavItem href="">Login</NavItem>
       <NavItem href="">Signout</NavItem>
@@ -80,7 +79,11 @@ const App = () => (
         <ChatClientComponent />
       </Col>
     </Row>
-
+    <Row>
+      <Col s={12} className="base-col-height">
+        <Canvas />
+      </Col>
+    </Row>
   </div>
 );
 
