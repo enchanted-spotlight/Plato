@@ -12,7 +12,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  onMessageSubmit: messageObj => {
+  onMessageSubmit: (messageObj) => {
     dispatch(loadNewChatMessage(messageObj));
     socket.emit('new chat message', messageObj);
   },

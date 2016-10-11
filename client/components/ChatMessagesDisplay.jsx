@@ -1,4 +1,5 @@
 import React from 'react';
+import Infinite from 'react-infinite';
 
 const ChatMessagesDisplay = props => (
   <ul
