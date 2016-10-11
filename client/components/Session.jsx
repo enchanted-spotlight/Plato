@@ -114,11 +114,11 @@ class Session extends React.Component {
             onChange={this.props.onTitleChange}
             placeholder="Title"
           />
-          <Col s={2} className="grey lighten-2 base-col-height">
+          <Col s={5} className="grey lighten-2 base-col-height">
             <SpeechToTextEditor />
           </Col>
 
-          <Col s={8} className="base-col-height">
+          <Col s={5} className="base-col-height">
             <MediumEditor />
           </Col>
         </Row>
