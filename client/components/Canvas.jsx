@@ -80,8 +80,26 @@ class Canvas extends React.Component {
       return savedCanvas;
     };
 
+    this.saveCanvasToPNG = () => {
+      const canvasElement = document.querySelector('.paint');
+
+      const MIME_TYPE = 'image/png';
+
+      const imgURL = canvasElement.toDataURL(MIME_TYPE);
+
+      const downloadLink = document.createElement('a');
+      downloadLink.download = "image.png";
+      downloadLink.href = imgURL;
+      downloadLink.dataset.downloadurl = [MIME_TYPE, downloadLink.download, downloadLink.href].join(':');
+
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
+    };
+
     // give loadCanvas a previously saved canvasState
     this.loadCanvas = (savedCanvas) => {
+      console.log('loading a canvas');
       const canvasLoadTarget = document.querySelector('.paint');
       const ctxLoadTarget = canvasLoadTarget.getContext('2d');
       // ctx.putImageData(savedCanvas);
@@ -101,11 +119,15 @@ class Canvas extends React.Component {
       const canvasToRestore = this.undoStack.pop();
       this.redoStack.push(canvasToRestore);
       this.loadCanvas(canvasToRestore);
+      console.log(this.redoStack);
     };
 
     this.redo = () => {
-
-    }
+      console.log('trying to redo');
+      const canvasToUndo = this.redoStack.pop();
+      this.undoStack.push(canvasToUndo);
+      this.loadCanvas(canvasToUndo);
+    };
 
     // this will set up the canvas and the contexts
     this.canvasSetup = (width, height) => {
@@ -119,7 +141,7 @@ class Canvas extends React.Component {
       canvas.width = width - 25;
       canvas.height = height;
 
-      this.saveCanvas();
+      this.undoStack.push(this.saveCanvas());
 
       // Creating a tmp canvas
       const tmpCanvas = document.createElement('canvas');
@@ -220,7 +242,6 @@ class Canvas extends React.Component {
         // handle first save
         this.undoStack.push(this.state.canvasState);
         this.setState({ canvasState: savedCanvas });
-        console.log(this.undoStack);
       }, false);
     };
   }
@@ -244,6 +265,8 @@ class Canvas extends React.Component {
           incrementCanvasHeight={this.incrementCanvasHeight}
           incrementCanvasWidth={this.incrementCanvasWidth}
           undo={this.undo}
+          redo={this.redo}
+          saveCanvasToPNG={this.saveCanvasToPNG}
         />
         <div className="sketch">
           <canvas className="paint" />
