@@ -3,11 +3,34 @@ import { Row, Col, Button } from 'react-materialize';
 import { convertToRaw } from 'draft-js';
 import request from 'superagent';
 import { createEditorState } from 'medium-draft';
-
+import { connect } from 'react-redux';
 import SpeechToTextEditor from './SpeechToTextEditor.jsx';
 import MediumEditor from './MediumDraft.jsx';
-import * as t from './../actions';
+import * as a from './../actions.js';
 
+const mapStateToProps = state => ({
+  username: state.username,
+  currentNote: state.textEditor,
+  title: state.sessionTitle,
+  currentTranscript: state.speechEditor
+});
+
+// dispatch actions defined here!
+const mapDispatchToProps = dispatch => ({
+  reloadNote: (changedNote, title) => {
+    dispatch(a.onTextEditorChange(changedNote));
+    dispatch(a.onSessionTitleCreate(title));
+  },
+  reloadTranscript: (changedTranscript) => {
+    dispatch(a.onSpeechEditorChange(changedTranscript));
+  },
+  saveSession: sessionPkg => (
+    dispatch(a.saveSession(sessionPkg))
+  ),
+  onTitleChange: e => (
+    dispatch(a.onSessionTitleCreate(e.target.value))
+  )
+});
 
 class Session extends React.Component {
   constructor(props) {
@@ -16,13 +39,6 @@ class Session extends React.Component {
     this.recording = false;
     this.time = 0;
 
-    this.state = {
-      index: this.time / 5,
-      currentNoteTitle: this.props.currentNoteTitle,
-      transcript: createEditorState(),
-      currentNote: createEditorState(),
-      dispatch: this.props.dispatcher
-    };
     this.toggleTimer = () => {
       this.recording = !this.recording;
       // if recording,
@@ -46,30 +62,14 @@ class Session extends React.Component {
       // this.submitSession();
     };
 
-    this.onTranscriptChange = (transcriptState) => {
-      this.setState({ transcript: transcriptState });
-    };
-
-    this.onNoteChange = (noteState) => {
-      this.setState({
-        currentNote: noteState
-      });
-    };
-
-    // done.
-    this.titleChange = (e) => {
-      this.setState({ currentNoteTitle: e.target.value });
-    };
-
     this.submitSession = () => {
-      const userTitle = this.state.currentNoteTitle;
+      const userTitle = this.props.title;
       const username = this.props.username;
-      const url = 'api/save-session';
 
       // PACKAGE FOR NOTES
       // this will let us save the current content as rich text
-      const userNote = convertToRaw(this.state.currentNote.getCurrentContent());
-      const plainTextContent = this.state.currentNote.getCurrentContent()
+      const userNote = convertToRaw(this.props.currentNote.getCurrentContent());
+      const plainTextContent = this.props.currentNote.getCurrentContent()
         .getPlainText();
 
       const notePkg = {
@@ -78,10 +78,10 @@ class Session extends React.Component {
       };
 
       // PACKAGE FOR TRANSCRIPT
-      const userTranscript = convertToRaw(this.state
-        .transcript.getCurrentContent());
-      const plainTranscriptContent = this.state
-        .transcript.getCurrentContent().getPlainText();
+      const userTranscript = convertToRaw(this.props
+        .currentTranscript.getCurrentContent());
+      const plainTranscriptContent = this.props
+        .currentTranscript.getCurrentContent().getPlainText();
 
       const transcriptPkg = {
         text: JSON.stringify(userTranscript),
@@ -90,7 +90,6 @@ class Session extends React.Component {
 
       // PACKAGE TO BE SENT TO DB:
       const sessionPkg = {
-        time: this.time,
         user_id: username, // string
         title: userTitle, // string
         notes: notePkg, // object
@@ -98,70 +97,54 @@ class Session extends React.Component {
       };
 
       // send pkg to db
-      request
-        .post(url)
-        .send(sessionPkg)
-        .set('Accept', 'application/json')
-        .end((err) => {
-          if (err) {
-            console.log('There is an error in submitNote: ', err);
-          } else {
-            console.log(
-              'Pending post implementation, but this ' +
-              'session package should be sent to db: '
-              , sessionPkg);
-            this.state.dispatch(t.fetchSessions, username);
-          }
-        });
+      console.log('pending db set up but this should be sent:',
+        sessionPkg);
+      this.props.saveSession(sessionPkg);
     };
   }
 
-  componentWillReceiveProps(newProps) {
-    this.setState({
-      currentNote: newProps.currentNote,
-      currentNoteTitle: newProps.currentNoteTitle,
-      transcript: newProps.transcript
-    });
-  }
-
   render() {
-    console.log(this.props, 'session props');
+    console.log(this.props, 'session title props');
     console.log(this.state, 'session state');
     return (
       <div>
         <Row>
           <input
             type="text"
-            value={this.state.currentNoteTitle}
-            onChange={this.titleChange}
+            value={this.props.title}
+            onChange={this.props.onTitleChange}
             placeholder="Title"
           />
           <Col s={2} className="grey lighten-2 base-col-height">
-            <SpeechToTextEditor
-              toggleTimer={this.toggleTimer}
-              transcript={this.state.transcript}
-              onTranscriptChange={this.onTranscriptChange}
-            />
+            <SpeechToTextEditor />
           </Col>
 
           <Col s={8} className="base-col-height">
-            <MediumEditor
-              currentNote={this.state.currentNote}
-              currentNoteTitle={this.state.currentNoteTitle}
-              onNoteChange={this.onNoteChange}
-              submitSession={this.submitSession}
-            />
+            <MediumEditor />
           </Col>
         </Row>
+        <Button
+          onClick={() => this.submitSession()}
+          waves="light"
+        >Submit
+        </Button>
       </div>
     );
   }
 }
 
 Session.propTypes = {
-  dispatcher: React.PropTypes.func,
-  currentNoteTitle: React.PropTypes.string,
+  title: React.PropTypes.string,
+  currentNote: React.PropTypes.object,
+  currentTranscript: React.PropTypes.object,
   username: React.PropTypes.string,
+  saveSession: React.PropTypes.func,
+  onTitleChange: React.PropTypes.func
 };
 
-export default Session;
+const SessionContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Session);
+
+export default SessionContainer;

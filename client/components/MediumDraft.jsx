@@ -9,14 +9,13 @@ import { connect } from 'react-redux';
 
 import * as a from './../actions.js';
 
-const mapStateToProps = store => ({
-  username: store.username,
-  currentNote: store.textEditor,
-  currentNoteTitle: store.sessionTitle
+const mapStateToProps = state => ({
+  currentNote: state.textEditor
 });
 
 const mapDispatchToProps = dispatch => ({
-  fetchNotes: username => dispatch(a.fetchNotes(username))
+  fetchNotes: username => dispatch(a.fetchNotes(username)),
+  onNoteChange: newEditorState => dispatch(a.onTextEditorChange(newEditorState))
 });
 
 class MediumEditor extends React.Component {
@@ -24,14 +23,8 @@ class MediumEditor extends React.Component {
     super(props);
 
     this.state = {
-      currentNote: this.props.currentNote, // for empty content
+      toggleTimer: this.props.toggleTimer
     };
-  }
-
-  componentWillReceiveProps(newProps) {
-    this.setState({
-      currentNote: newProps.currentNote
-    });
   }
 
   render() {
@@ -39,15 +32,10 @@ class MediumEditor extends React.Component {
     return (
       <div>
         <Editor
-          editorState={this.state.currentNote}
+          editorState={this.props.currentNote}
           onChange={this.props.onNoteChange}
           placeholder="Start typing here ..."
         />
-        <Button
-          onClick={() => this.props.submitSession()}
-          waves="light"
-        >Submit
-        </Button>
       </div>
     );
   }
@@ -61,7 +49,7 @@ const MediumEditorContainer = connect(
 export default MediumEditorContainer;
 
 MediumEditor.propTypes = {
-  submitSession: React.PropTypes.func,
-  onNoteChange: React.PropTypes.func,
-  currentNote: () => null
+  toggleTimer: React.PropTypes.func,
+  currentNote: React.PropTypes.func,
+  onNoteChange: React.PropTypes.func
 };

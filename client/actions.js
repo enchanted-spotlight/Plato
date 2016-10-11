@@ -53,6 +53,22 @@ export const fetchSessions = username => (
   }
 );
 
+export const saveSession = sessionPkg => (
+  (dispatch) => {
+    request
+      .post('/api/save-session') // 'api/save-session' ?
+      .send(sessionPkg)
+      .set('Accept', 'application/json')
+      .end((err) => {
+        if (err) {
+          console.log('Error in saving session: ', err);
+        } else {
+          console.log('This should be saved: ', sessionPkg);
+        }
+      });
+  }
+);
+
 export const loginUser = formData => (
   (dispatch) => {
     request
@@ -86,7 +102,7 @@ export const getIdentity = () => (
         } else {
           const response = JSON.parse(res.text);
           dispatch(setUsername(response.email));
-          dispatch(fetchNotes(response.email));
+          dispatch(fetchSessions(response.email));
         }
       });
   }
