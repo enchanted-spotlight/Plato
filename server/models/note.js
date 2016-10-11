@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const noteSchema = mongoose.Schema({
-  // user_id should correspond with the mongodb _id of the user
+  // user_id should correspond with the email of the user who created the note
   user_id: String,
   // notes should be an object (EntityMap)
   text: Object,

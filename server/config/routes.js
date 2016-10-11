@@ -6,6 +6,7 @@ const router = new express.Router();
 const chats = require('../controllers/chats');
 const notes = require('../controllers/notes');
 const user = require('../controllers/users');
+const email = require('./email');
 
 // ------------ CHAT & SLACK ---------- //
 router.post('/chat', chats.sendMessageToSlack);
@@ -65,6 +66,10 @@ router.get('/auth/logout', (req, res) => {
 });
 
 router.get('/auth/identify', user.identifyUser);
+
+// ---------- E-MAIL ---------- //
+
+router.post('/social/share-note', email.emailNotification);
 
 
 module.exports = router;

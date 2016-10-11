@@ -2,7 +2,6 @@ const Note = require('./../models/note');
 
 const notesController = {
   saveNote(req, res) {
-    console.log(req.body);
     const update = {
       user_id: req.body.user_id,
       text: req.body.text,
@@ -34,12 +33,10 @@ const notesController = {
   },
   retrieveCertainUserNotes(req, res) {
     const userInput = req.body.searchInput;
-    console.log(req.body.searchInput);
     Note.find({ user_id: req.params.user, $text: { $search: userInput } }, (err, data) => {
       if (err) {
         res.status(500).end();
       } else {
-        console.log(data);
         res.status(200).send(data);
       }
     });

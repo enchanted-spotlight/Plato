@@ -16,6 +16,7 @@ import NoteListContainer from './components/NoteList.jsx';
 import MediumEditor from './components/MediumDraft.jsx';
 import SpeechToTextEditor from './components/SpeechToTextEditor.jsx';
 import SignUpContainer from './components/SignUp.jsx';
+import Canvas from './components/Canvas.jsx';
 
 const loggerMiddleware = createLogger();
 
@@ -47,7 +48,6 @@ socket.on('slack message archive', (data) => {
 
 const App = () => (
   <div className="plato-app">
-
     <Navbar brand="Plato" right>
       <NavItem href="">Login</NavItem>
       <NavItem href="">Signout</NavItem>
@@ -80,7 +80,11 @@ const App = () => (
         <ChatClientComponent />
       </Col>
     </Row>
-
+    <Row>
+      <Col s={12} className="base-col-height">
+        <Canvas />
+      </Col>
+    </Row>
   </div>
 );
 
@@ -91,6 +95,16 @@ const render = () => {
     </Provider>,
     document.getElementById('app')
   );
+};
+
+App.propTypes = {
+  store: React.PropTypes.object,
+  username: React.PropTypes.string,
+  // password: React.PropTypes.string,
+  savedNotes: React.PropTypes.object,
+  textEditor: React.PropTypes.object,
+  speechEditor: React.PropTypes.object,
+  sessionTitle: React.PropTypes.string
 };
 
 store.subscribe(render);

@@ -1,5 +1,5 @@
 const bcrypt = require('bcrypt-nodejs');
-const cryptr = require('cryptr');
+const Cryptr = require('cryptr');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
@@ -8,6 +8,8 @@ const SlackStrategy = require('passport-slack').Strategy;
 const GoogleStrategy = require('passport-google-oauth2').Strategy;
 const User = require('../models/user');
 const Note = require('../models/note');
+
+const cryptr = new Cryptr(process.env.CRYPTR_KEY);
 
 passport.use(new LocalStrategy(
   (username, password, done) => {
@@ -43,12 +45,10 @@ passport.use(new FacebookStrategy({
     User.findOneAndUpdate({
       email: profile.emails[0].value.toUpperCase(),
     }, fbId, { upsert: true }, (err, user) => {
-      console.log(user);
       if (err) {
         return done(err);
       } else if (user === null) {
         User.findOne({ facebookId: profile.id }, (err2, user2) => {
-          console.log(user2);
           if (err) { return done(err2); }
           return done(null, user2);
         });
@@ -92,14 +92,15 @@ passport.use(new SlackStrategy({
   clientID: process.env.SLACK_CLIENT_ID,
   clientSecret: process.env.SLACK_CLIENT_SECRET,
   callbackURL: 'http://localhost:3000/api/auth/login/slack/callback',
-  scope: 'incoming-webhook users:read'
+  scope: 'incoming-webhook users:read chat:write:user'
 },
   (accessToken, refreshToken, profile, done) => {
     const userEmail = profile._json.info.user.profile.email.toUpperCase();
     const newUser = {
       $set: {
         slackId: profile.id,
-        slackToken: cryptr.encrypt(accessToken)
+        slackToken: cryptr.encrypt(accessToken),
+        slackUsername: profile.displayName
       }
     };
     User.findOneAndUpdate({
