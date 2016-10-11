@@ -1,19 +1,23 @@
 import React from 'react';
 import { Button, Row, Col } from 'react-materialize';
 import { EditorState, Modifier } from 'draft-js';
-
+import { connect } from 'react-redux';
 import { Editor } from 'medium-draft';
+import * as a from './../actions.js';
+
+const mapStateToProps = state => ({
+  currentTranscript: state.speechEditor
+});
+
+const mapDispatchToProps = dispatch => ({
+  reloadTranscript: (newSpeechEditor) => {
+    dispatch(a.onSpeechEditorChange(newSpeechEditor));
+  }
+});
 
 class SpeechToTextEditor extends React.Component {
   constructor(props) {
     super(props);
-
-
-    this.state = {
-      // this will let us create an empty editor
-      currentTranscript: this.props.transcript, // createEditorState(),
-      // editorState: createEditorState(),
-    };
 
     this.recording = false;
 
@@ -67,7 +71,7 @@ class SpeechToTextEditor extends React.Component {
       // get state of the editor, move the selection to end
       // so that we are inserting text at the end
       const editorState = EditorState
-        .moveSelectionToEnd(this.state.currentTranscript);
+        .moveSelectionToEnd(this.props.currentTranscript);
       // get the area that we have selected
       const selection = editorState.getSelection();
       // get contentState so we can insertText
@@ -76,21 +80,20 @@ class SpeechToTextEditor extends React.Component {
       const insert = Modifier.insertText(contentState, selection, string);
       const newEditorState = EditorState
         .push(editorState, insert, 'insert-fragment');
-      this.setState({ currentTranscript: newEditorState });
+      // this.setState({ currentTranscript: newEditorState });
 
       // update Session's transcript text.
-      this.props.onTranscriptChange(newEditorState);
+      this.props.reloadTranscript(newEditorState);
     };
 
     this.toggleRecordingState = () => {
       // toggling state is NOT instantaneous!!
-      // this.recording = !this.recording;
 
       // toggle local state
       this.recording = !this.recording;
       console.log('speech recording state: ', this.recording);
       // toggle parent state
-      this.props.toggleTimer();
+      // this.props.toggleTimer();
 
       if (!this.recording) {
         window.transcript = '';
@@ -103,20 +106,14 @@ class SpeechToTextEditor extends React.Component {
     };
   }
 
-  componentWillReceiveProps(newProps) {
-    console.log(newProps, 'new props from session into stt');
-    this.setState({
-      currentTranscript: newProps.transcript
-    });
-  }
-
   render() {
+    console.log('props in stt: ', this.props);
     return (
       <div>
         <Row>
           <Editor
-            editorState={this.state.currentTranscript}
-            onChange={e => this.props.onTranscriptChange(e)}
+            editorState={this.props.currentTranscript}
+            onChange={e => this.props.reloadTranscript(e)}
             placeholder="This is your audio transcription... "
           />
         </Row>
@@ -134,13 +131,17 @@ class SpeechToTextEditor extends React.Component {
 }
 
 SpeechToTextEditor.propTypes = {
-  onTranscriptChange: React.PropTypes.func,
-  toggleTimer: React.PropTypes.func,
-  transcript: React.PropTypes.oneOfType([
+  reloadTranscript: React.PropTypes.func,
+  // toggleTimer: React.PropTypes.func,
+  currentTranscript: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.instanceOf(Object)
   ])
 };
 
+const SpeechToTextEditorContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SpeechToTextEditor);
 
-export default SpeechToTextEditor;
+export default SpeechToTextEditorContainer;

@@ -2,6 +2,7 @@ const Session = require('./../models/session');
 
 const sessionController = {
   saveSession(req, res) {
+    console.log('saving session: ', req.body);
     const update = {
       user_id: req.body.user_id,
       title: req.body.title,

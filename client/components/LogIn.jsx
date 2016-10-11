@@ -18,9 +18,11 @@ class LogIn extends React.Component {
       password: '',
     };
     this.changeUsernameState = (e) => {
+      console.log(e.target.value, 'username');
       this.setState({ username: e.target.value });
     };
     this.changePasswordState = (e) => {
+      console.log(e.target.value, 'password');
       this.setState({ password: e.target.value });
     };
   }
