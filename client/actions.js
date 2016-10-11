@@ -12,7 +12,7 @@ export const setUsername = username => ({
 // 2. Inform reducers request completed
 // 3. Inform reducers request failed
 
-export const requestNotes = username => ({
+export const requestSessions = username => ({
   type: t.REQUEST_NOTES,
   username
 });
@@ -20,7 +20,7 @@ export const requestNotes = username => ({
 // TODO: normalize notes into object instead of array
 // (Improve access and let it be present in different scoped components.)
 // https://github.com/paularmstrong/normalizr
-export const receiveNotes = (username, notes, status) => ({
+export const receiveSessions = (username, notes, status) => ({
   type: t.RECEIVE_NOTES,
   username,
   notes,
@@ -43,14 +43,13 @@ export const onSpeechEditorChange = editorState => ({
   editorState
 });
 
-/* ------------------ THUNK ACTION CREATORS -----------------*/
-export const fetchNotes = username => (
+// Thunk action creator:
+export const fetchSessions = username => (
   (dispatch) => {
-    console.log('fetching notes');
-    dispatch(requestNotes(username));
+    dispatch(requestSessions(username));
     return fetch(`/api/${username}`)
       .then(response => response.json())
-      .then(json => dispatch(receiveNotes(username, json)));
+      .then(json => dispatch(receiveSessions(username, json)));
   }
 );
 
@@ -69,7 +68,7 @@ export const loginUser = formData => (
         } else {
           // successful login
           dispatch(setUsername(formData.username));
-          dispatch(fetchNotes(formData.username));
+          dispatch(fetchSessions(formData.username));
         }
       });
   }
@@ -88,6 +87,23 @@ export const getIdentity = () => (
           const response = JSON.parse(res.text);
           dispatch(setUsername(response.email));
           dispatch(fetchNotes(response.email));
+        }
+      });
+  }
+);
+
+export const deleteSession = (noteId, username) => (
+  (dispatch) => {
+    request('DELETE', `/api/delete-session/${noteId}`)
+      .end((err, res) => {
+        if (err) {
+          // do something on error
+          console.log('error deleting note!');
+        } else {
+          dispatch(requestSessions(username));
+          return fetch(`/api/${username}`)
+            .then(response => response.json())
+            .then(json => dispatch(receiveSessions(username, json)));
         }
       });
   }
@@ -116,7 +132,7 @@ export const submitSignUp = formData => (
 export const searchNotes = (username, term) => (
   (dispatch) => {
     const urlUser = `api/${username}`;
-    dispatch(requestNotes(username));
+    dispatch(requestSessions(username));
     request
       .post(urlUser)
       .send({ searchInput: term })
@@ -125,23 +141,7 @@ export const searchNotes = (username, term) => (
         if (err) {
           console.log('There is an error in SearchBar:', err);
         } else {
-          dispatch(receiveNotes(username, res.body));
-        }
-      });
-  }
-);
-
-export const deleteNote = (noteId, username) => (
-  (dispatch) => {
-    request('DELETE', `/api/delete-note/${noteId}`)
-      .end((err, res) => {
-        if (err) {
-          console.log('Error deleting note');
-        } else {
-          dispatch(requestNotes(username));
-          return fetch(`/api/${username}`)
-            .then(response => response.json())
-            .then(json => dispatch(receiveNotes(username, json)));
+          dispatch(receiveSessions(username, res.body));
         }
       });
   }
@@ -155,7 +155,7 @@ export const loadArchivedChatMessages = messages => ({
 export const loadNewChatMessage = message => ({
   type: t.LOAD_NEW_CHAT_MESSAGE,
   message
-})
+});
 
 export const sendChatMessage = messageObj => (
   request
