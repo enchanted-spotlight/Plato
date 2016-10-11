@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import request from 'superagent';
 import { Button, Row, Col } from 'react-materialize';
 import { EditorState, Modifier, convertToRaw } from 'draft-js';
+
 import { Editor, createEditorState } from 'medium-draft';
 
 class SpeechToTextEditor extends React.Component {
@@ -53,58 +54,60 @@ class SpeechToTextEditor extends React.Component {
       window.transcript = '';
     };
 
+    // mutable: currentTranscript
+
     this.state = {
       // this will let us create an empty editor
-      editorState: createEditorState(),
-      title: ''
+      currentTranscript: this.props.transcript // createEditorState(),
+      // editorState: createEditorState(),
     };
+
+    // // this method should mirror the MyEditor component
+    // this.onChange = (editorState) => {
+    //   console.log(editorState, 'speech to text state');
+    //   this.setState({ editorState });
+    //   console.log(editorState, 'speech to text changed');
+    // };
 
     // this method should mirror the MyEditor component
-    this.onChange = (editorState) => {
-      console.log(editorState, 'speech to text state');
-      this.setState({ editorState });
-      console.log(editorState, 'speech to text changed');
-    };
+    // this.titleChange = (event) => {
+    //   this.setState({ title: event.target.value });
+    // };
 
     // this method should mirror the MyEditor component
-    this.titleChange = (event) => {
-      this.setState({ title: event.target.value });
-    };
+    // this.submitNote = () => {
+    //   // this will let us save the current content as rich text
+    //   const userNote = convertToRaw(this.state.editorState.getCurrentContent());
+    //   const plainTextContent = this.state.editorState.getCurrentContent().getPlainText();
+    //   const userTitle = this.state.title;
+    //   const username = this.props.username;
+    //   const url = 'api/save-note';
 
-    // this method should mirror the MyEditor component
-    this.submitNote = () => {
-      // this will let us save the current content as rich text
-      const userNote = convertToRaw(this.state.editorState.getCurrentContent());
-      const plainTextContent = this.state.editorState.getCurrentContent().getPlainText();
-      const userTitle = this.state.title;
-      const username = this.props.username;
-      const url = 'api/save-note';
-
-      // submit the note to the server for storage in db
-      request
-        .post(url)
-        .send({
-          user_id: username,
-          text: JSON.stringify(userNote),
-          plainText: JSON.stringify(plainTextContent),
-          title: userTitle
-        })
-        .set('Accept', 'application/json')
-        .end((err, res) => {
-          if (err) {
-            console.log('There is an error in submitNote: ', err);
-          } else {
-            this.props.fetchNotes(this.props.username);
-          }
-          console.log(res, 'res');
-        });
-    };
+    //   // submit the note to the server for storage in db
+    //   request
+    //     .post(url)
+    //     .send({
+    //       user_id: username,
+    //       text: JSON.stringify(userNote),
+    //       plainText: JSON.stringify(plainTextContent),
+    //       title: userTitle
+    //     })
+    //     .set('Accept', 'application/json')
+    //     .end((err, res) => {
+    //       if (err) {
+    //         console.log('There is an error in submitNote: ', err);
+    //       } else {
+    //         this.props.fetchNotes(this.props.username);
+    //       }
+    //       console.log(res, 'res');
+    //     });
+    // };
 
     // add string to the editable portion of the editor
     this.addText = (string) => {
       // get state of the editor, move the selection to end
       // so that we are inserting text at the end
-      const editorState = EditorState.moveSelectionToEnd(this.state.editorState);
+      const editorState = EditorState.moveSelectionToEnd(this.state.currentTranscript);
       // get the area that we have selected
       const selection = editorState.getSelection();
       // get contentState so we can insertText
@@ -112,8 +115,8 @@ class SpeechToTextEditor extends React.Component {
       // string should equal the text that we are trying to insert
       const insert = Modifier.insertText(contentState, selection, string);
       const newEditorState = EditorState.push(editorState, insert, 'insert-fragment');
-      this.setState({ editorState: newEditorState });
-      console.log('new editor state: ', this.state.editorState);
+      this.setState({ currentTranscript: newEditorState });
+      console.log('new transcript state: ', this.state.currentTranscript);
     };
 
     this.toggleRecordingState = () => {
@@ -134,15 +137,9 @@ class SpeechToTextEditor extends React.Component {
     return (
       <div>
         <Row>
-          <input
-            type="text"
-            value={this.state.value}
-            onChange={this.titleChange}
-            placeholder="Title"
-          />
           <Editor
-            editorState={this.state.editorState}
-            onChange={e => this.onChange(e)}
+            editorState={this.state.currentTranscript}
+            onChange={e => this.props.onTranscriptChange(e)}
             placeholder="This is your audio transcription... "
           />
         </Row>
@@ -154,19 +151,17 @@ class SpeechToTextEditor extends React.Component {
             />
           </Col>
         </Row>
-        <Row>
-          <Col s={12} className="right-align">
-            <Button onClick={this.submitNote} waves="light">Submit</Button>
-          </Col>
-        </Row>
       </div>
     );
   }
 }
 
 SpeechToTextEditor.propTypes = {
-  username: React.PropTypes.string,
-  fetchNotes: React.PropTypes.func
+  onTranscriptChange: React.PropTypes.func,
+  transcript: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.instanceOf(Object)
+  ])
 };
 
 
