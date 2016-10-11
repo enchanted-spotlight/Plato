@@ -8,6 +8,8 @@ import { Row, Col, Navbar, NavItem } from 'react-materialize';
 import { Router, Route, hashHistory } from 'react-router';
 
 import App from './components/App.jsx';
+import DashBoard from './components/DashBoard.jsx';
+import LandingPage from './components/LandingPage.jsx';
 
 import * as a from './actions.js';
 
@@ -81,8 +83,13 @@ const App = () => (
 const render = () => {
   ReactDOM.render(
     <Provider store={store}>
-      <Router history={hashHistory}>
-        <Route path="/" component={App} />
+      <Router history={browserHistory}>
+        <Route path="/" component={App} >
+          <IndexRoute component={LandingPage} />
+          <Route path="dashboard" component={DashBoard} />
+          <Route path="login" component={LogInContainer} />
+          <Route path="signup" component={SignUpContainer} />
+        </Route>
       </Router>
     </Provider>,
     document.getElementById('app')
