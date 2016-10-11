@@ -29,10 +29,16 @@ class ChatClient extends React.Component {
       ...props
     };
   }
+<<<<<<< 07e5bde58f5ed49bc196fcb604cc5c1656f25771
   componentWillMount() {
     // For now let's hardcode the room and load it here
     // Later we can refactor to user input
     this.state.loadRoom();
+=======
+  componentDidMount() {
+    const main = $('#chat-messages-display')[0];
+    main.scrollTop = main.scrollHeight;
+>>>>>>> (feat)Chat scroll works properly using jQuery
   }
   componentWillReceiveProps(newProps) {
     if (this.props.username !== newProps.username) {
@@ -87,7 +93,7 @@ class ChatClient extends React.Component {
               text: this.state.message,
               timestamp: Date.now()
             };
-            console.log('MessageObj on chat client: ', messageObj);
+            // console.log('MessageObj on chat client: ', messageObj);
             this.state.onMessageSubmit(messageObj);
             this.setState({ message: '' });
           }}
