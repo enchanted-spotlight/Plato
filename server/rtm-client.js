@@ -11,7 +11,6 @@ const rtmOptions = {
 const channel = 'C2KE7FVV3';
 const rtm = new RtmClient(token, rtmOptions);
 
-
 // Slack has rate limited us so let's not start it for a while
 // rtm.start();
 

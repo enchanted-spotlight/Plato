@@ -21,13 +21,19 @@ class Canvas extends React.Component {
       fillStyle: 'black'
     };
 
+    // stack of canvas states to help us implement undo and redo
+    this.undoStack = [];
+    this.redoStack = [];
+
     // increases thickness of the drawing lines
-    this.incrementLineWidth = () => {
-      this.setState({ lineWidth: this.state.lineWidth + 1 });
+    this.incrementLineWidth = (num) => {
+      num = num || 1;
+      this.setState({ lineWidth: this.state.lineWidth + num });
     };
 
     // decreases thickness of the drawing lines
-    this.decrementLineWidth = () => {
+    this.decrementLineWidth = (num) => {
+      num = num || 1;
       // dont let user decrement below 1
       if (this.state.lineWidth - 1 <= 0) {
         return;
@@ -43,8 +49,6 @@ class Canvas extends React.Component {
       });
     };
 
-    // when we increment the canvasheight, it looks like it's wiping the canvas
-    // clean, so we need to save before incrementing and load after incrementing
     this.incrementCanvasHeight = () => {
       const savedState = this.saveCanvas();
       this.setState({ canvasHeight: this.state.canvasHeight + 250 });
@@ -83,14 +87,27 @@ class Canvas extends React.Component {
       // ctx.putImageData(savedCanvas);
 
       ctxLoadTarget.clearRect(0, 0, canvasLoadTarget.width, canvasLoadTarget.height);
-
       ctxLoadTarget.putImageData(savedCanvas, 0, 0);
+      this.setState({ canvasState: savedCanvas });
     };
 
     this.newCanvas = () => {
       const canvasToClear = document.querySelector('.paint');
       const ctxToClear = canvasToClear.getContext('2d');
       ctxToClear.clearRect(0, 0, canvasToClear.width, canvasToClear.height);
+    };
+
+    this.undo = () => {
+      // if there's only one element in the stack, then we just need to
+      // make a new Canvas
+      // if (this.undoStack.length === 1) {
+      //   this.newCanvas();
+      // } else {
+      //   this.loadCanvas(this.undoStack.pop());
+      // }
+
+      const canvasToRestore = this.undoStack.pop();
+      this.loadCanvas(canvasToRestore);
     };
 
     // this will set up the canvas and the contexts
@@ -104,6 +121,8 @@ class Canvas extends React.Component {
       // canvas.height = parseInt(sketchStyle.getPropertyValue('height'), 10);
       canvas.width = width - 25;
       canvas.height = height;
+
+      this.saveCanvas();
 
       // Creating a tmp canvas
       const tmpCanvas = document.createElement('canvas');
@@ -198,6 +217,13 @@ class Canvas extends React.Component {
 
         // Emptying up Pencil Points
         ppts = [];
+
+        // save the context for undo
+        const savedCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        // handle first save
+        this.undoStack.push(this.state.canvasState);
+        this.setState({ canvasState: savedCanvas });
+        console.log(this.undoStack);
       }, false);
     };
   }
@@ -216,9 +242,11 @@ class Canvas extends React.Component {
           decrementLineWidth={this.decrementLineWidth}
           updateStyle={this.updateStyle}
           saveCanvas={this.saveCanvas}
+          loadCanvas={this.loadCanvas}
           newCanvas={this.newCanvas}
           incrementCanvasHeight={this.incrementCanvasHeight}
           incrementCanvasWidth={this.incrementCanvasWidth}
+          undo={this.undo}
         />
         <div className="sketch">
           <canvas className="paint" />
