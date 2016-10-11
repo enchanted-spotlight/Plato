@@ -70,8 +70,10 @@ class NoteItem extends React.Component {
         <Button
           onClick={() => {
             // get new store state for editors
-            const newNoteState = createEditorState(JSON.parse(this.props.notesText));
-            const newTranscriptState = createEditorState(JSON.parse(this.props.transcriptText));
+            const newNoteState =
+              createEditorState(JSON.parse(this.props.notesText));
+            const newTranscriptState =
+              createEditorState(JSON.parse(this.props.transcriptText));
             // load each editor onto page.
             this.props.loadNote(newNoteState, this.props.title);
             this.props.loadTranscript(newTranscriptState);
@@ -80,8 +82,6 @@ class NoteItem extends React.Component {
         <Button
           onClick={() => {
             this.props.deleteNote(this.props.noteId, this.props.username);
-
-            // this.props.store.dispatch(a.deleteNote(this.props.noteId, this.props.username));
           }}
           waves="light"
         > deleteNote </Button>
