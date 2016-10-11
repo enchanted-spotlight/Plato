@@ -63,8 +63,19 @@ io.on('connection', (socket) => {
   // });
 });
 
+// const ensureAuthenticated = (req, res, next) => {
+//   if (req.isAuthenticated()) {
+//     console.log('Is this going through the /dashboard get?????');
+//     return next();
+//   }
+//   console.log('You are not authenticated');
+//   res.redirect('/login');
+// };
+
 // routing
 app.use('/api', noteRouter);
+
+
 app.get('/*', (req, res) => {
   res.sendfile(path.join(__dirname, '/../client/index.html'));
 });

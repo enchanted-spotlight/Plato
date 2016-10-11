@@ -7,6 +7,9 @@ import createLogger from 'redux-logger';
 import { Row, Col, Navbar, NavItem } from 'react-materialize';
 import { Router, Route, hashHistory } from 'react-router';
 
+import request from 'superagent';
+
+
 import App from './components/App.jsx';
 import DashBoard from './components/DashBoard.jsx';
 import LandingPage from './components/LandingPage.jsx';
@@ -45,40 +48,20 @@ socket.on('chat room archive', (data) => {
   store.dispatch(a.loadArchivedChatMessages(data));
 });
 
-const App = () => (
-  <div className="plato-app">
-    <Navbar brand="Plato" right>
-      <NavItem href="">Login</NavItem>
-      <NavItem href="">Signout</NavItem>
-    </Navbar>
-
-    <Row>
-      <Col s={2} className="blue-grey lighten-3 base-col-height">
-        <SearchBarContainer />
-        <div className="blue-grey lighten-3 column-header-lists">
-          <h3>All Notes</h3>
-        </div>
-        <NoteListContainer />
-      </Col>
-
-      <Col s={5} className="base-col-height session-container">
-        <SessionContainer />
-      </Col>
-
-      <Col s={3} className="login">
-        <SignUpContainer />
-        <LogInContainer />
-        <ChatClientComponent />
-      </Col>
-    </Row>
-    <Row>
-      <Col s={12} className="base-col-height">
-        <Canvas />
-      </Col>
-    </Row>
-  </div>
-);
-
+const requireAuth = (nextState, replace, callback) => {
+  request
+    .get('/api/auth/identify')
+    .end((err, result) => {
+      if (result.status === 401) {
+        replace({
+          pathname: '/login',
+        });
+        callback();
+      } else {
+        callback();
+      }
+    });
+};
 
 const render = () => {
   ReactDOM.render(
@@ -86,7 +69,7 @@ const render = () => {
       <Router history={browserHistory}>
         <Route path="/" component={App} >
           <IndexRoute component={LandingPage} />
-          <Route path="dashboard" component={DashBoard} />
+          <Route path="dashboard" component={DashBoard} onEnter={requireAuth} />
           <Route path="login" component={LogInContainer} />
           <Route path="signup" component={SignUpContainer} />
         </Route>
@@ -96,16 +79,6 @@ const render = () => {
   );
 };
 
-App.propTypes = {
-  store: React.PropTypes.object,
-  username: React.PropTypes.string,
-  // password: React.PropTypes.string,
-  savedNotes: React.PropTypes.object,
-  textEditor: React.PropTypes.object,
-  speechEditor: React.PropTypes.object,
-  sessionTitle: React.PropTypes.string
-};
 
 store.subscribe(render);
 render();
-

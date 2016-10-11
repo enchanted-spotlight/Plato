@@ -1,6 +1,7 @@
 const bodyParser = require('body-parser');
 const sessions = require('express-session');
 const passport = require('passport');
+const path = require('path');
 
 module.exports = (app, express) => {
   app.use(express.static('client'));
