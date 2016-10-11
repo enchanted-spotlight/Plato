@@ -1,5 +1,6 @@
 import request from 'superagent';
 
+import socket from './socket.js';
 import * as t from './actionTypes';
 
 export const setUsername = username => ({
@@ -159,6 +160,7 @@ export const loadNewChatMessage = message => ({
 
 export const sendChatMessage = (message) => {
   console.log('message inside sendChatMessage: ', message);
+  socket.emit('new chat message', message);
   return (loadNewChatMessage(message));
 
 // Send it to slack portion:

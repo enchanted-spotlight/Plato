@@ -26,7 +26,7 @@ class ChatClient extends React.Component {
   }
   componentDidMount() {
     const main = $('#chat-messages-display')[0];
-    main.scrollTop = main.scrollHeight;
+    $(main).animate({ scrollTop: main.scrollHeight }, 500);
   }
   componentWillReceiveProps(newProps) {
     if (this.props.username !== newProps.username) {
@@ -37,7 +37,7 @@ class ChatClient extends React.Component {
   }
   componentDidUpdate() {
     const main = $('#chat-messages-display')[0];
-    main.scrollTop = main.scrollHeight;
+    $(main).animate({ scrollTop: main.scrollHeight }, 2000);
   }
   render() {
     return (
@@ -53,9 +53,9 @@ class ChatClient extends React.Component {
             // Form is not properly re rendering after setState
             // Redux conflict? This is a problem with all app's forms
             const messageObj = {
-              username: this.state.username,
+              user_id: this.state.username,
               text: this.state.message,
-              type: 'message'
+              timestamp: Date.now()
             };
             // console.log('MessageObj on chat client: ', messageObj);
             this.state.onMessageSubmit(messageObj);

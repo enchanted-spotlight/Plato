@@ -28,7 +28,8 @@ const wh = new IncomingWebhooks(slackUrl);
 
 // Socket.io setup
 const http = require('http').Server(app);
-const io = require('socket.io')(http);
+const io = require('socket.io').listen(http);
+const chats = require('./controllers/chats');
 
 io.on('connection', (socket) => {
   // socket connection will be initiated when chat is opened
@@ -300,7 +301,11 @@ io.on('connection', (socket) => {
       }
     ]
   });
+  socket.on('new chat message', chats.sendMessageToDatabase);
+
   socket.emit('slack message archive', welcomeMessage);
+  chats.loadChatRoomFromDatabase(socket);
+
   console.log('A user connected via socket.io!');
 
   rtm.on(RTM_EVENTS.MESSAGE, (message) => {

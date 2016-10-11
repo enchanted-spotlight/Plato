@@ -2,6 +2,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 const Note = require('./models/note');
 const User = require('./models/user');
+const ChatRoom = require('./models/chats');
 
 // db stuff here
 if (process.env.NODE_ENV === 'dev') {

@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { Row, Col, Navbar, NavItem } from 'react-materialize';
-import io from 'socket.io-client';
 
 import * as a from './actions.js';
 import reducers from './reducer.js';
@@ -17,6 +16,7 @@ import MediumEditor from './components/MediumDraft.jsx';
 import SpeechToTextEditor from './components/SpeechToTextEditor.jsx';
 import SignUpContainer from './components/SignUp.jsx';
 import Canvas from './components/Canvas.jsx';
+import socket from './socket.js';
 
 const loggerMiddleware = createLogger();
 
@@ -29,7 +29,6 @@ const store = createStore(
   )
 );
 
-const socket = io();
 socket.on('incoming slack message', (data) => {
   console.log('client side socket received single message: ', data);
   store.dispatch(a.loadNewChatMessage(data));
@@ -43,6 +42,10 @@ socket.on('slack message archive', (data) => {
   // do we need socket somewhere else?
   const parseData = JSON.parse(data);
   store.dispatch(a.loadArchivedChatMessages(parseData.messages.reverse()));
+});
+
+socket.on('chat room archive', (data) => {
+  console.log('chat room archive received by client: ', data);
 });
 
 const App = () => (
