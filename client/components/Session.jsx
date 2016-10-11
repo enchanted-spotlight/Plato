@@ -8,6 +8,7 @@ import SpeechToTextEditor from './SpeechToTextEditor.jsx';
 import MediumEditor from './MediumDraft.jsx';
 import * as t from './../actions';
 
+
 class Session extends React.Component {
   constructor(props) {
     super(props);

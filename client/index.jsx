@@ -13,8 +13,9 @@ import ChatClientComponent from './components/ChatClient.jsx';
 import LogInContainer from './components/LogIn.jsx';
 import SearchBarContainer from './components/SearchBar.jsx';
 import NoteListContainer from './components/NoteList.jsx';
-import MediumEditor from './components/MediumDraft.jsx';
-import SpeechToTextEditor from './components/SpeechToTextEditor.jsx';
+// import MediumEditor from './components/MediumDraft.jsx';
+// import SpeechToTextEditor from './components/SpeechToTextEditor.jsx';
+import Session from './components/Session.jsx';
 import SignUpContainer from './components/SignUp.jsx';
 import Canvas from './components/Canvas.jsx';
 import socket from './socket.js';
@@ -96,7 +97,6 @@ const App = () => (
       <NavItem href="">Signout</NavItem>
     </Navbar>
 
-
     <Row>
       <Col s={2} className="blue-grey lighten-3 base-col-height">
         <SearchBarContainer />
@@ -105,19 +105,12 @@ const App = () => (
         </div>
         <NoteListContainer />
       </Col>
-      <Col
-        s={5}
-        className="base-col-height"
-      >
-        <MediumEditor />
+
+      <Col s={5} className="base-col-height session-container">
+        <Session />
       </Col>
-      <Col s={2} className="grey lighten-2 base-col-height">
-        <SpeechToTextEditor />
-      </Col>
-      <Col
-        s={3}
-        className="login"
-      >
+
+      <Col s={3} className="login">
         <SignUpContainer />
         <LogInContainer />
         <ChatClientComponent />
@@ -152,3 +145,4 @@ App.propTypes = {
 
 store.subscribe(render);
 render();
+
