@@ -14,6 +14,7 @@ const mapStateToProps = store => ({
   currentNote: store.textEditor,
   currentNoteTitle: store.sessionTitle
 });
+
 const mapDispatchToProps = dispatch => ({
   fetchNotes: username => dispatch(a.fetchNotes(username))
 });
@@ -32,7 +33,6 @@ class MediumEditor extends React.Component {
       currentNote: newProps.currentNote
     });
   }
-
 
   render() {
     console.log(this.props, 'medium draft state props');

@@ -11,7 +11,7 @@ const rtmOptions = {
 const channel = 'C2KE7FVV3';
 const rtm = new RtmClient(token, rtmOptions);
 
-rtm.start();
+// rtm.start();
 
 rtm.on(CLIENT_EVENTS.RTM.AUTHENTICATED, (rtmStartData) => {
   console.log(
