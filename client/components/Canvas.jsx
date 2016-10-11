@@ -98,17 +98,14 @@ class Canvas extends React.Component {
     };
 
     this.undo = () => {
-      // if there's only one element in the stack, then we just need to
-      // make a new Canvas
-      // if (this.undoStack.length === 1) {
-      //   this.newCanvas();
-      // } else {
-      //   this.loadCanvas(this.undoStack.pop());
-      // }
-
       const canvasToRestore = this.undoStack.pop();
+      this.redoStack.push(canvasToRestore);
       this.loadCanvas(canvasToRestore);
     };
+
+    this.redo = () => {
+
+    }
 
     // this will set up the canvas and the contexts
     this.canvasSetup = (width, height) => {
