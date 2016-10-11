@@ -105,7 +105,6 @@ class Session extends React.Component {
 
   render() {
     console.log(this.props, 'session title props');
-    console.log(this.state, 'session state');
     return (
       <div>
         <Row>

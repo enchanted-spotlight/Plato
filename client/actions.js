@@ -64,6 +64,7 @@ export const saveSession = sessionPkg => (
           console.log('Error in saving session: ', err);
         } else {
           console.log('This should be saved: ', sessionPkg);
+          dispatch(fetchSessions(sessionPkg.user_id));
         }
       });
   }
