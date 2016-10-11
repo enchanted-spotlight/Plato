@@ -1,15 +1,12 @@
 import React from 'react';
-import Infinite from 'react-infinite';
 
 const ChatMessagesDisplay = props => (
-  <Infinite
-    containerHeight={350}
-    elementHeight={30}
-    className="chat-messages-display"
-    displayBottomUpwards
+  <ul
+    id="chat-messages-display"
   >
-    {props.messages.map(msg => <div>{msg.username}: {msg.text}</div>)}
-  </Infinite>
+    {props.messages.map(msg => <li>{msg.username}: {msg.text}</li>)}
+    <li id="chat-messages-display-bottom" />
+  </ul>
 );
 
 ChatMessagesDisplay.propTypes = {

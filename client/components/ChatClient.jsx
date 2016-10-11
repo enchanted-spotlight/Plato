@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import $ from 'jquery';
 
 import { sendChatMessage } from './../actions';
 import ChatMessagesDisplay from './ChatMessagesDisplay.jsx';
@@ -23,12 +24,20 @@ class ChatClient extends React.Component {
       ...props
     };
   }
+  componentDidMount() {
+    const main = $('#chat-messages-display')[0];
+    main.scrollTop = main.scrollHeight;
+  }
   componentWillReceiveProps(newProps) {
     if (this.props.username !== newProps.username) {
       this.setState({
         username: newProps.username
       });
     }
+  }
+  componentDidUpdate() {
+    const main = $('#chat-messages-display')[0];
+    main.scrollTop = main.scrollHeight;
   }
   render() {
     return (
@@ -48,7 +57,7 @@ class ChatClient extends React.Component {
               text: this.state.message,
               type: 'message'
             };
-            console.log('MessageObj on chat client: ', messageObj);
+            // console.log('MessageObj on chat client: ', messageObj);
             this.state.onMessageSubmit(messageObj);
             this.setState({ message: '' });
           }}

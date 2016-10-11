@@ -14,7 +14,7 @@
   margin: 0;
 }
 
-.chat-messages-display{
+#chat-messages-display{
   padding: 0 1em 0 1em;
   max-height: 350px;
   overflow-y: scroll;
