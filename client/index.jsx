@@ -7,6 +7,9 @@ import createLogger from 'redux-logger';
 import io from 'socket.io-client';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 
+import request from 'superagent';
+
+
 import App from './components/App.jsx';
 import LogInContainer from './components/LogIn.jsx';
 import SignUpContainer from './components/SignUp.jsx';
@@ -16,18 +19,7 @@ import LandingPage from './components/LandingPage.jsx';
 import * as a from './actions.js';
 
 import reducers from './reducer.js';
-<<<<<<< b1498e6ce133d3fc22c0a78644727eb18d72bd80
-import ChatClientComponent from './components/ChatClient.jsx';
-import LogInContainer from './components/LogIn.jsx';
-import SearchBarContainer from './components/SearchBar.jsx';
-import NoteListContainer from './components/NoteList.jsx';
-// import MediumEditor from './components/MediumDraft.jsx';
-// import SpeechToTextEditor from './components/SpeechToTextEditor.jsx';
-import SessionContainer from './components/Session.jsx';
-import SignUpContainer from './components/SignUp.jsx';
-import Canvas from './components/Canvas.jsx';
-=======
->>>>>>> Begin to implement react-router
+
 
 const loggerMiddleware = createLogger();
 
@@ -58,40 +50,20 @@ socket.on('slack message archive', (data) => {
   store.dispatch(a.loadArchivedChatMessages(parseData.messages.reverse()));
 });
 
-const App = () => (
-  <div className="plato-app">
-    <Navbar brand="Plato" right>
-      <NavItem href="">Login</NavItem>
-      <NavItem href="">Signout</NavItem>
-    </Navbar>
-
-    <Row>
-      <Col s={2} className="blue-grey lighten-3 base-col-height">
-        <SearchBarContainer />
-        <div className="blue-grey lighten-3 column-header-lists">
-          <h3>All Notes</h3>
-        </div>
-        <NoteListContainer />
-      </Col>
-
-      <Col s={5} className="base-col-height session-container">
-        <SessionContainer />
-      </Col>
-
-      <Col s={3} className="login">
-        <SignUpContainer />
-        <LogInContainer />
-        <ChatClientComponent />
-      </Col>
-    </Row>
-    <Row>
-      <Col s={12} className="base-col-height">
-        <Canvas />
-      </Col>
-    </Row>
-  </div>
-);
-
+const requireAuth = (nextState, replace, callback) => {
+  request
+    .get('/api/auth/identify')
+    .end((err, result) => {
+      if (result.status === 401) {
+        replace({
+          pathname: '/login',
+        });
+        callback();
+      } else {
+        callback();
+      }
+    });
+};
 
 const render = () => {
   ReactDOM.render(
@@ -99,7 +71,7 @@ const render = () => {
       <Router history={browserHistory}>
         <Route path="/" component={App} >
           <IndexRoute component={LandingPage} />
-          <Route path="dashboard" component={DashBoard} />
+          <Route path="dashboard" component={DashBoard} onEnter={requireAuth} />
           <Route path="login" component={LogInContainer} />
           <Route path="signup" component={SignUpContainer} />
         </Route>
@@ -109,27 +81,5 @@ const render = () => {
   );
 };
 
-App.propTypes = {
-  store: React.PropTypes.object,
-  username: React.PropTypes.string,
-  // password: React.PropTypes.string,
-  savedNotes: React.PropTypes.object,
-  textEditor: React.PropTypes.object,
-  speechEditor: React.PropTypes.object,
-  sessionTitle: React.PropTypes.string
-};
 
 store.subscribe(render);
-
-/*
-      <Col
-        s={5}
-        className="base-col-height"
-      >
-        <MediumEditor />
-      </Col>
-
-      <Col s={2} className="grey lighten-2 base-col-height">
-        <SpeechToTextEditor />
-      </Col>
-*/

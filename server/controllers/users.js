@@ -26,14 +26,17 @@ const userController = {
     });
   },
   identifyUser: (req, res) => {
-    console.log(req.session, 'body@@@@@@@@@@@@@@@@@');
-    User.findOne({ _id: req.session.passport.user }, (err, user) => {
-      if (err) {
-        res.status(500).send();
-      } else {
-        res.status(200).send(user);
-      }
-    });
+    if (req.session.passport === undefined) {
+      res.sendStatus(401);
+    } else {
+      User.findOne({ _id: req.session.passport.user }, (err, user) => {
+        if (err) {
+          res.status(401).send();
+        } else {
+          res.status(200).send(user);
+        }
+      });
+    }
   }
 };
 

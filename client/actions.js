@@ -1,4 +1,5 @@
 import request from 'superagent';
+import { browserHistory } from 'react-router';
 
 import * as t from './actionTypes';
 
@@ -90,8 +91,11 @@ export const loginUser = formData => (
           console.log('error logging in!');
         } else {
           // successful login
+          console.log('It successfully logged in the user');
           dispatch(setUsername(formData.username));
-          dispatch(fetchSessions(formData.username));
+
+          browserHistory.push('/dashboard');
+          dispatch(fetchNotes(formData.username));
         }
       });
   }
@@ -146,8 +150,24 @@ export const submitSignUp = formData => (
           if (err) {
             // error handling
           }
+          request
+            .post('/api/auth/login/local')
+              .send({
+                username: formData.username,
+                password: formData.password
+              })
+              .end((err2, data) => {
+                if (err2) {
+                  console.log(err2);
+                } else {
+                  browserHistory.push('/dashboard');
+                  dispatch(setUsername(formData.username));
+                  dispatch(fetchNotes(formData.username));
+                }
+              });
         });
     } else {
+
       // passwords don't match, throw error here
     }
   }
