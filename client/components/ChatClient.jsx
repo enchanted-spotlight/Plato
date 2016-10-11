@@ -37,8 +37,12 @@ class ChatClient extends React.Component {
 =======
   componentDidMount() {
     const main = $('#chat-messages-display')[0];
+<<<<<<< e3b66ea8b9ba671a6ce23ee32a656b317a80281e
     main.scrollTop = main.scrollHeight;
 >>>>>>> (feat)Chat scroll works properly using jQuery
+=======
+    $(main).animate({ scrollTop: main.scrollHeight }, 500);
+>>>>>>> Refactor to use sockets and local chat with our own db
   }
   componentWillReceiveProps(newProps) {
     if (this.props.username !== newProps.username) {
@@ -49,9 +53,7 @@ class ChatClient extends React.Component {
   }
   componentDidUpdate() {
     const main = $('#chat-messages-display')[0];
-    if (main.scrollHeight > 450) {
-      $(main).animate({ scrollTop: main.scrollHeight }, 2000);
-    }
+    $(main).animate({ scrollTop: main.scrollHeight }, 2000);
   }
   render() {
     return (

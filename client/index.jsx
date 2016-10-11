@@ -4,15 +4,13 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import request from 'superagent';
+
+import * as a from './actions.js';
 import App from './components/App.jsx';
 import DashBoardContainer from './components/DashBoard.jsx';
 import LandingPage from './components/LandingPage.jsx';
-
-import * as a from './actions.js';
-
 import reducers from './reducer.js';
 import LogInContainer from './components/LogIn.jsx';
 // import MediumEditor from './components/MediumDraft.jsx';
