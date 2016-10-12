@@ -1,4 +1,5 @@
 import request from 'superagent';
+import { browserHistory } from 'react-router';
 
 import * as t from './actionTypes';
 
@@ -87,11 +88,11 @@ export const loginUser = formData => (
       .end((err, res) => {
         if (err) {
           // do something on error
-          console.log('error logging in!');
         } else {
           // successful login
           dispatch(setUsername(formData.username));
           dispatch(fetchSessions(formData.username));
+          browserHistory.push('/dashboard');
         }
       });
   }
@@ -146,8 +147,24 @@ export const submitSignUp = formData => (
           if (err) {
             // error handling
           }
+          request
+            .post('/api/auth/login/local')
+              .send({
+                username: formData.username,
+                password: formData.password
+              })
+              .end((err2, data) => {
+                if (err2) {
+                  console.log(err2);
+                } else {
+                  browserHistory.push('/dashboard');
+                  dispatch(setUsername(formData.username));
+                  dispatch(fetchNotes(formData.username));
+                }
+              });
         });
     } else {
+
       // passwords don't match, throw error here
     }
   }
@@ -166,6 +183,23 @@ export const searchNotes = (username, term) => (
           console.log('There is an error in SearchBar:', err);
         } else {
           dispatch(receiveSessions(username, res.body));
+        }
+      });
+  }
+);
+
+export const loadUserName = () => (
+  (dispatch) => {
+    request
+      .get('api/auth/identify')
+      .end((err, data) => {
+        if (err) {
+          console.log('There is an error with loading username');
+        } else {
+          const resText = data.text;
+          const parsedText = JSON.parse(resText);
+          dispatch(setUsername(parsedText.email));
+          dispatch(fetchSessions(parsedText.email));
         }
       });
   }

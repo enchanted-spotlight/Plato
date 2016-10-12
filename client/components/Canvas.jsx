@@ -1,5 +1,4 @@
 import React from 'react';
-import InfiniteCanvas from 'infinite-canvas';
 import { Button } from 'react-materialize';
 import CanvasToolbar from './CanvasToolbar.jsx';
 
