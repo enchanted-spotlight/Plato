@@ -29,26 +29,8 @@ class ChatClient extends React.Component {
       ...props
     };
   }
-<<<<<<< 0689e1209bdc4d00d4477f1e53c6460f6993cb24
-<<<<<<< 07e5bde58f5ed49bc196fcb604cc5c1656f25771
-=======
->>>>>>> (feat)Allow user to select a room to load and save data to
   componentWillMount() {
-    // For now let's hardcode the room and load it here
-    // Later we can refactor to user input
     this.state.loadRoom();
-<<<<<<< 0689e1209bdc4d00d4477f1e53c6460f6993cb24
-=======
-  componentDidMount() {
-    const main = $('#chat-messages-display')[0];
-<<<<<<< e3b66ea8b9ba671a6ce23ee32a656b317a80281e
-    main.scrollTop = main.scrollHeight;
->>>>>>> (feat)Chat scroll works properly using jQuery
-=======
-    $(main).animate({ scrollTop: main.scrollHeight }, 500);
->>>>>>> Refactor to use sockets and local chat with our own db
-=======
->>>>>>> (feat)Allow user to select a room to load and save data to
   }
   componentWillReceiveProps(newProps) {
     if (this.props.username !== newProps.username) {
@@ -132,6 +114,7 @@ const ChatClientContainer = connect(
 )(ChatClient);
 
 ChatClient.propTypes = {
+  username: React.PropTypes.String,
   messages: () => null
 };
 
