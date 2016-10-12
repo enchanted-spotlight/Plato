@@ -47,7 +47,7 @@ class SearchBar extends React.Component {
 
 SearchBar.propTypes = {
   username: React.PropTypes.string,
-  searchBounce: React.PropTypes.Func
+  searchBounce: React.PropTypes.func
 };
 
 const SearchBarContainer = connect(

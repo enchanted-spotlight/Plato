@@ -26,6 +26,7 @@ const userController = {
     });
   },
   identifyUser: (req, res) => {
+    console.log(req.session, 'body@@@@@@@@@@@@@@@@@');
     User.findOne({ _id: req.session.passport.user }, (err, user) => {
       if (err) {
         res.status(500).send();

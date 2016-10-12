@@ -11,7 +11,8 @@ const should = chai.should();
 const expect = chai.expect;
 
 const User = require('./../server/models/user');
-const Note = require('./../server/models/note');
+// const Note = require('./../server/models/note');
+const Session = require('./../server/models/session');
 const passport = require('../server/config/auth');
 
 describe('Plato', () => {
@@ -26,13 +27,15 @@ describe('Plato', () => {
     });
     testUser.save();
 
-    const testNote = new Note({
+    const testSession = new Session({
       user_id: '000000',
-      text: {},
-      plainTextContent: 'hello this is a string',
-      title: 'testNote'
+      title: 'testNote',
+      notesText: '',
+      notesPlainText: 'heh-lo dis a shtring',
+      transcriptText: '',
+      transcriptPlainText: 'hello this is a string'
     });
-    testNote.save();
+    testSession.save();
 
     done();
   });
@@ -40,7 +43,7 @@ describe('Plato', () => {
   afterEach((done) => {
     // clear collections when we're done with the test
     mongoose.connection.collections.users.remove();
-    mongoose.connection.collections.notes.remove();
+    mongoose.connection.collections.sessions.remove();
     done();
   });
   // --------------- UNIT TEST ---------------//
@@ -83,57 +86,59 @@ describe('Plato', () => {
           });
       });
     });
-    describe('POST /api/save-note', () => {
-      it('should save a note', (done) => {
+    describe('POST /api/save-session', () => {
+      it('should save a session', (done) => {
         request(app)
-          .post('/api/save-note')
+          .post('/api/save-session')
           .send({
             user_id: '123123123',
-            text: 'lolololol',
-            title: 'testttt'
+            title: 'testttt',
+            notes: { text: 'lolololol', plainText: 'lolololol' },
+            transcript: { text: 'finn', plainText: 'finn' }
           })
           .end((err, res) => {
             expect(res.status).to.equal(200);
             done();
           });
       });
-      it('should update an existing note', (done) => {
+      it('should update an existing session', (done) => {
         request(app)
-          .post('/api/save-note')
+          .post('/api/save-session')
           .send({
             user_id: '123123123',
-            text: 'lolololol',
-            title: 'GODZILLA'
+            title: 'GODZILLA',
+            notes: { text: 'lolololol', plainText: 'lolololol' },
+            transcript: { text: 'finn', plainText: 'finn' }
           })
           .end(() => {
             request(app)
-              .post('/api/save-note')
+              .post('/api/save-session')
               .send({
                 user_id: '123123123',
-                text: 'roflcopter',
-                title: 'GODZILLA'
+                title: 'GODZILLA',
+                notes: { text: 'roflcopter', plainText: 'roflcopter' },
+                transcript: { text: 'finn', plainText: 'finn' }
               })
               .end(() => {
                 request(app)
                 .get('/api/123123123')
                 .end((err, res) => {
-                  const text = JSON.parse(res.text)[0];
-                  expect(text.text).to.equal('roflcopter');
+                  expect(res.body[0].notesText).to.equal('roflcopter');
                   done();
                 });
               });
           });
       });
     });
-    describe('DELETE /api/delete-note/:id', () => {
-      it('should delete an existing note', (done) => {
+    describe('DELETE /api/delete-session/:id', () => {
+      it('should delete an existing session', (done) => {
         // first get the mongo id by querying the database
         request(app)
           .get('/api/000000')
           .end((err, res) => {
-            const id = JSON.parse(res.text)[0]._id;
+            const id = res.body[0]._id;
             request(app)
-              .delete('/api/delete-note/'.concat(id))
+              .delete('/api/delete-session/'.concat(id))
               .end((err2, res2) => {
                 expect(res2.status).to.equal(200);
                 done();
@@ -142,7 +147,7 @@ describe('Plato', () => {
       });
       it('should return 404 if the note doesnt exist', (done) => {
         request(app)
-          .delete('/api/delete-note/totallyfakeid')
+          .delete('/api/delete-session/totallyfakeid')
           .end((err, res) => {
             expect(res.status).to.equal(500);
             done();

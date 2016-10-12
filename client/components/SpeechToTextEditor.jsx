@@ -1,15 +1,27 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import request from 'superagent';
 import { Button, Row, Col } from 'react-materialize';
-import { EditorState, Modifier, convertToRaw } from 'draft-js';
-import { Editor, createEditorState } from 'medium-draft';
+import { EditorState, Modifier } from 'draft-js';
+import { connect } from 'react-redux';
+import { Editor } from 'medium-draft';
+import * as a from './../actions.js';
+
+const mapStateToProps = state => ({
+  currentTranscript: state.speechEditor
+});
+
+const mapDispatchToProps = dispatch => ({
+  reloadTranscript: (newSpeechEditor) => {
+    dispatch(a.onSpeechEditorChange(newSpeechEditor));
+  }
+});
 
 class SpeechToTextEditor extends React.Component {
   constructor(props) {
     super(props);
 
     this.recording = false;
+
+    // this.recording = this.state.recording;
     // transcript will hold our audio transcript
     window.transcript = '';
     // this will prompt user for access to their microphone
@@ -21,7 +33,8 @@ class SpeechToTextEditor extends React.Component {
     // an audio pause. ie, we keep transcribing until told not to
     this.recognition.continuous = true;
     // interim results = true will have the transcription process
-    // return 'half-baked' results to us. ie, results that arent necessarily correct
+    // return 'half-baked' results to us.
+      // ie, results that arent necessarily correct
     this.recognition.interimResults = false;
     // we are going to use these variables to determine whether or not we should
     // put the next phrase on a new line/sentence
@@ -53,68 +66,35 @@ class SpeechToTextEditor extends React.Component {
       window.transcript = '';
     };
 
-    this.state = {
-      // this will let us create an empty editor
-      editorState: createEditorState(),
-      title: ''
-    };
-
-    // this method should mirror the MyEditor component
-    this.onChange = (editorState) => {
-      this.setState({ editorState });
-    };
-
-    // this method should mirror the MyEditor component
-    this.titleChange = (event) => {
-      this.setState({ title: event.target.value });
-    };
-
-    // this method should mirror the MyEditor component
-    this.submitNote = () => {
-      // this will let us save the current content as rich text
-      const userNote = convertToRaw(this.state.editorState.getCurrentContent());
-      const plainTextContent = this.state.editorState.getCurrentContent().getPlainText();
-      const userTitle = this.state.title;
-      const username = this.props.username;
-      const url = 'api/save-note';
-
-      // submit the note to the server for storage in db
-      request
-        .post(url)
-        .send({
-          user_id: username,
-          text: JSON.stringify(userNote),
-          plainText: JSON.stringify(plainTextContent),
-          title: userTitle
-        })
-        .set('Accept', 'application/json')
-        .end((err, res) => {
-          if (err) {
-            console.log('There is an error in submitNote: ', err);
-          } else {
-            this.props.fetchNotes(this.props.username);
-          }
-        });
-    };
-
     // add string to the editable portion of the editor
     this.addText = (string) => {
       // get state of the editor, move the selection to end
       // so that we are inserting text at the end
-      const editorState = EditorState.moveSelectionToEnd(this.state.editorState);
+      const editorState = EditorState
+        .moveSelectionToEnd(this.props.currentTranscript);
       // get the area that we have selected
       const selection = editorState.getSelection();
       // get contentState so we can insertText
       const contentState = editorState.getCurrentContent();
       // string should equal the text that we are trying to insert
       const insert = Modifier.insertText(contentState, selection, string);
-      const newEditorState = EditorState.push(editorState, insert, 'insert-fragment');
-      this.setState({ editorState: newEditorState });
+      const newEditorState = EditorState
+        .push(editorState, insert, 'insert-fragment');
+      // this.setState({ currentTranscript: newEditorState });
+
+      // update Session's transcript text.
+      this.props.reloadTranscript(newEditorState);
     };
 
     this.toggleRecordingState = () => {
       // toggling state is NOT instantaneous!!
+
+      // toggle local state
       this.recording = !this.recording;
+      console.log('speech recording state: ', this.recording);
+      // toggle parent state
+      // this.props.toggleTimer();
+
       if (!this.recording) {
         window.transcript = '';
         this.recognition.stop();
@@ -127,18 +107,13 @@ class SpeechToTextEditor extends React.Component {
   }
 
   render() {
+    console.log('props in stt: ', this.props);
     return (
       <div>
         <Row>
-          <input
-            type="text"
-            value={this.state.value}
-            onChange={this.titleChange}
-            placeholder="Title"
-          />
           <Editor
-            editorState={this.state.editorState}
-            onChange={e => this.onChange(e)}
+            editorState={this.props.currentTranscript}
+            onChange={e => this.props.reloadTranscript(e)}
             placeholder="This is your audio transcription... "
           />
         </Row>
@@ -150,20 +125,23 @@ class SpeechToTextEditor extends React.Component {
             />
           </Col>
         </Row>
-        <Row>
-          <Col s={12} className="right-align">
-            <Button onClick={this.submitNote} waves="light">Submit</Button>
-          </Col>
-        </Row>
       </div>
     );
   }
 }
 
 SpeechToTextEditor.propTypes = {
-  username: React.PropTypes.string,
-  fetchNotes: React.PropTypes.func
+  reloadTranscript: React.PropTypes.func,
+  // toggleTimer: React.PropTypes.func,
+  currentTranscript: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.instanceOf(Object)
+  ])
 };
 
+const SpeechToTextEditorContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SpeechToTextEditor);
 
-export default SpeechToTextEditor;
+export default SpeechToTextEditorContainer;

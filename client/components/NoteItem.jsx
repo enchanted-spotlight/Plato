@@ -13,8 +13,11 @@ const mapDispatchToProps = dispatch => ({
     dispatch(a.onTextEditorChange(newEditorState));
     dispatch(a.onSessionTitleCreate(title));
   },
+  loadTranscript: (newEditorState) => {
+    dispatch(a.onSpeechEditorChange(newEditorState));
+  },
   deleteNote: (noteId, username) => (
-    dispatch(a.deleteNote(noteId, username))
+    dispatch(a.deleteSession(noteId, username))
   )
 });
 
@@ -60,24 +63,25 @@ class NoteItem extends React.Component {
   }
 
   render() {
+    console.log('NOTE ITEM props: ', this.props);
     return (
       <li>
         <p>{this.props.title}</p>
         <Button
           onClick={() => {
-            const newEditorState = createEditorState(JSON.parse(this.props.text));
-            this.props.loadNote(newEditorState, this.props.title);
-
-            // const newEditorState = createEditorState(JSON.parse(this.props.text));
-            // this.props.store.dispatch(a.onTextEditorChange(newEditorState));
-            // this.props.store.dispatch(a.onSessionTitleCreate(this.props.title));
+            // get new store state for editors
+            const newNoteState =
+              createEditorState(JSON.parse(this.props.notesText));
+            const newTranscriptState =
+              createEditorState(JSON.parse(this.props.transcriptText));
+            // load each editor onto page.
+            this.props.loadNote(newNoteState, this.props.title);
+            this.props.loadTranscript(newTranscriptState);
           }}
         > display </Button>
         <Button
           onClick={() => {
             this.props.deleteNote(this.props.noteId, this.props.username);
-
-            // this.props.store.dispatch(a.deleteNote(this.props.noteId, this.props.username));
           }}
           waves="light"
         > deleteNote </Button>
@@ -103,8 +107,10 @@ NoteItem.propTypes = {
   title: React.PropTypes.string,
   noteId: React.PropTypes.string,
   username: React.PropTypes.string,
-  text: React.PropTypes.string,
+  transcriptText: React.PropTypes.object,
+  notesText: React.PropTypes.object,
   loadNote: React.PropTypes.func,
+  loadTranscript: React.PropTypes.func,
   deleteNote: React.PropTypes.func
 };
 
