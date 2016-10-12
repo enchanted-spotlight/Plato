@@ -4,13 +4,18 @@
 }
 
 .chat-client-container{
-  max-height: 500px;
+  max-height: 565px;
   overflow: hidden;
   background: #eeeeee;
   border: solid #A1A1A1 1px;
 }
 
 .chat-client-container>h2{
+  margin: 0;
+}
+
+.chat-client-container>p,
+.chat-client-container>ul{
   margin: 0;
 }
 

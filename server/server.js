@@ -33,9 +33,14 @@ const chats = require('./controllers/chats');
 
 io.on('connection', (socket) => {
   console.log('A user connected via socket.io!');
-  chats.loadChatRoomFromDatabase(socket);
 
-  socket.on('new chat message', data => chats.sendMessageToDatabase(socket, data));
+  socket.on('load chat room',
+    chatRoom => chats.loadChatRoomFromDatabase(socket, chatRoom)
+  );
+
+  socket.on('new chat message',
+    data => chats.sendMessageToDatabase(socket, data)
+  );
 
   // socket connection will be initiated when chat is opened
   // on connection, we will get channel message history

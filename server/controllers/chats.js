@@ -24,10 +24,10 @@ const chatController = {
   },
   sendMessageToDatabase(socket, data) {
     // sanitize the message before saving!
-    // console.log('chat.controller sendMessageToDatabase data: ', data);
+    console.log('chat.controller sendMessageToDatabase data: ', data);
     // const chatMessage = new ChatModels.ChatMessage(data);
     // console.log('sanitized html version: ', sanitized);
-    const query = { room_id: 'test room 1' };
+    const query = { room_id: data.room_id };
     const update = { $push: { messages: {
       user_id: data.user_id,
       text: sanitizeHtml(data.text),
@@ -44,9 +44,9 @@ const chatController = {
     };
     ChatModels.ChatRoom.findOneAndUpdate(query, update, options, callback);
   },
-  loadChatRoomFromDatabase(socket) {
+  loadChatRoomFromDatabase(socket, room) {
     // console.log('loadMessagesFromDatabase called');
-    const query = { room_id: 'test room 1' };
+    const query = { room_id: room };
     ChatModels.ChatRoom.find(query, (err, data) => {
       // console.log('chatRoom from db results: ', data);
       if (data[0] === undefined) {

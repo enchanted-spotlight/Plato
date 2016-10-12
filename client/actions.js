@@ -1,6 +1,5 @@
 import request from 'superagent';
 
-import socket from './socket.js';
 import * as t from './actionTypes';
 
 export const setUsername = username => ({
@@ -84,7 +83,7 @@ export const getIdentity = () => (
       .get('api/auth/identify')
       .end((err, res) => {
         if (err) {
-          console.log('Error identifying!');
+          console.log('Error in getIdentity!');
         } else {
           const response = JSON.parse(res.text);
           dispatch(setUsername(response.email));
@@ -157,25 +156,3 @@ export const loadNewChatMessage = message => ({
   type: t.LOAD_NEW_CHAT_MESSAGE,
   message
 });
-
-export const sendChatMessage = (message) => {
-  console.log('message inside sendChatMessage: ', message);
-  socket.emit('new chat message', message);
-  return (loadNewChatMessage(message));
-
-// Send it to slack portion:
-  // request
-  //   .post('/api/chat')
-  //   .set('Content-Type', 'application/json')
-  //   .send({
-  //     user: messageObj.user,
-  //     message: messageObj.message
-  //   })
-  //   .end((err, res) => {
-  //     if (err || !res.ok) {
-  //       console.log('sendChatMessage error: ', err);
-  //     } else {
-  //       console.log('Success with sendChatMessage: ', res);
-  //     }
-  //   })
-};

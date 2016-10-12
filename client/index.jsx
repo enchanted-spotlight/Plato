@@ -30,23 +30,13 @@ const store = createStore(
 );
 
 socket.on('incoming chat message', (data) => {
-  console.log('client side socket received single message: ', data);
   store.dispatch(a.loadNewChatMessage(data));
 });
 
 socket.on('chat room archive', (data) => {
-  // console.log('message history received: ', data);
-  // Can we initiate reducer and stuff from outside redux component?
-  // We want the on incoming event to call an action and start reducer chain
-  // so components can rerender from socket event
-  // do we need socket somewhere else?
-  // const parseData = JSON.parse(data);
   store.dispatch(a.loadArchivedChatMessages(data));
 });
 
-socket.on('chat room archive', (data) => {
-  console.log('chat room archive received by client: ', data);
-});
 
 const App = () => (
   <div className="plato-app">

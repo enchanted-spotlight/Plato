@@ -5,7 +5,6 @@ const ChatMessagesDisplay = props => (
     id="chat-messages-display"
   >
     {props.messages.map(msg => <li>{msg.user_id}: {msg.text}</li>)}
-    <li id="chat-messages-display-bottom" />
   </ul>
 );
 
