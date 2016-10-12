@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Row, Col } from 'react-materialize';
 import { EditorState, Modifier } from 'draft-js';
 import { connect } from 'react-redux';
-import { Editor } from 'medium-draft';
+import { createEditorState, Editor } from 'medium-draft';
 import * as a from './../actions.js';
 
 const mapStateToProps = state => ({
@@ -178,7 +178,9 @@ SpeechToTextEditor.propTypes = {
   currentTranscript: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.instanceOf(Object)
-  ])
+  ]),
+  fetchNotes: React.PropTypes.func,
+  username: React.PropTypes.string
 };
 
 const SpeechToTextEditorContainer = connect(

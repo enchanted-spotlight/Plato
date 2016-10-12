@@ -36,8 +36,8 @@ const mapDispatchToProps = dispatch => ({
 class Session extends React.Component {
   constructor(props) {
     super(props);
+    // saves the session to database
     this.submitSession = () => {
-      console.log('session submitting', new Date());
       const userTitle = this.props.title;
       const username = this.props.username;
 
@@ -72,8 +72,6 @@ class Session extends React.Component {
       };
 
       // send pkg to db
-      console.log('pending db set up but this should be sent:',
-        sessionPkg);
       this.props.saveSession(sessionPkg);
     };
 
@@ -82,11 +80,10 @@ class Session extends React.Component {
         this.submitSession();
       }
     };
-    setInterval(this.autosave, 5000);
+    setInterval(this.autosave, 60000);
   }
 
   render() {
-    console.log(this.props, 'session title props');
     return (
       <div>
         <Row>
