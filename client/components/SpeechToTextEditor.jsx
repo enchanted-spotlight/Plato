@@ -51,7 +51,6 @@ class SpeechToTextEditor extends React.Component {
     // function that we will fire every time an event happens, basically
     // everytime a phrase is transcribed
     this.recognition.onresult = (event) => {
-      console.log('recording event: ', event);
       for (let i = event.resultIndex; i < event.results.length; i += 1) {
         if (event.results[i].isFinal) {
           window.transcript += event.results[i][0].transcript;
@@ -99,21 +98,17 @@ class SpeechToTextEditor extends React.Component {
 
       // toggle local state
       this.recording = !this.recording;
-      console.log('speech recording state: ', this.recording);
 
       if (!this.recording) {
         window.transcript = '';
         this.recognition.stop();
-        console.log('Stopped the recording!');
       } else {
         this.recognition.start();
-        console.log('Started the recording!');
       }
     };
   }
 
   render() {
-    console.log('props in stt: ', this.props);
     return (
       <div>
         <Row>

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Row, Col, Button } from 'react-materialize';
 import { convertToRaw } from 'draft-js';
-import request from 'superagent';
-import { createEditorState } from 'medium-draft';
 import { connect } from 'react-redux';
 import SpeechToTextEditor from './SpeechToTextEditor.jsx';
 import MediumEditor from './MediumDraft.jsx';
@@ -34,11 +32,13 @@ const mapDispatchToProps = dispatch => ({
   hasSignedIn: bool => dispatch(a.setSignIn(bool))
 });
 
+// Note-taking Session class
 class Session extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      // previous activity prevents not saving cleared notes
       previousActivity: false
     };
     // saves the session to database
@@ -70,17 +70,18 @@ class Session extends React.Component {
 
       // PACKAGE TO BE SENT TO DB:
       const sessionPkg = {
-        user_id: username, // string
-        title: userTitle, // string
-        notes: notePkg, // object
-        transcript: transcriptPkg // object
+        user_id: username,
+        title: userTitle,
+        notes: notePkg,
+        transcript: transcriptPkg
       };
 
       // send pkg to db
       this.props.saveSession(sessionPkg);
     };
 
-    // saves session every minute
+    // autosave saves session if
+    // there was previous activity or either editors have content
     this.autosave = () => {
       if (this.props.currentTranscript
               .getCurrentContent().getPlainText().length > 0
@@ -91,6 +92,8 @@ class Session extends React.Component {
         this.submitSession();
       }
     };
+
+    // autosave timer set to a minute
     setInterval(this.autosave, 60000);
   }
 
