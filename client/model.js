@@ -15,3 +15,5 @@ export const speechEditorInitialState = createEditorState();
 export const currentSessionTitle = '';
 
 export const chatMessagesInitialState = [];
+
+export const SignInInitialState = false;
