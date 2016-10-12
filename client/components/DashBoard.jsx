@@ -4,8 +4,7 @@ import { connect } from 'react-redux';
 import ChatClientComponent from './ChatClient.jsx';
 import SearchBarContainer from './SearchBar.jsx';
 import NoteListContainer from './NoteList.jsx';
-import MediumEditor from './MediumDraft.jsx';
-import SpeechToTextEditor from './SpeechToTextEditor.jsx';
+import SessionContainer from './Session.jsx';
 
 import * as a from './../actions';
 // eslint-disable-next-line 
@@ -27,7 +26,7 @@ class DashBoard extends React.Component {
   render() {
     return (
       <Row>
-        <Col s={2} className="blue-grey lighten-3 base-col-height">
+        <Col s={3} className="blue-grey lighten-3 base-col-height">
           <SearchBarContainer />
           <div className="blue-grey lighten-3 column-header-lists">
             <h3>All Notes</h3>
@@ -35,13 +34,10 @@ class DashBoard extends React.Component {
           <NoteListContainer />
         </Col>
         <Col
-          s={5}
+          s={6}
           className="base-col-height"
         >
-          <MediumEditor />
-        </Col>
-        <Col s={2} className="grey lighten-2 base-col-height">
-          <SpeechToTextEditor />
+          <SessionContainer />
         </Col>
         <Col
           s={3}
