@@ -7,6 +7,11 @@ export const setUsername = username => ({
   username
 });
 
+export const setSignIn = () => ({
+  type: t.SIGNED_IN,
+  payload: true
+});
+
 // Async requires three actions:
 // 1. Inform reducers request initiated
 // 2. Inform reducers request completed
@@ -59,11 +64,12 @@ export const saveSession = sessionPkg => (
       .post('/api/save-session') // 'api/save-session' ?
       .send(sessionPkg)
       .set('Accept', 'application/json')
-      .end((err) => {
+      .end((err, data) => {
         if (err) {
           console.log('Error in saving session: ', err);
         } else {
           console.log('This should be saved: ', sessionPkg);
+          console.log('data from submission: ', data);
           dispatch(fetchSessions(sessionPkg.user_id));
         }
       });
@@ -104,6 +110,7 @@ export const getIdentity = () => (
           const response = JSON.parse(res.text);
           dispatch(setUsername(response.email));
           dispatch(fetchSessions(response.email));
+          dispatch(setSignIn());
         }
       });
   }
