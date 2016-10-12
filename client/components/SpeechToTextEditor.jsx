@@ -19,6 +19,13 @@ class SpeechToTextEditor extends React.Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      // this will let us create an empty editor
+      editorState: createEditorState(),
+      title: '',
+      language: 'en-US'
+    };
+
     this.recording = false;
 
     // this.recording = this.state.recording;
@@ -28,7 +35,7 @@ class SpeechToTextEditor extends React.Component {
     // eslint-disable-next-line no-undef
     this.recognition = new webkitSpeechRecognition();
     // set language that we will be transcribing
-    this.recognition.lang = 'en-US';
+    this.recognition.lang = this.state.language;
     // continuous = true means transcription wont stop when there's
     // an audio pause. ie, we keep transcribing until told not to
     this.recognition.continuous = true;
@@ -64,6 +71,44 @@ class SpeechToTextEditor extends React.Component {
       this.addText(window.transcript);
       // reset transcript to nothing so that we aren't duplicating results
       window.transcript = '';
+    };
+
+    // this method should mirror the MyEditor component
+    this.onChange = (editorState) => {
+      this.setState({ editorState });
+    };
+
+    // this method should mirror the MyEditor component
+    this.titleChange = (event) => {
+      this.setState({ title: event.target.value });
+    };
+
+    // this method should mirror the MyEditor component
+    this.submitNote = () => {
+      // this will let us save the current content as rich text
+      const userNote = convertToRaw(this.state.editorState.getCurrentContent());
+      const plainTextContent = this.state.editorState.getCurrentContent().getPlainText();
+      const userTitle = this.state.title;
+      const username = this.props.username;
+      const url = 'api/save-note';
+
+      // submit the note to the server for storage in db
+      request
+        .post(url)
+        .send({
+          user_id: username,
+          text: JSON.stringify(userNote),
+          plainText: JSON.stringify(plainTextContent),
+          title: userTitle
+        })
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (err) {
+            console.log('There is an error in submitNote: ', err);
+          } else {
+            this.props.fetchNotes(this.props.username);
+          }
+        });
     };
 
     // add string to the editable portion of the editor
