@@ -4,7 +4,6 @@ import { convertToRaw } from 'draft-js';
 import { connect } from 'react-redux';
 import SpeechToTextEditor from './SpeechToTextEditor.jsx';
 import MediumEditor from './MediumDraft.jsx';
-import Canvas from './Canvas.jsx';
 
 import * as a from './../actions.js';
 
@@ -15,7 +14,6 @@ const mapStateToProps = state => ({
   title: state.sessionTitle,
   currentTranscript: state.speechEditor,
   isSignedIn: state.signinStatus,
-  currentCanvas: state.canvasEditor
 });
 
 // map dispatched actions to Session props
@@ -72,18 +70,12 @@ class Session extends React.Component {
         plainText: JSON.stringify(plainTranscriptContent)
       };
 
-      // PACKAGE FOR CANVAS, NOT IMPLEMENTED YET!!!
-      const canvasPkg = {
-        canvas: JSON.stringify(this.props.currentCanvas)
-      };
-
       // PACKAGE TO BE SENT TO DB:
       const sessionPkg = {
         user_id: username, // string
         title: userTitle, // string
         notes: notePkg, // object
         transcript: transcriptPkg // object
-        // canvas: canvasPkg // object
       };
 
       // send pkg to db
@@ -123,11 +115,6 @@ class Session extends React.Component {
 
           <Col s={5} className="base-col-height">
             <MediumEditor />
-          </Col>
-        </Row>
-        <Row>
-          <Col s={12}>
-            <Canvas />
           </Col>
         </Row>
         <Button
