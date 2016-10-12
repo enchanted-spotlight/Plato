@@ -29,11 +29,15 @@ class ChatClient extends React.Component {
       ...props
     };
   }
+<<<<<<< 0689e1209bdc4d00d4477f1e53c6460f6993cb24
 <<<<<<< 07e5bde58f5ed49bc196fcb604cc5c1656f25771
+=======
+>>>>>>> (feat)Allow user to select a room to load and save data to
   componentWillMount() {
     // For now let's hardcode the room and load it here
     // Later we can refactor to user input
     this.state.loadRoom();
+<<<<<<< 0689e1209bdc4d00d4477f1e53c6460f6993cb24
 =======
   componentDidMount() {
     const main = $('#chat-messages-display')[0];
@@ -43,6 +47,8 @@ class ChatClient extends React.Component {
 =======
     $(main).animate({ scrollTop: main.scrollHeight }, 500);
 >>>>>>> Refactor to use sockets and local chat with our own db
+=======
+>>>>>>> (feat)Allow user to select a room to load and save data to
   }
   componentWillReceiveProps(newProps) {
     if (this.props.username !== newProps.username) {
@@ -53,7 +59,9 @@ class ChatClient extends React.Component {
   }
   componentDidUpdate() {
     const main = $('#chat-messages-display')[0];
-    $(main).animate({ scrollTop: main.scrollHeight }, 2000);
+    if (main.scrollHeight > 450) {
+      $(main).animate({ scrollTop: main.scrollHeight }, 2000);
+    }
   }
   render() {
     return (
@@ -95,7 +103,7 @@ class ChatClient extends React.Component {
               text: this.state.message,
               timestamp: Date.now()
             };
-            // console.log('MessageObj on chat client: ', messageObj);
+            console.log('MessageObj on chat client: ', messageObj);
             this.state.onMessageSubmit(messageObj);
             this.setState({ message: '' });
           }}

@@ -1,7 +1,6 @@
 import request from 'superagent';
 import { browserHistory } from 'react-router';
 
-import socket from './socket.js';
 import * as t from './actionTypes';
 
 export const setUsername = username => ({
@@ -214,7 +213,6 @@ export const loadNewChatMessage = message => ({
   type: t.LOAD_NEW_CHAT_MESSAGE,
   message
 });
-
 
 export const sendChatMessage = (message) => {
   console.log('message inside sendChatMessage: ', message);
