@@ -8,11 +8,6 @@ export const setUsername = username => ({
   username
 });
 
-export const setSignIn = bool => ({
-  type: t.SIGNED_IN,
-  payload: bool
-});
-
 // Async requires three actions:
 // 1. Inform reducers request initiated
 // 2. Inform reducers request completed
