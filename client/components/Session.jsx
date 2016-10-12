@@ -12,7 +12,8 @@ const mapStateToProps = state => ({
   username: state.username,
   currentNote: state.textEditor,
   title: state.sessionTitle,
-  currentTranscript: state.speechEditor
+  currentTranscript: state.speechEditor,
+  isSignedIn: state.signinStatus
 });
 
 // dispatch actions defined here!
@@ -35,34 +36,8 @@ const mapDispatchToProps = dispatch => ({
 class Session extends React.Component {
   constructor(props) {
     super(props);
-
-    this.recording = false;
-    this.time = 0;
-
-    this.toggleTimer = () => {
-      this.recording = !this.recording;
-      // if recording,
-      if (this.recording) {
-        // start timer
-        this.timer();
-      }
-    };
-
-    this.timer = () => {
-      console.log('timer invoked!!!!!!!!!!');
-      setTimeout(this.recordTimeAndSubmit, 5000);
-    };
-
-    this.recordTimeAndSubmit = () => {
-      this.time += 5;
-      console.log('time! ', this.time);
-      if (this.recording) {
-        this.timer();
-      }
-      // this.submitSession();
-    };
-
     this.submitSession = () => {
+      console.log('session submitting', new Date());
       const userTitle = this.props.title;
       const username = this.props.username;
 
@@ -101,6 +76,13 @@ class Session extends React.Component {
         sessionPkg);
       this.props.saveSession(sessionPkg);
     };
+
+    this.autosave = () => {
+      if (this.props.isSignedIn) {
+        this.submitSession();
+      }
+    };
+    setInterval(this.autosave, 5000);
   }
 
   render() {
@@ -133,6 +115,7 @@ class Session extends React.Component {
 }
 
 Session.propTypes = {
+  isSignedIn: React.PropTypes.boolean,
   title: React.PropTypes.string,
   currentNote: React.PropTypes.object,
   currentTranscript: React.PropTypes.object,
@@ -147,3 +130,9 @@ const SessionContainer = connect(
 )(Session);
 
 export default SessionContainer;
+
+/*
+user starts typing,
+autosave starts.
+if also recording, insert article in notes to link to line in transcript.
+**/

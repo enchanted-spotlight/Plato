@@ -20,3 +20,5 @@ export const chatMessagesInitialState = [
     message: 'Message test initial state.'
   }
 ];
+
+export const SignInInitialState = false;
