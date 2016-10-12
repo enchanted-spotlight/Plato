@@ -1,11 +1,11 @@
 import React from 'react';
-import { Button } from 'react-materialize';
+import { connect } from 'react-redux';
 import CanvasToolbar from './CanvasToolbar.jsx';
 
 import * as a from './../actions.js';
 
 const mapStateToProps = state => ({
-  currentNote: state.canvasEditor
+  currentCanvas: state.canvasEditor
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -137,8 +137,6 @@ class Canvas extends React.Component {
       if (canvasToRestore !== undefined) {
         this.redoStack.push(this.state.canvasState);
         this.loadCanvas(canvasToRestore);
-        console.log('redo', this.redoStack);
-        console.log('undo', this.undoStack);
       }
     };
 
@@ -149,8 +147,6 @@ class Canvas extends React.Component {
       if (canvasToUndo !== undefined) {
         this.undoStack.push(this.state.canvasState);
         this.loadCanvas(canvasToUndo);
-        console.log('redo', this.redoStack);
-        console.log('undo', this.undoStack);
       }
     };
 
@@ -269,7 +265,8 @@ class Canvas extends React.Component {
         // handle first save
         this.undoStack.push(savedCanvas);
         this.saveCanvas();
-        this.props.saveCanvasState();
+        console.log(this.props);
+        this.props.saveCanvasState(this.saveCanvas());
       }, false);
     };
   }
@@ -307,11 +304,11 @@ class Canvas extends React.Component {
 const CanvasEditorContainer = connect(
   mapStateToProps,
   mapDispatchToProps
-)(MediumEditor);
+)(Canvas);
 
 Canvas.propTypes = {
-  saveCanvasState: React.PropTypes.func
+  onCanvasChange: React.PropTypes.func
 };
 
-export default Canvas;
+export default CanvasEditorContainer;
 

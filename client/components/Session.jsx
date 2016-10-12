@@ -72,14 +72,18 @@ class Session extends React.Component {
         plainText: JSON.stringify(plainTranscriptContent)
       };
 
-      // PACKAGE FOR CANVAS
+      // PACKAGE FOR CANVAS, NOT IMPLEMENTED YET!!!
+      const canvasPkg = {
+        canvas: JSON.stringify(this.props.currentCanvas)
+      };
 
       // PACKAGE TO BE SENT TO DB:
       const sessionPkg = {
-        user_id: username,
-        title: userTitle,
-        notes: notePkg,
-        transcript: transcriptPkg
+        user_id: username, // string
+        title: userTitle, // string
+        notes: notePkg, // object
+        transcript: transcriptPkg // object
+        // canvas: canvasPkg // object
       };
 
       // send pkg to db
@@ -121,6 +125,11 @@ class Session extends React.Component {
             <MediumEditor />
           </Col>
         </Row>
+        <Row>
+          <Col s={12}>
+            <Canvas />
+          </Col>
+        </Row>
         <Button
           onClick={() => this.submitSession()}
           waves="light"
@@ -135,6 +144,7 @@ Session.propTypes = {
   title: React.PropTypes.string,
   currentNote: React.PropTypes.object,
   currentTranscript: React.PropTypes.object,
+  currentCanvas: React.PropTypes.object,
   username: React.PropTypes.string,
   saveSession: React.PropTypes.func,
   onTitleChange: React.PropTypes.func

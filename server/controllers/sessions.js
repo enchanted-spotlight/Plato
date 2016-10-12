@@ -9,13 +9,14 @@ const sessionController = {
       notesText: req.body.notes.text,
       notesPlainText: req.body.notes.plainText,
       transcriptText: req.body.transcript.text,
-      transcriptPlainText: req.body.transcript.plainText
+      transcriptPlainText: req.body.transcript.plainText,
     };
     Session.findOneAndUpdate({
       user_id: req.body.user_id,
       title: req.body.title
     }, update, { upsert: true }, (err, data) => {
       if (err) {
+        console.log(err);
         res.status(500).end();
       } else {
         res.status(200).send(data);
@@ -37,8 +38,7 @@ const sessionController = {
   // finds a particular set of user sessions
   retrieveCertainUserSessions(req, res) {
     const userInput = req.body.searchInput;
-    Session.find({ user_id: req.params.user,
-      $text: { $search: userInput } }, (err, data) => {
+    Session.find({ user_id: req.params.user, $text: { $search: userInput } }, (err, data) => {
       if (err) {
         res.status(500).end();
       } else {

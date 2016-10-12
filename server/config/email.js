@@ -1,6 +1,7 @@
 const Note = require('../models/note');
 const nodemailer = require('nodemailer');
 const User = require('../models/user');
+const Session = require('../models/session');
 
 const transporter = nodemailer.createTransport({
   service: 'Gmail',
@@ -12,6 +13,7 @@ const transporter = nodemailer.createTransport({
 
 const emailController = {
   emailNotification: (req, res) => {
+    console.log(req.body.email, req.body.noteId);
     // look to see if the user they're trying to share with exists
     User.findOne({ email: req.body.email.toUpperCase() }, (err, user) => {
       if (err || user === null) {
@@ -22,18 +24,20 @@ const emailController = {
       } else {
         // if the user they want to share with exists, get the note and
         // make a copy, save it under the user's id
-        Note.findOne({ _id: req.body.noteId }, (err2, note) => {
+        Session.findOne({ _id: req.body.noteId }, (err2, note) => {
           if (err2 || note === null) {
             res.status(404).send();
           } else {
-            const newNote = new Note({
+            const newSession = new Session({
               user_id: req.body.email.toUpperCase(),
-              text: note.text,
-              plainTextContent: note.plainTextContent,
+              notesText: note.notesText,
+              plainText: note.plainText,
+              transcriptText: note.transcriptText,
+              transcriptPlainText: note.transcriptPlainText,
               title: note.title
             });
 
-            newNote.save((err3) => {
+            newSession.save((err3) => {
               if (err3) {
                 res.status(500).send();
               } else {

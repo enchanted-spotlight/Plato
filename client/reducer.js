@@ -91,6 +91,7 @@ export default combineReducers({
   savedNotes,
   textEditor,
   speechEditor,
+  canvasEditor,
   sessionTitle,
   chatMessages
 });

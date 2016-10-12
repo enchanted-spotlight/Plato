@@ -6,7 +6,8 @@ const sessionSchema = mongoose.Schema({
   notesText: Object,
   notesPlainText: { type: String, text: true },
   transcriptText: Object,
-  transcriptPlainText: { type: String, text: true }
+  transcriptPlainText: { type: String, text: true },
+  canvas: Object
 });
 
 module.exports = mongoose.model('Session', sessionSchema);
