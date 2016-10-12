@@ -2,6 +2,17 @@ import React from 'react';
 import { Button } from 'react-materialize';
 import CanvasToolbar from './CanvasToolbar.jsx';
 
+import * as a from './../actions.js';
+
+const mapStateToProps = state => ({
+  currentNote: state.canvasEditor
+});
+
+const mapDispatchToProps = dispatch => ({
+  saveCanvasState: newCanvasState => dispatch(a.onCanvasChange(newCanvasState))
+});
+
+
 class Canvas extends React.Component {
   constructor(props) {
     super(props);
@@ -258,6 +269,7 @@ class Canvas extends React.Component {
         // handle first save
         this.undoStack.push(savedCanvas);
         this.saveCanvas();
+        this.props.saveCanvasState();
       }, false);
     };
   }
@@ -292,4 +304,14 @@ class Canvas extends React.Component {
   }
 }
 
+const CanvasEditorContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MediumEditor);
+
+Canvas.propTypes = {
+  saveCanvasState: React.PropTypes.func
+};
+
 export default Canvas;
+

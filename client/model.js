@@ -12,6 +12,8 @@ export const textEditorInitialState = createEditorState();
 
 export const speechEditorInitialState = createEditorState();
 
+export const canvasEditorInitialState = {};
+
 export const currentSessionTitle = '';
 
 export const chatMessagesInitialState = [];

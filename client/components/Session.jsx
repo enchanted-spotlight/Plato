@@ -4,6 +4,8 @@ import { convertToRaw } from 'draft-js';
 import { connect } from 'react-redux';
 import SpeechToTextEditor from './SpeechToTextEditor.jsx';
 import MediumEditor from './MediumDraft.jsx';
+import Canvas from './Canvas.jsx';
+
 import * as a from './../actions.js';
 
 // map state properties into Session props
@@ -11,7 +13,9 @@ const mapStateToProps = state => ({
   username: state.username,
   currentNote: state.textEditor,
   title: state.sessionTitle,
-  currentTranscript: state.speechEditor
+  currentTranscript: state.speechEditor,
+  isSignedIn: state.signinStatus,
+  currentCanvas: state.canvasEditor
 });
 
 // map dispatched actions to Session props
@@ -67,6 +71,8 @@ class Session extends React.Component {
         text: JSON.stringify(userTranscript),
         plainText: JSON.stringify(plainTranscriptContent)
       };
+
+      // PACKAGE FOR CANVAS
 
       // PACKAGE TO BE SENT TO DB:
       const sessionPkg = {

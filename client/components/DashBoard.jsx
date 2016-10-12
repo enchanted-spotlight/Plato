@@ -5,7 +5,6 @@ import ChatClientComponent from './ChatClient.jsx';
 import SearchBarContainer from './SearchBar.jsx';
 import NoteListContainer from './NoteList.jsx';
 import SessionContainer from './Session.jsx';
-import Canvas from './Canvas.jsx';
 
 import * as a from './../actions';
 // eslint-disable-next-line 
@@ -46,11 +45,6 @@ class DashBoard extends React.Component {
             className="login"
           >
             <ChatClientComponent />
-          </Col>
-        </Row>
-        <Row>
-          <Col s={12}>
-            <Canvas />
           </Col>
         </Row>
       </div>
