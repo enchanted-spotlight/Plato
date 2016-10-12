@@ -8,13 +8,14 @@ import MediumEditor from './MediumDraft.jsx';
 import SpeechToTextEditor from './SpeechToTextEditor.jsx';
 
 import * as a from './../actions';
-
+// eslint-disable-next-line 
 const mapStateToProps = state => ({});
 const mapDispatchToProps = dispatch => ({
   onDashBoardLoad: () => dispatch(a.loadUserName())
 });
 
 class DashBoard extends React.Component {
+// eslint-disable-next-line 
   constructor(props) {
     super(props);
   }
@@ -22,7 +23,7 @@ class DashBoard extends React.Component {
   componentWillMount() {
     this.props.onDashBoardLoad();
   }
-
+// eslint-disable-next-line 
   render() {
     return (
       <Row>

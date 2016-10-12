@@ -1,5 +1,5 @@
-const nodemailer = require('nodemailer');
 const Note = require('../models/note');
+const nodemailer = require('nodemailer');
 const User = require('../models/user');
 
 const transporter = nodemailer.createTransport({
