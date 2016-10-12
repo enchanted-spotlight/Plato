@@ -10,6 +10,13 @@ const username = (state = m.usernameInitialState, action) => {
   return state;
 };
 
+const signinStatus = (state = m.SignInInitialState, action) => {
+  if (action.type === t.SIGNED_IN) {
+    return action.payload;
+  }
+  return state;
+};
+
 const savedNotes = (state = m.notesInitialState, action) => {
   if (action.type === t.INVALIDATE_NOTES) {
     return {
@@ -78,5 +85,6 @@ export default combineReducers({
   textEditor,
   speechEditor,
   sessionTitle,
-  chatMessages
+  chatMessages,
+  signinStatus
 });
