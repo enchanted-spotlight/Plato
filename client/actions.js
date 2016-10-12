@@ -199,7 +199,7 @@ export const loadUserName = () => (
           const resText = data.text;
           const parsedText = JSON.parse(resText);
           dispatch(setUsername(parsedText.email));
-          dispatch(fetchNotes(parsedText.email));
+          dispatch(fetchSessions(parsedText.email));
         }
       });
   }
