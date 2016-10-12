@@ -92,8 +92,6 @@ class SpeechToTextEditor extends React.Component {
       // toggle local state
       this.recording = !this.recording;
       console.log('speech recording state: ', this.recording);
-      // toggle parent state
-      // this.props.toggleTimer();
 
       if (!this.recording) {
         window.transcript = '';
@@ -132,7 +130,6 @@ class SpeechToTextEditor extends React.Component {
 
 SpeechToTextEditor.propTypes = {
   reloadTranscript: React.PropTypes.func,
-  // toggleTimer: React.PropTypes.func,
   currentTranscript: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.instanceOf(Object)
