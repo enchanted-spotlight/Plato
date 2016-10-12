@@ -4,28 +4,20 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import { Row, Col, Navbar, NavItem } from 'react-materialize';
-import { Router, Route, hashHistory } from 'react-router';
 
+import { Router, Route, browserHistory, IndexRoute } from 'react-router';
 import request from 'superagent';
-
-
 import App from './components/App.jsx';
-import DashBoard from './components/DashBoard.jsx';
+import DashBoardContainer from './components/DashBoard.jsx';
 import LandingPage from './components/LandingPage.jsx';
 
 import * as a from './actions.js';
 
 import reducers from './reducer.js';
-import ChatClientComponent from './components/ChatClient.jsx';
 import LogInContainer from './components/LogIn.jsx';
-import SearchBarContainer from './components/SearchBar.jsx';
-import NoteListContainer from './components/NoteList.jsx';
 // import MediumEditor from './components/MediumDraft.jsx';
 // import SpeechToTextEditor from './components/SpeechToTextEditor.jsx';
-import SessionContainer from './components/Session.jsx';
 import SignUpContainer from './components/SignUp.jsx';
-import Canvas from './components/Canvas.jsx';
 import socket from './socket.js';
 
 const loggerMiddleware = createLogger();
@@ -69,7 +61,7 @@ const render = () => {
       <Router history={browserHistory}>
         <Route path="/" component={App} >
           <IndexRoute component={LandingPage} />
-          <Route path="dashboard" component={DashBoard} onEnter={requireAuth} />
+          <Route path="dashboard" component={DashBoardContainer} onEnter={requireAuth} />
           <Route path="login" component={LogInContainer} />
           <Route path="signup" component={SignUpContainer} />
         </Route>

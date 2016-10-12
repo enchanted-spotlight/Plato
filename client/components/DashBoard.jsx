@@ -1,16 +1,26 @@
 import React from 'react';
 import { Row, Col } from 'react-materialize';
+import { connect } from 'react-redux';
 import ChatClientComponent from './ChatClient.jsx';
-import LogInContainer from './LogIn.jsx';
 import SearchBarContainer from './SearchBar.jsx';
 import NoteListContainer from './NoteList.jsx';
 import MediumEditor from './MediumDraft.jsx';
 import SpeechToTextEditor from './SpeechToTextEditor.jsx';
-import SignUpContainer from './SignUp.jsx';
+
+import * as a from './../actions';
+
+const mapStateToProps = state => ({});
+const mapDispatchToProps = dispatch => ({
+  onDashBoardLoad: () => dispatch(a.loadUserName())
+});
 
 class DashBoard extends React.Component {
   constructor(props) {
     super(props);
+  }
+
+  componentWillMount() {
+    this.props.onDashBoardLoad();
   }
 
   render() {
@@ -43,4 +53,14 @@ class DashBoard extends React.Component {
   }
 }
 
-export default DashBoard;
+DashBoard.propTypes = {
+  onDashBoardLoad: React.PropTypes.func,
+};
+
+const DashBoardContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DashBoard);
+
+
+export default DashBoardContainer;
