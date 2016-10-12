@@ -5,6 +5,7 @@ import ChatClientComponent from './ChatClient.jsx';
 import SearchBarContainer from './SearchBar.jsx';
 import NoteListContainer from './NoteList.jsx';
 import SessionContainer from './Session.jsx';
+import Canvas from './Canvas.jsx';
 
 import * as a from './../actions';
 // eslint-disable-next-line 
@@ -25,27 +26,34 @@ class DashBoard extends React.Component {
 // eslint-disable-next-line 
   render() {
     return (
-      <Row>
-        <Col s={3} className="blue-grey lighten-3 base-col-height">
-          <SearchBarContainer />
-          <div className="blue-grey lighten-3 column-header-lists">
-            <h3>All Notes</h3>
-          </div>
-          <NoteListContainer />
-        </Col>
-        <Col
-          s={6}
-          className="base-col-height"
-        >
-          <SessionContainer />
-        </Col>
-        <Col
-          s={3}
-          className="login"
-        >
-          <ChatClientComponent />
-        </Col>
-      </Row>
+      <div>
+        <Row>
+          <Col s={3} className="blue-grey lighten-3 base-col-height">
+            <SearchBarContainer />
+            <div className="blue-grey lighten-3 column-header-lists">
+              <h3>All Notes</h3>
+            </div>
+            <NoteListContainer />
+          </Col>
+          <Col
+            s={6}
+            className="base-col-height"
+          >
+            <SessionContainer />
+          </Col>
+          <Col
+            s={3}
+            className="login"
+          >
+            <ChatClientComponent />
+          </Col>
+        </Row>
+        <Row>
+          <Col s={12}>
+            <Canvas />
+          </Col>
+        </Row>
+      </div>
     );
   }
 }
