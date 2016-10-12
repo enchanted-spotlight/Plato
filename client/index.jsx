@@ -59,7 +59,11 @@ const render = () => {
       <Router history={browserHistory}>
         <Route path="/" component={App} >
           <IndexRoute component={LandingPage} />
-          <Route path="dashboard" component={DashBoardContainer} onEnter={requireAuth} />
+          <Route
+            path="dashboard"
+            component={DashBoardContainer}
+            onEnter={requireAuth}
+          />
           <Route path="login" component={LogInContainer} />
           <Route path="signup" component={SignUpContainer} />
         </Route>

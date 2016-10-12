@@ -1,6 +1,7 @@
 const Session = require('./../models/session');
 
 const sessionController = {
+  // saves a session
   saveSession(req, res) {
     console.log('saving session in controller: ', req.body);
     const update = {
@@ -22,6 +23,7 @@ const sessionController = {
       }
     });
   },
+  // gets all user sessions
   retrieveAllUserSessions(req, res) {
     Session.find({ user_id: req.params.user }, (err, data) => {
       if (err) {
@@ -33,6 +35,7 @@ const sessionController = {
       }
     });
   },
+  // finds a particular set of user sessions
   retrieveCertainUserSessions(req, res) {
     const userInput = req.body.searchInput;
     console.log(req.body.searchInput);
@@ -45,6 +48,7 @@ const sessionController = {
       }
     });
   },
+  // delete a user session
   deleteUserSession(req, res) {
     Session.findOneAndRemove({ _id: req.params.id }, (err, doc, result) => {
       if (err) {

@@ -85,6 +85,5 @@ export default combineReducers({
   textEditor,
   speechEditor,
   sessionTitle,
-  chatMessages,
-  signinStatus
+  chatMessages
 });
