@@ -6,14 +6,11 @@ import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import io from 'socket.io-client';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router';
-
 import request from 'superagent';
-
-
 import App from './components/App.jsx';
 import LogInContainer from './components/LogIn.jsx';
 import SignUpContainer from './components/SignUp.jsx';
-import DashBoard from './components/DashBoard.jsx';
+import DashBoardContainer from './components/DashBoard.jsx';
 import LandingPage from './components/LandingPage.jsx';
 
 import * as a from './actions.js';
@@ -71,7 +68,7 @@ const render = () => {
       <Router history={browserHistory}>
         <Route path="/" component={App} >
           <IndexRoute component={LandingPage} />
-          <Route path="dashboard" component={DashBoard} onEnter={requireAuth} />
+          <Route path="dashboard" component={DashBoardContainer} onEnter={requireAuth} />
           <Route path="login" component={LogInContainer} />
           <Route path="signup" component={SignUpContainer} />
         </Route>

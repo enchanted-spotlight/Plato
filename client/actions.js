@@ -88,14 +88,11 @@ export const loginUser = formData => (
       .end((err, res) => {
         if (err) {
           // do something on error
-          console.log('error logging in!');
         } else {
           // successful login
-          console.log('It successfully logged in the user');
           dispatch(setUsername(formData.username));
-
+          dispatch(fetchSessions(formData.username));
           browserHistory.push('/dashboard');
-          dispatch(fetchNotes(formData.username));
         }
       });
   }
@@ -186,6 +183,23 @@ export const searchNotes = (username, term) => (
           console.log('There is an error in SearchBar:', err);
         } else {
           dispatch(receiveSessions(username, res.body));
+        }
+      });
+  }
+);
+
+export const loadUserName = () => (
+  (dispatch) => {
+    request
+      .get('api/auth/identify')
+      .end((err, data) => {
+        if (err) {
+          console.log('There is an error with loading username');
+        } else {
+          const resText = data.text;
+          const parsedText = JSON.parse(resText);
+          dispatch(setUsername(parsedText.email));
+          dispatch(fetchNotes(parsedText.email));
         }
       });
   }

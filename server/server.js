@@ -66,7 +66,6 @@ io.on('connection', (socket) => {
 // routing
 app.use('/api', noteRouter);
 
-
 app.get('/*', (req, res) => {
   res.sendfile(path.join(__dirname, '/../client/index.html'));
 });
