@@ -155,11 +155,10 @@ export const submitSignUp = formData => (
               })
               .end((err2, data) => {
                 if (err2) {
-                  console.log(err2);
                 } else {
                   browserHistory.push('/dashboard');
                   dispatch(setUsername(formData.username));
-                  dispatch(fetchNotes(formData.username));
+                  dispatch(fetchSessions(formData.username));
                 }
               });
         });
