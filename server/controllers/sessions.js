@@ -2,7 +2,7 @@ const Session = require('./../models/session');
 
 const sessionController = {
   saveSession(req, res) {
-    console.log('saving session: ', req.body);
+    console.log('saving session in controller: ', req.body);
     const update = {
       user_id: req.body.user_id,
       title: req.body.title,
@@ -10,9 +10,6 @@ const sessionController = {
       notesPlainText: req.body.notes.plainText,
       transcriptText: req.body.transcript.text,
       transcriptPlainText: req.body.transcript.plainText
-      // text: req.body.text,
-      // // where is the title going to be?
-      // plainTextContent: req.body.plainText
     };
     Session.findOneAndUpdate({
       user_id: req.body.user_id,
