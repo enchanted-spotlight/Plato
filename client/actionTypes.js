@@ -1,5 +1,6 @@
 export const USER_LOGIN = 'plato/USER_LOGIN';
 export const SIGNED_IN = 'plato/SIGNED_IN';
+export const SIGNED_OUT = 'plato/SIGNED_OUT';
 export const INVALIDATE_NOTES = 'plato/INVALIDATE_NOTES';
 export const REQUEST_NOTES = 'plato/REQUEST_NOTES';
 export const RECEIVE_NOTES = 'plato/RECEIVE_NOTES';

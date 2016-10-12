@@ -8,9 +8,9 @@ export const setUsername = username => ({
   username
 });
 
-export const setSignIn = () => ({
+export const setSignIn = bool => ({
   type: t.SIGNED_IN,
-  payload: true
+  payload: bool
 });
 
 // Async requires three actions:
@@ -111,7 +111,6 @@ export const getIdentity = () => (
           const response = JSON.parse(res.text);
           dispatch(setUsername(response.email));
           dispatch(fetchSessions(response.email));
-          dispatch(setSignIn());
         }
       });
   }

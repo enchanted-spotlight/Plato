@@ -3,12 +3,14 @@ import { connect } from 'react-redux';
 
 import * as t from './../actions';
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  isSignedIn: state.signInStatus
+});
 
 const mapDispatchToProps = dispatch => ({
   onUsernameSubmit: formData => dispatch(t.loginUser(formData)),
   getIdentity: () => dispatch(t.getIdentity()),
-  hasSignedIn: () => dispatch(t.setSignIn())
+  hasSignedIn: bool => dispatch(t.setSignIn(bool))
 });
 
 class LogIn extends React.Component {
@@ -18,6 +20,11 @@ class LogIn extends React.Component {
       username: '',
       password: '',
     };
+
+    if (this.props.isSignedIn) {
+      this.props.hasSignedIn(false);
+    }
+
     this.changeUsernameState = (e) => {
       this.setState({ username: e.target.value });
     };
@@ -79,6 +86,8 @@ class LogIn extends React.Component {
 }
 
 LogIn.propTypes = {
+  isSignedIn: React.PropTypes.boolean,
+  hasSignedIn: React.PropTypes.func,
   onUsernameSubmit: React.PropTypes.func,
   getIdentity: React.PropTypes.func
 };

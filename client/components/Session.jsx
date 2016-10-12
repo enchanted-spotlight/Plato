@@ -8,6 +8,7 @@ import SpeechToTextEditor from './SpeechToTextEditor.jsx';
 import MediumEditor from './MediumDraft.jsx';
 import * as a from './../actions.js';
 
+// map state properties into Session props
 const mapStateToProps = state => ({
   username: state.username,
   currentNote: state.textEditor,
@@ -16,7 +17,7 @@ const mapStateToProps = state => ({
   isSignedIn: state.signinStatus
 });
 
-// dispatch actions defined here!
+// map dispatched actions to Session props
 const mapDispatchToProps = dispatch => ({
   reloadNote: (changedNote, title) => {
     dispatch(a.onTextEditorChange(changedNote));
@@ -30,7 +31,8 @@ const mapDispatchToProps = dispatch => ({
   ),
   onTitleChange: e => (
     dispatch(a.onSessionTitleCreate(e.target.value))
-  )
+  ),
+  hasSignedIn: bool => dispatch(a.setSignIn(bool))
 });
 
 class Session extends React.Component {
@@ -75,12 +77,23 @@ class Session extends React.Component {
       this.props.saveSession(sessionPkg);
     };
 
+    if (!this.props.isSignedIn) {
+      this.props.hasSignedIn(true);
+    }
+
+    // saves session every minute
     this.autosave = () => {
-      if (this.props.isSignedIn) {
+      console.log('autsave', this.props.isSignedIn);
+      if (this.props.isSignedIn
+          && (this.props.currentTranscript
+              .getCurrentContent().getPlainText().length > 0
+          || this.props.currentNote
+            .getCurrentContent().getPlainText().length > 0)) {
+        console.log('submitting');
         this.submitSession();
       }
     };
-    setInterval(this.autosave, 60000);
+    setInterval(this.autosave, 5000);
   }
 
   render() {
@@ -112,6 +125,7 @@ class Session extends React.Component {
 }
 
 Session.propTypes = {
+  hasSignedIn: React.PropTypes.func,
   isSignedIn: React.PropTypes.boolean,
   title: React.PropTypes.string,
   currentNote: React.PropTypes.object,
