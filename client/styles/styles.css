@@ -92,6 +92,14 @@
   margin-left: 25px;
 }
 
+.undoRedo {
+  margin-left: 25px;
+}
+
 .canvasHeight {
   float: right;
+}
+
+.language {
+  position: relative;
 }

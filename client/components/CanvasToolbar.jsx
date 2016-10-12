@@ -24,7 +24,11 @@ class CanvasToolbar extends React.Component {
     return (
       <div>
         <span className="saveCanvas">
-          <Button floating className="red" onClick={() => this.props.saveCanvas()} icon="save" />
+          <Button
+            floating className="red"
+            onClick={() => this.props.saveCanvas()}
+            icon="save"
+          />
           <Button
             floating className="red"
             href="#"
@@ -32,29 +36,83 @@ class CanvasToolbar extends React.Component {
             icon="grade"
             download="image.png"
           />
-          <Button floating className="red" onClick={() => this.props.loadCanvas()} />
         </span>
         <span className="newCanvas">
-          <Button floating className="red" onClick={() => this.props.newCanvas()} icon="settings_backup_restore" />
+          <Button
+            floating className="red"
+            onClick={() => this.props.newCanvas()}
+            icon="not_interested"
+            title="New Canvas"
+          />
         </span>
         <span className="strokeStyle">
-          <Button floating className="red" onClick={() => this.props.updateStyle('red')} />
-          <Button floating className="blue" onClick={() => this.props.updateStyle('blue')} />
-          <Button floating className="green" onClick={() => this.props.updateStyle('green')} />
-          <Button floating className="black" onClick={() => this.props.updateStyle('black')} />
-          <Button floating className="white" onClick={() => this.props.updateStyle('white')} />
+          <Button
+            floating className="red"
+            onClick={() => this.props.updateStyle('red')}
+            title="Red"
+          />
+          <Button
+            floating className="blue"
+            onClick={() => this.props.updateStyle('blue')}
+            title="Blue"
+          />
+          <Button
+            floating className="green"
+            onClick={() => this.props.updateStyle('green')}
+            title="Green"
+          />
+          <Button
+            floating className="black"
+            onClick={() => this.props.updateStyle('black')}
+            title="Black"
+          />
+          <Button
+            floating className="white"
+            onClick={() => this.props.updateStyle('white')}
+            title="White/Eraser"
+          />
         </span>
         <span className="lineWidth">
-          <Button floating className="red" icon="add" onClick={() => this.props.incrementLineWidth()} />
-          <Button floating className="red" icon="remove" onClick={() => this.props.decrementLineWidth()} />
+          <Button
+            floating className="red"
+            icon="add"
+            onClick={() => this.props.incrementLineWidth()}
+            title="Increase Line Width"
+          />
+          <Button
+            floating className="red"
+            icon="remove"
+            onClick={() => this.props.decrementLineWidth()}
+            title="Decrease Line Width"
+          />
         </span>
         <span className="undoRedo">
-          <Button floating className="black" icon="replay" onClick={() => this.props.undo()} />
-          <Button floating className="black" onClick={() => this.props.redo()} />
+          <Button
+            floating className="black"
+            icon="undo"
+            onClick={() => this.props.undo()}
+            title="Undo"
+          />
+          <Button
+            floating className="black"
+            icon="redo"
+            onClick={() => this.props.redo()}
+            title="Redo"
+          />
         </span>
         <span className="canvasHeight">
-          <Button floating className="green" icon="swap_vert" onClick={() => this.props.incrementCanvasHeight()} />
-          <Button floating className="green" icon="swap_horiz" onClick={() => this.props.incrementCanvasWidth()} />
+          <Button
+            floating className="green"
+            icon="swap_vert"
+            onClick={() => this.props.incrementCanvasHeight()}
+            title="Increase Canvas Height"
+          />
+          <Button
+            floating className="green"
+            icon="swap_horiz"
+            onClick={() => this.props.incrementCanvasWidth()}
+            title="Increase Canvas Width"
+          />
         </span>
       </div>
     );
@@ -63,7 +121,6 @@ class CanvasToolbar extends React.Component {
 
 CanvasToolbar.propTypes = {
   saveCanvas: React.PropTypes.func,
-  loadCanvas: React.PropTypes.func,
   updateStyle: React.PropTypes.func,
   incrementLineWidth: React.PropTypes.func,
   decrementLineWidth: React.PropTypes.func,
