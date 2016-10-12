@@ -22,30 +22,38 @@ const chatController = {
     // Should this emit something and pass value to socket.io?
     // Or use HTML5 push api?
   },
-  sendMessageToDatabase(data) {
+  sendMessageToDatabase(socket, data) {
     // sanitize the message before saving!
     // console.log('chat.controller sendMessageToDatabase data: ', data);
     // const chatMessage = new ChatModels.ChatMessage(data);
-    const sanitized = data;
-    sanitized.text = sanitizeHtml(data.text);
     // console.log('sanitized html version: ', sanitized);
     const query = { room_id: 'test room 1' };
-    const update = { $push: { messages: { sanitized } } };
+    const update = { $push: { messages: {
+      user_id: data.user_id,
+      text: sanitizeHtml(data.text),
+      timestamp: data.timestamp
+    } } };
     const options = {
+      new: true,
       upsert: true
     };
-    const callback = (result) => {
-      console.log('result to sendMessageToDatabase callback: ', result);
+    const callback = (err, result) => {
+      const mostRecent = result.messages[result.messages.length - 1];
+      console.log('Most recent message to be broadcast: ', mostRecent);
+      socket.broadcast.emit('incoming chat message', mostRecent);
     };
     ChatModels.ChatRoom.findOneAndUpdate(query, update, options, callback);
   },
   loadChatRoomFromDatabase(socket) {
     // console.log('loadMessagesFromDatabase called');
-    // const query = { room_id: 'test room 1' };
-    // ChatModels.ChatRoom.find(query, (err, data) => {
-    //   console.log('chatRoom from db results: ', data);
-    //   socket.emit('chat room archive', data[0].messages);
-    // });
+    const query = { room_id: 'test room 1' };
+    ChatModels.ChatRoom.find(query, (err, data) => {
+      // console.log('chatRoom from db results: ', data);
+      if (data[0] === undefined) {
+        return;
+      }
+      socket.emit('chat room archive', data[0].messages);
+    });
   }
 };
 
