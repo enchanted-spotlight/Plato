@@ -38,6 +38,7 @@ module.exports = {
       1,
       80
     ],
+    "class-methods-use-this": "warn",
     "no-unused-vars": 1,
     "no-underscore-dangle": "warn",
     "no-unused-expressions": "warn",

@@ -106,7 +106,7 @@ export const getIdentity = () => (
       .get('api/auth/identify')
       .end((err, res) => {
         if (err) {
-          console.log('Error identifying!');
+          console.log('Error in getIdentity!');
         } else {
           const response = JSON.parse(res.text);
           dispatch(setUsername(response.email));
@@ -214,19 +214,7 @@ export const loadNewChatMessage = message => ({
   message
 });
 
-export const sendChatMessage = messageObj => (
-  request
-    .post('/api/chat')
-    .set('Content-Type', 'application/json')
-    .send({
-      user: messageObj.user,
-      message: messageObj.message
-    })
-    .end((err, res) => {
-      if (err || !res.ok) {
-        console.log('sendChatMessage error: ', err);
-      } else {
-        console.log('Success with sendChatMessage: ', res);
-      }
-    })
-);
+export const sendChatMessage = (message) => {
+  socket.emit('new chat message', message);
+  return (loadNewChatMessage(message));
+};

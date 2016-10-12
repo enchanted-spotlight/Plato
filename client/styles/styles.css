@@ -4,7 +4,7 @@
 }
 
 .chat-client-container{
-  max-height: 500px;
+  max-height: 565px;
   overflow: hidden;
   background: #eeeeee;
   border: solid #A1A1A1 1px;
@@ -14,7 +14,12 @@
   margin: 0;
 }
 
-.chat-messages-display{
+.chat-client-container>p,
+.chat-client-container>ul{
+  margin: 0;
+}
+
+#chat-messages-display{
   padding: 0 1em 0 1em;
   max-height: 350px;
   overflow-y: scroll;
