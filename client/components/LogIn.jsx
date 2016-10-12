@@ -7,7 +7,8 @@ const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
   onUsernameSubmit: formData => dispatch(t.loginUser(formData)),
-  getIdentity: () => dispatch(t.getIdentity())
+  getIdentity: () => dispatch(t.getIdentity()),
+  hasSignedIn: () => dispatch(t.setSignIn())
 });
 
 class LogIn extends React.Component {
@@ -18,11 +19,9 @@ class LogIn extends React.Component {
       password: '',
     };
     this.changeUsernameState = (e) => {
-      console.log(e.target.value, 'username');
       this.setState({ username: e.target.value });
     };
     this.changePasswordState = (e) => {
-      console.log(e.target.value, 'password');
       this.setState({ password: e.target.value });
     };
   }
