@@ -12,8 +12,10 @@ const loginButtonStyle = {
 const LandingPage = () => (
   <div>
     <div className="grey lighten-4">
-      
       <div>
+      <div styles={sectionStyle}>
+        Hello from the otherside
+      </div>
         <div className="row container">
           <div className="col s3">
             <div className="card white">
