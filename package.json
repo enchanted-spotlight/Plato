@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server/server.js",
-    "postinstall": "webpack",
+    "postinstall": "node_modules/.bin/webpack",
     "test": "mocha --require ./test/setup.js --compilers jsx:babel-register",
     "lint": "eslint --ext .js --ext .jsx test server db client/components client/index.jsx --ignore-path client/public/bundle.js",
     "watch": "babel --watch ./public --out-dir ./public/compiled --presets=es2015,react --ignore=node_modules,compiled --source-maps inline && node server/server.js",
