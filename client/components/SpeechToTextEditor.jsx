@@ -103,6 +103,7 @@ class SpeechToTextEditor extends React.Component {
       if (!this.recording) {
         window.transcript = '';
         this.recognition.stop();
+        document.querySelector('.recordingState').class = 'grey recordingState';
       } else {
         this.recognition.start();
       }
@@ -123,7 +124,7 @@ class SpeechToTextEditor extends React.Component {
           <Col s={12} className="center-align">
             <Button
               onClick={() => this.toggleRecordingState()}
-              floating className="red" icon="voicemail"
+              floating className="red recordingState" icon="voicemail"
             />
           </Col>
         </Row>
