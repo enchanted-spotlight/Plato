@@ -23,7 +23,6 @@ const mapDispatchToProps = dispatch => ({
 
 class NoteItem extends React.Component {
   constructor(props) {
-    console.log(props);
     super(props);
 
     this.state = {
@@ -52,8 +51,7 @@ class NoteItem extends React.Component {
         })
         .end((err, res) => {
           if (err) {
-            console.log(err);
-            console.log('Error sharing notes ... ');
+            console.log('Error sharing notes ... ', err);
           } else {
             // success
             console.log('Shared the note!');
@@ -63,7 +61,6 @@ class NoteItem extends React.Component {
   }
 
   render() {
-    console.log('NOTE ITEM props: ', this.props);
     return (
       <li>
         <p>{this.props.title}</p>

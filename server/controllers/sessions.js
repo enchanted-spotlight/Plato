@@ -3,7 +3,6 @@ const Session = require('./../models/session');
 const sessionController = {
   // saves a session
   saveSession(req, res) {
-    console.log('saving session in controller: ', req.body);
     const update = {
       user_id: req.body.user_id,
       title: req.body.title,
@@ -38,25 +37,26 @@ const sessionController = {
   // finds a particular set of user sessions
   retrieveCertainUserSessions(req, res) {
     const userInput = req.body.searchInput;
-    console.log(req.body.searchInput);
-    Session.find({ user_id: req.params.user, $text: { $search: userInput } }, (err, data) => {
+    Session.find({ user_id: req.params.user,
+      $text: { $search: userInput } }, (err, data) => {
       if (err) {
         res.status(500).end();
       } else {
-        console.log(data);
         res.status(200).send(data);
       }
     });
   },
   // delete a user session
   deleteUserSession(req, res) {
-    Session.findOneAndRemove({ _id: req.params.id }, (err, doc, result) => {
-      if (err) {
-        res.status(500).end();
-      } else {
-        res.status(200).end();
-      }
-    });
+    Session.findOneAndRemove({ _id: req.params.id },
+      // params: doc, result, can be used for future use
+      (err, doc, result) => {
+        if (err) {
+          res.status(500).end();
+        } else {
+          res.status(200).end();
+        }
+      });
   }
 };
 
