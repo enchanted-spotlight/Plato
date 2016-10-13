@@ -10,8 +10,3 @@ dependencies:
     - sudo apt-get install -y mongodb-org
     - sudo service mongod restart
     - npm install
-deployment:
-  staging:
-    branch: master
-    heroku:
-      appname: plato notes
