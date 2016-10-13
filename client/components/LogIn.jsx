@@ -1,6 +1,7 @@
 import React from 'react';
-import { connect } from 'react-redux';
 import request from 'superagent';
+import { connect } from 'react-redux';
+import { Row, Col } from 'react-materialize';
 
 import * as t from './../actions';
 
@@ -48,57 +49,64 @@ class LogIn extends React.Component {
 
     // redirect to google oauth endpoint on click
     this.googleLogin = () => {
-      request.get('/api/auth/login/google');
+      document.location = '/api/auth/login/google';
     };
   }
 
   componentWillMount() {
     this.props.getIdentity();
   }
-  // eslint-disable
+  /* eslint-disable */
   render() {
     return (
       <div className="loginContainer">
-        <h3>Login:</h3>
-        <a href="#" onClick={() => this.fbLogin()} >
-            <img src="./fb_login.png" />
-        </a>
-        <button
-          src="./google_login.png"
-          style={this.loginButtonStyle}
-          href="api/auth/login/google"
-          role="presentation"
-        />
-        <form
-          className="local-login"
-          onSubmit={(e) => {
-            e.preventDefault();
-            const formData = {
-              username: this.state.username,
-              password: this.state.password
-            };
-            this.props.onUsernameSubmit(formData);
-          }}
-        >
-          <input
-            type="email"
-            placeholder="E-mail"
-            value={this.state.username}
-            onChange={this.changeUsernameState}
-          />
-          <input
-            type="password"
-            value={this.state.password}
-            onChange={this.changePasswordState}
-          />
-          <input
-            type="submit"
-          />
-        </form>
+        
+        <Row className="center-align">
+              <h3>Login:</h3>
+              <a href="/api/auth/login/facebook" >
+                  <img src="./fb_icon.png" style={this.loginButtonStyle} />
+              </a>
+              <a href="api/auth/login/google">
+                  <img src="./google_icon.png" style={this.loginButtonStyle} />
+              </a>
+        </Row>
+
+        <Row className="center-align">
+          <Col s={6} offset="s3">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                const formData = {
+                  username: this.state.username,
+                  password: this.state.password
+                };
+                this.props.onUsernameSubmit(formData);
+              }}
+            >
+              <input
+                type="email"
+                placeholder="E-mail"
+                value={this.state.username}
+                onChange={this.changeUsernameState}
+                className="center-align"
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={this.state.password}
+                onChange={this.changePasswordState}
+                className="center-align"
+              />
+              <input type="submit" />
+            </form>
+          </Col>
+        </Row>
+
       </div>
     );
   }
 }
+/* eslint-enable */
 
 LogIn.propTypes = {
   isSignedIn: React.PropTypes.boolean,
