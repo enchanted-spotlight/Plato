@@ -4,7 +4,7 @@
   "description": "note-taking app",
   "main": "server.js",
   "scripts": {
-    "start": "npm run lint && nodemon server/server.js",
+    "start": "node server/server.js",
     "test": "mocha --require ./test/setup.js --compilers jsx:babel-register",
     "lint": "eslint --ext .js --ext .jsx test server db client/components client/index.jsx --ignore-path client/public/bundle.js",
     "watch": "babel --watch ./public --out-dir ./public/compiled --presets=es2015,react --ignore=node_modules,compiled --source-maps inline && node server/server.js",
