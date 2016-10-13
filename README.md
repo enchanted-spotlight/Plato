@@ -45,10 +45,22 @@ Plato has multiple components that can be split into a few categories
 
 ### Back-End
   1.  Auth Endpoints:
+    * `GET /api/auth/identify` : Attempts to identify a user if req.session.passport.user exists on the user's request to the server
+    * `POST /api/auth/login/local` : Given an object with a username and password property, attempts to sign in the user
+    * `GET /api/auth/login/facebook` : Facebook OAuth
+    * `GET /api/auth/login/twitter` : Twitter OAuth
+    * `GET /api/auth/login/google` : Google OAuth
+    * `GET /api/auth/login/slack` : Slack OAuth
+    * `GET /api/auth/logout` : Logout
+  2.  Operation Endpoints:
     * `POST /api/save-session` : Takes a post request with a Session object and saves the Session object to the database with the user's username
     * `GET /api/:user` : Returns an array of session objects belonging to the user
     * `GET /api/delete-session/:id` : Given a session id, deletes that session from the database
     * `POST /api/:user` : Returns an array of sessions that match a given search input.
-    * `GET /api/auth/identify` : Attempts to identify a user if req.session.passport.user exists on the user's request to the server
-    * `POST /api/social/share-note` : Given a session id and a destination email, shares the note with the destination email's account (if it exists in the Plato database);
+    * `POST /api/social/share-note` : Given a session id and a destination email, shares the note with the destination email's account if an account under that email in the Plato database
 
+## Contributions
+If you would like to contribute, please open an issue with a description of the issue that you have observed or the change that you would like to see.
+
+## Credits
+Plato was made by @jon-is-learning, @DanCSnyder, @ClarabelleCheng-Yue, and @YOO629 at [Hack Reactor](https://github.com/hackreactor).
