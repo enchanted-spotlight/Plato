@@ -39,8 +39,9 @@ app.get('/*', (req, res) => {
 });
 
 // initialize server
-http.listen(3000, () => {
-  console.log('Plato is listening on port 3000 ...');
+const port = process.env.PORT || 3000;
+http.listen(port, () => {
+  console.log('Plato is listening on port ', port);
 });
 
 module.exports = app;
