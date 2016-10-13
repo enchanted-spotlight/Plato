@@ -77,7 +77,6 @@ const chatMessages = (state = m.chatMessagesInitialState, action) => {
     return action.messages;
   }
   if (action.type === t.LOAD_NEW_CHAT_MESSAGE) {
-    // console.log('loading new message!: ', action.message);
     const newState = [...state];
     // console.log('newState value: ', newState);
     newState.push(action.message);

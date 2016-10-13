@@ -11,7 +11,6 @@ const email = require('./email');
 // ------------ CHAT & SLACK ---------- //
 router.post('/chat', chats.sendMessageToSlack);
 
-
 // ---------- SESSIONS ---------- //
 router.post('/save-session', sessions.saveSession);
 router.get('/:user', sessions.retrieveAllUserSessions);
@@ -76,6 +75,5 @@ router.get('/auth/identify', user.identifyUser);
 // ---------- E-MAIL ---------- //
 
 router.post('/social/share-note', email.emailNotification);
-
 
 module.exports = router;

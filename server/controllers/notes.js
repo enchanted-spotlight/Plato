@@ -2,6 +2,7 @@ const Note = require('./../models/note');
 
 const notesController = {
   saveNote(req, res) {
+    console.log(req.body);
     const update = {
       user_id: req.body.user_id,
       text: req.body.text,

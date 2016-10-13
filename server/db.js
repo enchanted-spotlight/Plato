@@ -8,9 +8,9 @@ const ChatRoom = require('./models/chats');
 if (process.env.NODE_ENV === 'dev') {
   console.log('Connecting to test DB ...');
   mongoose.connect('mongodb://localhost/test');
-} else {
+} else if (process.env.NODE_ENV === 'deployed') {
   console.log('Connecting to real DB ...');
-  mongoose.connect('mongodb://localhost/plato');
+  mongoose.connect(process.env.MONGODB_URI);
 }
 
 const db = mongoose.connection;

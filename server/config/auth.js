@@ -49,6 +49,7 @@ passport.use(new FacebookStrategy({
         return done(err);
       } else if (user === null) {
         User.findOne({ facebookId: profile.id }, (err2, user2) => {
+          console.log(user2);
           if (err) { return done(err2); }
           return done(null, user2);
         });
@@ -145,6 +146,33 @@ passport.use(new GoogleStrategy({
     });
   }
 ));
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: 'http://localhost:3000/api/auth/login/google/callback',
+  passReqToCallback: true
+},
+  (request, accessToken, refreshToken, profile, done) => {
+    const googleId = { $set: { googleId: profile.id } };
+
+    User.findOneAndUpdate({
+      email: profile.email.toUpperCase()
+    }, googleId, { upsert: true }, (err, user) => {
+      if (err) {
+        return done(err);
+      } else if (user === null) {
+        User.findOne({ googleId: profile.id }, (err2, user2) => {
+          if (err) { return done(err); }
+          return done(null, user2);
+        });
+      } else {
+        return done(null, user);
+      }
+    });
+  }
+));
+
 
 passport.serializeUser((user, done) => {
   // serializes user with our _id from mongodb
