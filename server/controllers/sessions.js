@@ -16,7 +16,6 @@ const sessionController = {
       title: req.body.title
     }, update, { upsert: true }, (err, data) => {
       if (err) {
-        console.log(err);
         res.status(500).end();
       } else {
         res.status(200).send(data);

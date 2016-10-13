@@ -1,14 +1,26 @@
 // import React from 'react';
-// import { expect } from 'chai';
 // import { shallow } from 'enzyme';
+// import Canvas from '../client/components/Canvas.jsx';
 
-// import Canvas from './../client/components/Canvas';
+// function setup() {
+//   const props = {
+//     fn: () => null
+//   };
 
-// const wrapper = shallow(<Canvas />);
-// const inst = wrapper.instance();
+//   const enzymeWrapper = shallow(<Canvas {...props} />);
 
-// describe('<Canvas /> Component', () => {
-//   it('should have a CanvasToolbar component', () => {
-//     expect(true).to.equal(true);
+//   return {
+//     props,
+//     enzymeWrapper
+//   };
+// }
+
+// describe('components', () => {
+//   describe('Canvas', () => {
+//     it('should work', () => {
+//       const { enzymeWrapper } = setup();
+
+//       expect(true).to.equal(true);
+//     });
 //   });
 // });
