@@ -12,9 +12,7 @@ const loginButtonStyle = {
 const LandingPage = () => (
   <div>
     <div className="grey lighten-4">
-      <div className="container">
-              Plato
-      </div>
+      
       <div>
         <div className="row container">
           <div className="col s3">
@@ -124,11 +122,6 @@ const LandingPage = () => (
                 <li><a className="grey-text text-lighten-3" href="#!"></a></li>
               </ul>
             </div>
-          </div>
-        </div>
-        <div className="footer-copyright">
-          <div className="container">
-          © 2014 Copyright Text
           </div>
         </div>
       </footer>

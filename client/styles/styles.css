@@ -138,3 +138,9 @@ section .parallax {
 .jobdesc {
   line-height: 5em;
 }
+
+.landingpage-image {
+  background-image: url("./styles/images/frontpage1.jpg");
+  width: 853em ;
+  height: 480em;
+}
