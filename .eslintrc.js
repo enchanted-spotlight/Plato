@@ -38,12 +38,15 @@ module.exports = {
       1,
       80
     ],
+    "class-methods-use-this": "warn",
     "no-unused-vars": 1,
     "no-underscore-dangle": "warn",
     "no-unused-expressions": "warn",
     "no-param-reassign": "warn",
     "no-console": "warn",
     "consistent-return": "warn",
+    "no-shadow": "warn",
+    "no-undef": "warn",
     "react/forbid-prop-types": "warn",
     "import/no-extraneous-dependencies": [
       2,

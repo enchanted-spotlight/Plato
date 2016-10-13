@@ -14,9 +14,6 @@ export const speechEditorInitialState = createEditorState();
 
 export const currentSessionTitle = '';
 
-export const chatMessagesInitialState = [
-  {
-    slackUsername: 'Jon [Test Initial State]',
-    message: 'Message test initial state.'
-  }
-];
+export const chatMessagesInitialState = [];
+
+export const SignInInitialState = false;

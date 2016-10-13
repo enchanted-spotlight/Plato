@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   searchBounce: (user, value) => {
     if (value === '') {
-      dispatch(a.fetchNotes(user));
+      dispatch(a.fetchSessions(user));
     } else {
       dispatch(a.searchNotes(user, value));
     }
@@ -26,7 +26,8 @@ class SearchBar extends React.Component {
       searchBounce: debounce(750, props.searchBounce)
     };
     this.onInputChange = (e) => {
-      this.state.searchBounce(this.state.username, e.target.value);
+      console.log(this.props.username);
+      this.state.searchBounce(this.props.username, e.target.value);
     };
   }
 

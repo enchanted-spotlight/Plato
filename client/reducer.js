@@ -10,6 +10,13 @@ const username = (state = m.usernameInitialState, action) => {
   return state;
 };
 
+const signinStatus = (state = m.SignInInitialState, action) => {
+  if (action.type === t.SIGNED_IN) {
+    return action.payload;
+  }
+  return state;
+};
+
 const savedNotes = (state = m.notesInitialState, action) => {
   if (action.type === t.INVALIDATE_NOTES) {
     return {
@@ -63,10 +70,10 @@ const chatMessages = (state = m.chatMessagesInitialState, action) => {
     return action.messages;
   }
   if (action.type === t.LOAD_NEW_CHAT_MESSAGE) {
-    // return {
-    //   ...state,
-    //   messages: messages.push(action.messages)
-    // };
+    const newState = [...state];
+    // console.log('newState value: ', newState);
+    newState.push(action.message);
+    return newState;
   }
   return state;
 };
@@ -77,5 +84,6 @@ export default combineReducers({
   textEditor,
   speechEditor,
   sessionTitle,
-  chatMessages
+  chatMessages,
+  signinStatus
 });

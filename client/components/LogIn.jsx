@@ -7,6 +7,9 @@ const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
   onUsernameSubmit: formData => dispatch(t.loginUser(formData))
+  onUsernameSubmit: formData => dispatch(t.loginUser(formData)),
+  getIdentity: () => dispatch(t.getIdentity()),
+  hasSignedIn: () => dispatch(t.setSignIn())
 });
 
 class LogIn extends React.Component {
@@ -22,6 +25,10 @@ class LogIn extends React.Component {
     this.changePasswordState = (e) => {
       this.setState({ password: e.target.value });
     };
+  }
+
+  componentWillMount() {
+    this.props.getIdentity();
   }
 
   render() {
@@ -53,7 +60,8 @@ class LogIn extends React.Component {
           }}
         >
           <input
-            type="text"
+            type="email"
+            placeholder="E-mail"
             value={this.state.username}
             onChange={this.changeUsernameState}
           />
@@ -73,6 +81,7 @@ class LogIn extends React.Component {
 
 LogIn.propTypes = {
   onUsernameSubmit: React.PropTypes.func,
+  getIdentity: React.PropTypes.func
 };
 
 const LogInContainer = connect(

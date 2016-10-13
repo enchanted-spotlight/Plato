@@ -4,7 +4,7 @@
 }
 
 .chat-client-container{
-  max-height: 500px;
+  max-height: 565px;
   overflow: hidden;
   background: #eeeeee;
   border: solid #A1A1A1 1px;
@@ -14,7 +14,12 @@
   margin: 0;
 }
 
-.chat-messages-display{
+.chat-client-container>p,
+.chat-client-container>ul{
+  margin: 0;
+}
+
+#chat-messages-display{
   padding: 0 1em 0 1em;
   max-height: 350px;
   overflow-y: scroll;
@@ -62,4 +67,44 @@
 .header__content-text {
   text-align: center;
   padding: 15px 20px;
+}
+
+.session-container {
+  border: 3px solid #e6e600;
+}
+.sketch {
+  position: relative;
+}
+
+.paint {
+  outline: 2px solid gray;
+}
+
+#tmpCanvas {
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  top: 0px;
+  cursor: crosshair;
+}
+
+.strokeStyle {
+  margin-left: 25px;
+}
+
+.lineWidth {
+  margin-left: 25px;
+}
+
+.undoRedo {
+  margin-left: 25px;
+}
+
+.canvasHeight {
+  float: right;
+}
+
+.language {
+  position: relative;
 }

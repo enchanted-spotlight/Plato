@@ -2,14 +2,15 @@ const mongoose = require('mongoose');
 mongoose.Promise = require('bluebird');
 const Note = require('./models/note');
 const User = require('./models/user');
+const ChatRoom = require('./models/chats');
 
 // db stuff here
 if (process.env.NODE_ENV === 'dev') {
   console.log('Connecting to test DB ...');
   mongoose.connect('mongodb://localhost/test');
-} else {
+} else if (process.env.NODE_ENV === 'deployed') {
   console.log('Connecting to real DB ...');
-  mongoose.connect('mongodb://localhost/plato');
+  mongoose.connect(process.env.MONGODB_URI);
 }
 
 const db = mongoose.connection;
