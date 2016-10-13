@@ -59,15 +59,14 @@ class LogIn extends React.Component {
   /* eslint-disable */
   render() {
     return (
-      <div className="loginContainer">
-        
+      <div className="loginContainer">        
         <Row className="center-align">
               <h3>Login:</h3>
               <a href="/api/auth/login/facebook" >
-                  <img src="./fb_icon.png" style={this.loginButtonStyle} />
+                  <img src="./styles/images/fb_icon.png" style={this.loginButtonStyle} />
               </a>
               <a href="api/auth/login/google">
-                  <img src="./google_icon.png" style={this.loginButtonStyle} />
+                  <img src="./styles/images/google_icon.png" style={this.loginButtonStyle} />
               </a>
         </Row>
 

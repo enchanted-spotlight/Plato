@@ -113,3 +113,34 @@
 .language {
   position: relative;
 }
+
+
+section {
+  text-align: center;
+}
+    
+    /* .react-simple-parallax-bg is generate by the component */
+section .react-simple-parallax-bg {
+  background-image: url('./images/frontpage1.jpg');
+  height: 750px;
+}
+    
+section .parallax {
+  top: 200px;
+  margin: auto;
+}
+
+.names {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.jobdesc {
+  line-height: 5em;
+}
+
+.landingpage-image {
+  background-image: url("./styles/images/frontpage1.jpg");
+  width: 853em ;
+  height: 480em;
+}
