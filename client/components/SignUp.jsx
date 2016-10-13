@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Row, Col } from 'react-materialize';
 
 import * as a from './../actions';
 
@@ -18,7 +19,18 @@ class SignUp extends React.Component {
       password: '',
       verifyPassword: ''
     };
+
     this.submitSignUp = props.submitSignUp;
+
+    this.submitFormData = (e) => {
+      e.preventDefault();
+      const formData = {
+        username: this.state.username,
+        password: this.state.password,
+        verifyPassword: this.state.verifyPassword
+      };
+      this.submitSignUp(formData);
+    };
   }
 
   changeUsernameState(e) {
@@ -35,37 +47,55 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <div className="signUpContainer">
-        <form
-          className="signUpForm"
-          onSubmit={(e) => {
-            e.preventDefault();
-            const formData = {
-              username: this.state.username,
-              password: this.state.password,
-              verifyPassword: this.state.verifyPassword
-            };
-            console.log('SignUp\'s form data: ', formData);
-            this.submitSignUp(formData);
-          }}
-        >
-          <input
-            type="text"
-            onChange={e => this.changeUsernameState(e)}
-            placeholder="E-mail"
-          />
-          <input
-            type="password"
-            onChange={e => this.changePasswordState(e)}
-            placeholder="Password"
-          />
-          <input
-            type="password"
-            onChange={e => this.changeVerifyPasswordState(e)}
-            placeholder="Verify Password"
-          />
-          <input type="submit" value="Submit" />
-        </form>
+      <div className="signUpContainer container">
+        <Row>
+          <Col s={6} offset="s3">
+            <form
+              className="signUpForm center-align"
+              onSubmit={(e) => { this.submitFormData(e); }}
+            >
+
+              <div className="input-field">
+                <input
+                  type="text"
+                  onChange={e => this.changeUsernameState(e)}
+                  className="center-align"
+                  id="username"
+                />
+                <label htmlFor="username">
+                  E-mail
+                </label>
+              </div>
+
+              <div className="input-field">
+                <input
+                  type="password"
+                  onChange={e => this.changePasswordState(e)}
+                  className="center-align"
+                  id="password"
+                />
+                <label htmlFor="password">
+                  Password
+                </label>
+              </div>
+
+              <div className="input-field">
+                <input
+                  type="password"
+                  onChange={e => this.changeVerifyPasswordState(e)}
+                  className="center-align"
+                  id="verifyPassword"
+                />
+                <label htmlFor="verifyPassword">
+                  Verify Password
+                </label>
+              </div>
+
+              <input type="submit" value="Submit" />
+
+            </form>
+          </Col>
+        </Row>
       </div>
     );
   }
