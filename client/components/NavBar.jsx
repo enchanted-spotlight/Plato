@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link, browserHistory } from 'react-router';
+import { Navbar, NavItem } from 'react-materialize';
 import request from 'superagent';
 
-const logoutfun = () => {
+const logout = () => {
   request
     .get('/api/auth/logout')
     .end((err, res) => {
@@ -20,13 +21,14 @@ const logoutfun = () => {
 
 const NavBar = () => (
   <div>
-    <h3>Plato</h3>
-    <ul>
-      <li><Link to="/login">login</Link></li>
-      <li><button onClick={logoutfun}>logout</button></li>
-    </ul>
-  </div>
-);
 
+    <Navbar brand="Plato" right>
+      <NavItem><Link to="/login">Login</Link></NavItem>
+      <NavItem onClick={logout}>Logout</NavItem>
+    </Navbar>
+
+  </div>
+
+);
 
 export default NavBar;

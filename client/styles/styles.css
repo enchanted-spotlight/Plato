@@ -113,3 +113,21 @@
 .language {
   position: relative;
 }
+
+
+section {
+  text-align: center;
+}
+    
+    /* .react-simple-parallax-bg is generate by the component */
+section .react-simple-parallax-bg {
+  background-image: url('./images/frontpage1.jpg');
+  height: 750px;
+}
+    
+section .parallax {
+  top: 200px;
+  margin: auto;
+}
+
+
