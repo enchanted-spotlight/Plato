@@ -1,6 +1,14 @@
 import React from 'react';
 import { Row, Col } from 'react-materialize';
 
+
+const loginButtonStyle = {
+  height: '32px',
+  width: '32px',
+  border: '0',
+  background: 'transparent'
+};
+
 const LandingPage = () => (
   <div>
     <div className="grey lighten-4">
@@ -13,12 +21,15 @@ const LandingPage = () => (
             <div className="card white">
               <img role="presentation" className="responsive-img" src="/../styles/images/cbelle.jpg" />
               <div className="card-content">
-                <span className="card-title">ClaraBelle</span>
+                <span className="card-title">Clarabelle</span>
                 <p className="orange-text medium italic">Software Engineer</p>
               </div>
               <div className="card-action">
-                <a className="blue-text text-lighten-2" href="https://www.linkedin.com/in/joashp">
-                  <i className="fa fa-linkedin-square"></i>
+                <a href="https://github.com/ClarabelleCheng-Yue" >
+                  <img role="presentation" style={loginButtonStyle} src="./styles/images/github_icon.png" />
+                </a>
+                <a href="https://www.linkedin.com/in/cachengyue" >
+                  <img role="presentation" style={loginButtonStyle} src="./styles/images/linkedin_icon.png" />
                 </a>
               </div>
             </div>
@@ -31,7 +42,12 @@ const LandingPage = () => (
                 <p className="orange-text medium italic">Software Engineer</p>
               </div>
               <div className="card-action">
-                <a className="">button</a>
+                <a href="https://github.com/jon-is-learning" >
+                  <img role="presentation" style={loginButtonStyle} src="./styles/images/github_icon.png" />
+                </a>
+                <a href="https://www.linkedin.com/in/jon-garrett-47b63621" >
+                  <img role="presentation" style={loginButtonStyle} src="./styles/images/linkedin_icon.png" />
+                </a>
               </div>
             </div>
           </div>
@@ -43,7 +59,12 @@ const LandingPage = () => (
                 <p className="orange-text medium italic">Software Engineer</p>
               </div>
               <div className="card-action">
-                <a className="">button</a>
+                <a href="https://github.com/YOO629" >
+                  <img role="presentation" style={loginButtonStyle} src="./styles/images/github_icon.png" />
+                </a>
+                <a href="https://www.linkedin.com/in/joeyu629" >
+                  <img role="presentation" style={loginButtonStyle} src="./styles/images/linkedin_icon.png" />
+                </a>
               </div>
             </div>
           </div>
@@ -55,7 +76,12 @@ const LandingPage = () => (
                 <p className="orange-text medium italic">Software Engineer</p>
               </div>
               <div className="card-action">
-                <a className="">button</a>
+                <a href="https://github.com/DanCSnyder" >
+                  <img role="presentation" style={loginButtonStyle} src="./styles/images/github_icon.png" />
+                </a>
+                <a href="https://www.linkedin.com/in/daniel-snyder-a3674594" >
+                  <img role="presentation" style={loginButtonStyle} src="./styles/images/linkedin_icon.png" />
+                </a>
               </div>
             </div>
           </div>
@@ -82,7 +108,6 @@ const LandingPage = () => (
         <div className="footer-copyright">
           <div className="container">
           © 2014 Copyright Text
-            <a className="grey-text text-lighten-4 right" href="#!">More Links</a>
           </div>
         </div>
       </footer>

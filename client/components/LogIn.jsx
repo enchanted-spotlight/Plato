@@ -59,8 +59,7 @@ class LogIn extends React.Component {
   /* eslint-disable */
   render() {
     return (
-      <div className="loginContainer">
-        
+      <div className="loginContainer">        
         <Row className="center-align">
               <h3>Login:</h3>
               <a href="/api/auth/login/facebook" >
