@@ -3,6 +3,7 @@ import { Button, Row, Col } from 'react-materialize';
 import { EditorState, Modifier } from 'draft-js';
 import { connect } from 'react-redux';
 import { createEditorState, Editor } from 'medium-draft';
+import request from 'superagent';
 import * as a from './../actions.js';
 
 const mapStateToProps = state => ({
@@ -73,44 +74,6 @@ class SpeechToTextEditor extends React.Component {
       window.transcript = '';
     };
 
-    // this method should mirror the MyEditor component
-    this.onChange = (editorState) => {
-      this.setState({ editorState });
-    };
-
-    // this method should mirror the MyEditor component
-    this.titleChange = (event) => {
-      this.setState({ title: event.target.value });
-    };
-
-    // this method should mirror the MyEditor component
-    this.submitNote = () => {
-      // this will let us save the current content as rich text
-      const userNote = convertToRaw(this.state.editorState.getCurrentContent());
-      const plainTextContent = this.state.editorState.getCurrentContent().getPlainText();
-      const userTitle = this.state.title;
-      const username = this.props.username;
-      const url = 'api/save-note';
-
-      // submit the note to the server for storage in db
-      request
-        .post(url)
-        .send({
-          user_id: username,
-          text: JSON.stringify(userNote),
-          plainText: JSON.stringify(plainTextContent),
-          title: userTitle
-        })
-        .set('Accept', 'application/json')
-        .end((err, res) => {
-          if (err) {
-            console.log('There is an error in submitNote: ', err);
-          } else {
-            this.props.fetchNotes(this.props.username);
-          }
-        });
-    };
-
     // add string to the editable portion of the editor
     this.addText = (string) => {
       // get state of the editor, move the selection to end
@@ -136,21 +99,17 @@ class SpeechToTextEditor extends React.Component {
 
       // toggle local state
       this.recording = !this.recording;
-      console.log('speech recording state: ', this.recording);
 
       if (!this.recording) {
         window.transcript = '';
         this.recognition.stop();
-        console.log('Stopped the recording!');
       } else {
         this.recognition.start();
-        console.log('Started the recording!');
       }
     };
   }
 
   render() {
-    console.log('props in stt: ', this.props);
     return (
       <div>
         <Row>
@@ -178,9 +137,7 @@ SpeechToTextEditor.propTypes = {
   currentTranscript: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.instanceOf(Object)
-  ]),
-  fetchNotes: React.PropTypes.func,
-  username: React.PropTypes.string
+  ])
 };
 
 const SpeechToTextEditorContainer = connect(

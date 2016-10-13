@@ -8,11 +8,6 @@ export const setUsername = username => ({
   username
 });
 
-export const setSignIn = () => ({
-  type: t.SIGNED_IN,
-  payload: true
-});
-
 // Async requires three actions:
 // 1. Inform reducers request initiated
 // 2. Inform reducers request completed
@@ -111,7 +106,6 @@ export const getIdentity = () => (
           const response = JSON.parse(res.text);
           dispatch(setUsername(response.email));
           dispatch(fetchSessions(response.email));
-          dispatch(setSignIn());
         }
       });
   }

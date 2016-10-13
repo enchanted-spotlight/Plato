@@ -1,22 +1,22 @@
 import React from 'react';
 import { Row, Col, Button } from 'react-materialize';
 import { convertToRaw } from 'draft-js';
-import request from 'superagent';
-import { createEditorState } from 'medium-draft';
 import { connect } from 'react-redux';
 import SpeechToTextEditor from './SpeechToTextEditor.jsx';
 import MediumEditor from './MediumDraft.jsx';
+
 import * as a from './../actions.js';
 
+// map state properties into Session props
 const mapStateToProps = state => ({
   username: state.username,
   currentNote: state.textEditor,
   title: state.sessionTitle,
   currentTranscript: state.speechEditor,
-  isSignedIn: state.signinStatus
+  isSignedIn: state.signinStatus,
 });
 
-// dispatch actions defined here!
+// map dispatched actions to Session props
 const mapDispatchToProps = dispatch => ({
   reloadNote: (changedNote, title) => {
     dispatch(a.onTextEditorChange(changedNote));
@@ -30,12 +30,19 @@ const mapDispatchToProps = dispatch => ({
   ),
   onTitleChange: e => (
     dispatch(a.onSessionTitleCreate(e.target.value))
-  )
+  ),
+  hasSignedIn: bool => dispatch(a.setSignIn(bool))
 });
 
+// Note-taking Session class
 class Session extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      // previous activity prevents not saving cleared notes
+      previousActivity: false
+    };
     // saves the session to database
     this.submitSession = () => {
       const userTitle = this.props.title;
@@ -75,11 +82,20 @@ class Session extends React.Component {
       this.props.saveSession(sessionPkg);
     };
 
+    // autosave saves session if
+    // there was previous activity or either editors have content
     this.autosave = () => {
-      if (this.props.isSignedIn) {
+      if (this.props.currentTranscript
+              .getCurrentContent().getPlainText().length > 0
+          || this.props.currentNote
+            .getCurrentContent().getPlainText().length > 0
+          || this.state.previousActivity) {
+        this.setState({ previousActivity: true });
         this.submitSession();
       }
     };
+
+    // autosave timer set to a minute
     setInterval(this.autosave, 60000);
   }
 
@@ -112,10 +128,10 @@ class Session extends React.Component {
 }
 
 Session.propTypes = {
-  isSignedIn: React.PropTypes.boolean,
   title: React.PropTypes.string,
   currentNote: React.PropTypes.object,
   currentTranscript: React.PropTypes.object,
+  currentCanvas: React.PropTypes.object,
   username: React.PropTypes.string,
   saveSession: React.PropTypes.func,
   onTitleChange: React.PropTypes.func
@@ -127,9 +143,3 @@ const SessionContainer = connect(
 )(Session);
 
 export default SessionContainer;
-
-/*
-user starts typing,
-autosave starts.
-if also recording, insert article in notes to link to line in transcript.
-**/

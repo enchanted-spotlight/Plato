@@ -17,6 +17,9 @@ const mapDispatchToProps = dispatch => ({
   loadTranscript: (newEditorState) => {
     dispatch(a.onSpeechEditorChange(newEditorState));
   },
+  loadCanvas: (newCanvasState) => {
+    dispatch(a.onCanvasChange(newCanvasState));
+  },
   deleteNote: (noteId, username) => (
     dispatch(a.deleteSession(noteId, username))
   )
@@ -24,7 +27,6 @@ const mapDispatchToProps = dispatch => ({
 
 class NoteItem extends React.Component {
   constructor(props) {
-    console.log(props);
     super(props);
 
     this.state = {
@@ -53,8 +55,7 @@ class NoteItem extends React.Component {
         })
         .end((err, res) => {
           if (err) {
-            console.log(err);
-            console.log('Error sharing notes ... ');
+            console.log('Error sharing notes ... ', err);
           } else {
             // success
             console.log('Shared the note!');
@@ -64,7 +65,6 @@ class NoteItem extends React.Component {
   }
 
   render() {
-    console.log('NOTE ITEM props: ', this.props);
     return (
       <li>
         <p>{this.props.title}</p>
@@ -78,6 +78,8 @@ class NoteItem extends React.Component {
             // load each editor onto page.
             this.props.loadNote(newNoteState, this.props.title);
             this.props.loadTranscript(newTranscriptState);
+            console.log(this.props);
+            this.props.loadCanvas(JSON.parse(this.props.canvas));
           }}
         > display </Button>
         <Button
@@ -108,11 +110,13 @@ NoteItem.propTypes = {
   title: React.PropTypes.string,
   noteId: React.PropTypes.string,
   username: React.PropTypes.string,
-  transcriptText: React.PropTypes.object,
-  notesText: React.PropTypes.object,
+  transcriptText: React.PropTypes.string,
+  notesText: React.PropTypes.string,
   loadNote: React.PropTypes.func,
   loadTranscript: React.PropTypes.func,
-  deleteNote: React.PropTypes.func
+  deleteNote: React.PropTypes.func,
+  loadCanvas: React.PropTypes.func,
+  canvas: React.PropTypes.object
 };
 
 const NoteItemContainer = connect(

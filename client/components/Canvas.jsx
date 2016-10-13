@@ -1,6 +1,17 @@
 import React from 'react';
-import { Button } from 'react-materialize';
+import { connect } from 'react-redux';
 import CanvasToolbar from './CanvasToolbar.jsx';
+
+import * as a from './../actions.js';
+
+const mapStateToProps = state => ({
+  currentCanvas: state.canvasEditor
+});
+
+const mapDispatchToProps = dispatch => ({
+  saveCanvasState: newCanvasState => dispatch(a.onCanvasChange(newCanvasState))
+});
+
 
 class Canvas extends React.Component {
   constructor(props) {
@@ -75,8 +86,10 @@ class Canvas extends React.Component {
 
       const savedCanvas = ctxToSave.getImageData(0, 0, canvasToSave.width, canvasToSave.height);
 
-      // from here we should put savedCanvas into the global store
+      // set local state
       this.setState({ canvasState: savedCanvas });
+      // set state in store
+      this.props.saveCanvasState(savedCanvas);
       return savedCanvas;
     };
 
@@ -101,7 +114,6 @@ class Canvas extends React.Component {
     // give loadCanvas a previously saved canvasState,
     // it will replace anything that's currently on the canvas with savedCanvas
     this.loadCanvas = (savedCanvas) => {
-      console.log('loading a canvas');
       const canvasLoadTarget = document.querySelector('.paint');
       const ctxLoadTarget = canvasLoadTarget.getContext('2d');
       // ctx.putImageData(savedCanvas);
@@ -122,25 +134,26 @@ class Canvas extends React.Component {
 
     // undo the most recent change via stored states in this.undoStack
     this.undo = () => {
-      const canvasToRestore = this.undoStack.pop();
-      if (canvasToRestore !== undefined) {
+      const poppedCanvas = this.undoStack.pop();
+      if (poppedCanvas !== undefined) {
+        // push current state into redo stack
         this.redoStack.push(this.state.canvasState);
-        this.loadCanvas(canvasToRestore);
-        console.log('redo', this.redoStack);
-        console.log('undo', this.undoStack);
+        // loadCanvas will replace current canvas with poppedCanvas
+        // and then will set local canvasState to poppedCanvas
+        this.loadCanvas(poppedCanvas);
       }
+      console.log('undo', this.undoStack);
     };
 
     // redo the most recent change via stored states in this.redoStack
     this.redo = () => {
-      console.log('trying to redo');
-      const canvasToUndo = this.redoStack.pop();
-      if (canvasToUndo !== undefined) {
+      const poppedCanvas = this.redoStack.pop();
+      if (poppedCanvas !== undefined) {
+        // push current state into undo stack
         this.undoStack.push(this.state.canvasState);
-        this.loadCanvas(canvasToUndo);
-        console.log('redo', this.redoStack);
-        console.log('undo', this.undoStack);
+        this.loadCanvas(poppedCanvas);
       }
+      console.log('redo', this.redoStack);
     };
 
     // this will set up the canvas and the contexts
@@ -155,8 +168,11 @@ class Canvas extends React.Component {
       canvas.width = width - 25;
       canvas.height = height;
 
-      // this.saveCanvas();
-      this.undoStack.push(this.saveCanvas());
+      if (this.state.canvasState === '') {
+        const blankCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        this.setState({ canvasState: blankCanvas });
+      }
+      // this.undoStack.push(this.saveCanvas());
       // console.log('undo', this.undoStack);
 
       // Creating a tmp canvas
@@ -255,9 +271,12 @@ class Canvas extends React.Component {
 
         // save the context for undo
         const savedCanvas = ctx.getImageData(0, 0, canvas.width, canvas.height);
-        // handle first save
-        this.undoStack.push(savedCanvas);
-        this.saveCanvas();
+
+        // everytime we draw something on the canvas, we need to take our current state
+        // and push it into the undo stack, and then update our current state
+        this.undoStack.push(this.state.canvasState);
+
+        this.setState({ canvasState: savedCanvas });
       }, false);
     };
   }
@@ -292,4 +311,14 @@ class Canvas extends React.Component {
   }
 }
 
-export default Canvas;
+const CanvasEditorContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Canvas);
+
+Canvas.propTypes = {
+  saveCanvasState: React.PropTypes.func
+};
+
+export default CanvasEditorContainer;
+

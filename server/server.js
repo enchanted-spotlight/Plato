@@ -35,7 +35,7 @@ io.on('connection', (socket) => {
 app.use('/api', noteRouter);
 
 app.get('/*', (req, res) => {
-  res.sendfile(path.join(__dirname, '/../client/index.html'));
+  res.sendFile(path.join(__dirname, '/../client/index.html'));
 });
 
 // initialize server
