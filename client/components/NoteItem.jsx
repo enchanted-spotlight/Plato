@@ -16,6 +16,9 @@ const mapDispatchToProps = dispatch => ({
   loadTranscript: (newEditorState) => {
     dispatch(a.onSpeechEditorChange(newEditorState));
   },
+  loadCanvas: (newCanvasState) => {
+    dispatch(a.onCanvasChange(newCanvasState));
+  },
   deleteNote: (noteId, username) => (
     dispatch(a.deleteSession(noteId, username))
   )
@@ -74,6 +77,8 @@ class NoteItem extends React.Component {
             // load each editor onto page.
             this.props.loadNote(newNoteState, this.props.title);
             this.props.loadTranscript(newTranscriptState);
+            console.log(this.props);
+            this.props.loadCanvas(JSON.parse(this.props.canvas));
           }}
         > display </Button>
         <Button
@@ -104,11 +109,13 @@ NoteItem.propTypes = {
   title: React.PropTypes.string,
   noteId: React.PropTypes.string,
   username: React.PropTypes.string,
-  transcriptText: React.PropTypes.object,
-  notesText: React.PropTypes.object,
+  transcriptText: React.PropTypes.string,
+  notesText: React.PropTypes.string,
   loadNote: React.PropTypes.func,
   loadTranscript: React.PropTypes.func,
-  deleteNote: React.PropTypes.func
+  deleteNote: React.PropTypes.func,
+  loadCanvas: React.PropTypes.func,
+  canvas: React.PropTypes.object
 };
 
 const NoteItemContainer = connect(

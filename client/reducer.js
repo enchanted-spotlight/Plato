@@ -58,6 +58,13 @@ const speechEditor = (state = m.speechEditorInitialState, action) => {
   return state;
 };
 
+const canvasEditor = (state = m.canvasEditorInitialState, action) => {
+  if (action.type === t.CANVAS_EDITOR_CHANGE) {
+    return action.canvasState;
+  }
+  return state;
+};
+
 const sessionTitle = (state = m.currentSessionTitle, action) => {
   if (action.type === t.CREATE_SESSION_TITLE) {
     return action.sessionTitle;
@@ -84,6 +91,7 @@ export default combineReducers({
   savedNotes,
   textEditor,
   speechEditor,
+  canvasEditor,
   sessionTitle,
   chatMessages
 });

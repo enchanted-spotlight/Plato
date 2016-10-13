@@ -9,7 +9,7 @@ const sessionController = {
       notesText: req.body.notes.text,
       notesPlainText: req.body.notes.plainText,
       transcriptText: req.body.transcript.text,
-      transcriptPlainText: req.body.transcript.plainText
+      transcriptPlainText: req.body.transcript.plainText,
     };
     Session.findOneAndUpdate({
       user_id: req.body.user_id,
@@ -37,8 +37,7 @@ const sessionController = {
   // finds a particular set of user sessions
   retrieveCertainUserSessions(req, res) {
     const userInput = req.body.searchInput;
-    Session.find({ user_id: req.params.user,
-      $text: { $search: userInput } }, (err, data) => {
+    Session.find({ user_id: req.params.user, $text: { $search: userInput } }, (err, data) => {
       if (err) {
         res.status(500).end();
       } else {

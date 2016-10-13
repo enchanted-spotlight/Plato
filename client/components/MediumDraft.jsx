@@ -23,6 +23,7 @@ const MediumEditor = props => (
   </div>
 );
 
+
 const MediumEditorContainer = connect(
   mapStateToProps,
   mapDispatchToProps

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import request from 'superagent';
 
 import * as t from './../actions';
 
@@ -31,29 +32,43 @@ class LogIn extends React.Component {
     this.changePasswordState = (e) => {
       this.setState({ password: e.target.value });
     };
+
+    // css styling to control size of the login buttons
+    this.loginButtonStyle = {
+      height: '32px',
+      width: '32px',
+      border: '0',
+      background: 'transparent'
+    };
+
+    // redirect to fb oauth endpoint on click
+    this.fbLogin = () => {
+      document.location = '/api/auth/login/facebook';
+    };
+
+    // redirect to google oauth endpoint on click
+    this.googleLogin = () => {
+      request.get('/api/auth/login/google');
+    };
   }
 
   componentWillMount() {
     this.props.getIdentity();
   }
-
+  // eslint-disable
   render() {
     return (
       <div className="loginContainer">
         <h3>Login:</h3>
-
-        <div className="fb-login">
-          <a href="api/auth/login/facebook"> Sign in with Facebook </a>
-        </div>
-        <div className="twitterLogin">
-          <a href="api/auth/login/twitter"> Sign in with Twitter </a>
-        </div>
-        <div className="slackLogin">
-          <a href="api/auth/login/slack"> Sign in with Slack </a>
-        </div>
-        <div className="googleLogin">
-          <a href="api/auth/login/google"> Sign in with Google </a>
-        </div>
+        <a href="#" onClick={() => this.fbLogin()} >
+            <img src="./fb_login.png" />
+        </a>
+        <button
+          src="./google_login.png"
+          style={this.loginButtonStyle}
+          href="api/auth/login/google"
+          role="presentation"
+        />
         <form
           className="local-login"
           onSubmit={(e) => {

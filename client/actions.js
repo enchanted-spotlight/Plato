@@ -44,6 +44,12 @@ export const onSpeechEditorChange = editorState => ({
   editorState
 });
 
+// save canvas state on change
+export const onCanvasChange = canvasState => ({
+  type: t.CANVAS_EDITOR_CHANGE,
+  canvasState
+});
+
 // Thunk action creator:
 export const fetchSessions = username => (
   (dispatch) => {

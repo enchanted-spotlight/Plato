@@ -17,7 +17,7 @@ class App extends React.Component {
 export default App;
 
 App.propTypes = {
-  children: React.PropTypes.Object,
+  children: React.PropTypes.object,
 };
 
 // <Navbar brand="Plato" right>

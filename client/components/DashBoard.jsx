@@ -35,21 +35,15 @@ class DashBoard extends React.Component {
             </div>
             <NoteListContainer />
           </Col>
-          <Col
-            s={6}
-            className="base-col-height"
-          >
+          <Col s={6} className="base-col-height">
             <SessionContainer />
           </Col>
-          <Col
-            s={3}
-            className="login"
-          >
+          <Col s={3} className="login">
             <ChatClientComponent />
           </Col>
         </Row>
         <Row>
-          <Col s={12}>
+          <Col s={12} className="base-col-height">
             <Canvas />
           </Col>
         </Row>

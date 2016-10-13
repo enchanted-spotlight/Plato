@@ -3,6 +3,7 @@ import { Button, Row, Col } from 'react-materialize';
 import { EditorState, Modifier } from 'draft-js';
 import { connect } from 'react-redux';
 import { createEditorState, Editor } from 'medium-draft';
+import request from 'superagent';
 import * as a from './../actions.js';
 
 const mapStateToProps = state => ({
