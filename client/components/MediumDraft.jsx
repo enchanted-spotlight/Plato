@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch => ({
   onNoteChange: newEditorState => dispatch(a.onTextEditorChange(newEditorState))
 });
 
-const MediumEditor = props => (// extends React.Component {
+const MediumEditor = props => (
   <div>
     <Editor
       editorState={props.currentNote}

@@ -140,9 +140,3 @@ const SessionContainer = connect(
 )(Session);
 
 export default SessionContainer;
-
-/*
-user starts typing,
-autosave starts.
-if also recording, insert article in notes to link to line in transcript.
-**/
