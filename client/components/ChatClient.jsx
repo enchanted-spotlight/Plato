@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 
 import socket from './../socket.js';
-import { loadNewChatMessage } from './../actions';
+import { loadNewChatMessage, loadArchivedChatMessages } from './../actions';
 import ChatMessagesDisplay from './ChatMessagesDisplay.jsx';
 
 const mapStateToProps = state => ({
@@ -17,6 +17,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(loadNewChatMessage(messageObj));
     socket.emit('new chat message', messageObj);
   },
+  clearChatRoom: () => dispatch(loadArchivedChatMessages([]))
 });
 
 class ChatClient extends React.Component {
@@ -24,8 +25,7 @@ class ChatClient extends React.Component {
     super(props);
     this.state = {
       chatRoom: '',
-      loadRoom:
-        chatRoom => socket.emit('load chat room', this.state.chatRoom),
+      loadRoom: () => socket.emit('load chat room', this.state.chatRoom),
       message: '',
       ...props
     };
@@ -53,8 +53,8 @@ class ChatClient extends React.Component {
           className="chat-room-select"
           onSubmit={(e) => {
             e.preventDefault();
+            this.state.clearChatRoom();
             this.state.loadRoom();
-            this.setState({ chatRoom: '' });
           }}
         >
           <label
