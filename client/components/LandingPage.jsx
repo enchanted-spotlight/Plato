@@ -13,12 +13,13 @@ const LandingPage = () => (
             <div className="card white">
               <img role="presentation" className="responsive-img" src="/../styles/images/cbelle.jpg" />
               <div className="card-content">
-                <span className="card-title">Cbelle</span>
-                <p>Software Engineer</p>
+                <span className="card-title">ClaraBelle</span>
+                <p className="orange-text medium italic">Software Engineer</p>
               </div>
               <div className="card-action">
-                <a href="#">This is a link</a>
-                <a href="#">This is a link</a>
+                <a className="blue-text text-lighten-2" href="https://www.linkedin.com/in/joashp">
+                  <i className="fa fa-linkedin-square"></i>
+                </a>
               </div>
             </div>
           </div>
@@ -26,12 +27,11 @@ const LandingPage = () => (
             <div className="card white">
               <img role="presentation" className="responsive-img" src="/../styles/images/jon.jpg" />
               <div className="card-content">
-                <span className="card-title">Cbelle</span>
-                <p>Software Engineer</p>
+                <span className="card-title">Jon</span>
+                <p className="orange-text medium italic">Software Engineer</p>
               </div>
               <div className="card-action">
-                <a href="#">This is a link</a>
-                <a href="#">This is a link</a>
+                <a className="">button</a>
               </div>
             </div>
           </div>
@@ -39,12 +39,11 @@ const LandingPage = () => (
             <div className="card white">
               <img role="presentation" className="responsive-img" src="/../styles/images/joejoe.jpg" />
               <div className="card-content">
-                <span className="card-title">Cbelle</span>
-                <p>Software Engineer</p>
+                <span className="card-title">Joseph</span>
+                <p className="orange-text medium italic">Software Engineer</p>
               </div>
               <div className="card-action">
-                <a href="#">This is a link</a>
-                <a href="#">This is a link</a>
+                <a className="">button</a>
               </div>
             </div>
           </div>
@@ -52,12 +51,11 @@ const LandingPage = () => (
             <div className="card white">
               <img role="presentation" className="responsive-img" src="/../styles/images/dan.jpg" />
               <div className="card-content">
-                <span className="card-title">Cbelle</span>
-                <p>Software Engineer</p>
+                <span className="card-title">Dan</span>
+                <p className="orange-text medium italic">Software Engineer</p>
               </div>
               <div className="card-action">
-                <a href="#">This is a link</a>
-                <a href="#">This is a link</a>
+                <a className="">button</a>
               </div>
             </div>
           </div>
