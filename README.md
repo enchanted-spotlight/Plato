@@ -21,11 +21,14 @@ Plato expects environment variables with regards to the OAuth strategies that ar
 * `EMAIL_PW` - used for nodemailer
 * `CRYPTR_KEY` - encryption key
 
+## Testing
+* We use [Mocha](https://mochajs.org/) and [Chai](http://chaijs.com/) to test the back-end, and [Enzyme](https://github.com/airbnb/enzyme) to test the front-end.
+
 ## Expected Usage
-  1.  User signs in or signs up via the signin/login/signup pages
-  2.  User is taken to dashboard, where they will be able to either create a new note, or load an existing note that they have either created themselves or received from another Plato user.
+  1.  The user signs in or signs up via the signin/login/signup pages
+  2.  The user is taken to dashboard, where they will be able to either create a new note, or load an existing note that they have either created themselves or received from another Plato user.
   3.  In the dashboard, Users can also create chatrooms and leverage the chat client to interact with other Plato users.
-  4.  
+  4.  Once the user has created sessions/notes/drawings, the user can then share the note with others via e-mail.
 
 ## Architecture
 Plato has multiple components that can be split into a few categories
@@ -63,4 +66,4 @@ Plato has multiple components that can be split into a few categories
 If you would like to contribute, please open an issue with a description of the issue that you have observed or the change that you would like to see.
 
 ## Credits
-Plato was made by @jon-is-learning, @DanCSnyder, @ClarabelleCheng-Yue, and @YOO629 at [Hack Reactor](https://github.com/hackreactor).
+Plato was made by [Jon Garrett](https://github.com/jon-is-learning), [Dan Snyder](https://github.com/DanCSnyder), [Clarabelle Cheng-Yue](https://github.com/ClarabelleCheng-Yue), and [Joseph Yu](https://github.com/YOO629).
