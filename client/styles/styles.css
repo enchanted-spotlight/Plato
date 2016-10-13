@@ -130,4 +130,10 @@ section .parallax {
   margin: auto;
 }
 
+.names {
+  font-size: 16px;
+}
 
+.jobdesc {
+  line-height: 5em;
+}

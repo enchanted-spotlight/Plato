@@ -21,33 +21,45 @@ const LandingPage = () => (
             <div className="card white">
               <img role="presentation" className="responsive-img" src="/../styles/images/cbelle.jpg" />
               <div className="card-content">
-                <span className="card-title">Clarabelle</span>
-                <p className="orange-text medium italic">Software Engineer</p>
+                <p className="center-align names">Clarabelle Cheng-Yue</p>
+                <p className="orange-text medium italic center-align jobdesc">Software Engineer</p>
               </div>
               <div className="card-action">
-                <a href="https://github.com/ClarabelleCheng-Yue" >
-                  <img role="presentation" style={loginButtonStyle} src="./styles/images/github_icon.png" />
-                </a>
-                <a href="https://www.linkedin.com/in/cachengyue" >
-                  <img role="presentation" style={loginButtonStyle} src="./styles/images/linkedin_icon.png" />
-                </a>
+                <Row>
+                  <Col s={2} offset="s2">
+                    <a href="https://github.com/ClarabelleCheng-Yue" >
+                      <img role="presentation" style={loginButtonStyle} src="./styles/images/github_icon.png" />
+                    </a>
+                  </Col>
+                  <Col s={4} offset="s2">
+                    <a href="https://www.linkedin.com/in/cachengyue" >
+                      <img role="presentation" style={loginButtonStyle} src="./styles/images/linkedin_icon.png" />
+                    </a>
+                  </Col>
+                </Row>
               </div>
             </div>
           </div>
           <div className="col s3">
-            <div className="card white">
+            <div className="card white names">
               <img role="presentation" className="responsive-img" src="/../styles/images/jon.jpg" />
               <div className="card-content">
-                <span className="card-title">Jon</span>
-                <p className="orange-text medium italic">Software Engineer</p>
+                <p className="center-align names">Jon Garrett</p>
+                <p className="orange-text medium italic center-align jobdesc">Software Engineer</p>
               </div>
               <div className="card-action">
-                <a href="https://github.com/jon-is-learning" >
-                  <img role="presentation" style={loginButtonStyle} src="./styles/images/github_icon.png" />
-                </a>
-                <a href="https://www.linkedin.com/in/jon-garrett-47b63621" >
-                  <img role="presentation" style={loginButtonStyle} src="./styles/images/linkedin_icon.png" />
-                </a>
+                <Row>
+                  <Col s={2} offset="s2">
+                    <a href="https://github.com/jon-is-learning" >
+                      <img role="presentation" style={loginButtonStyle} src="./styles/images/github_icon.png" />
+                    </a>
+                  </Col>
+                  <Col s={4} offset="s2">
+                    <a href="https://www.linkedin.com/in/jon-garrett-47b63621" >
+                      <img role="presentation" style={loginButtonStyle} src="./styles/images/linkedin_icon.png" />
+                    </a>
+                  </Col>
+                </Row>
               </div>
             </div>
           </div>
@@ -55,16 +67,22 @@ const LandingPage = () => (
             <div className="card white">
               <img role="presentation" className="responsive-img" src="/../styles/images/joejoe.jpg" />
               <div className="card-content">
-                <span className="card-title">Joseph</span>
-                <p className="orange-text medium italic">Software Engineer</p>
+                <p className="center-align names">Joe Yu</p>
+                <p className="orange-text medium italic center-align jobdesc">Software Engineer</p>
               </div>
               <div className="card-action">
-                <a href="https://github.com/YOO629" >
-                  <img role="presentation" style={loginButtonStyle} src="./styles/images/github_icon.png" />
-                </a>
-                <a href="https://www.linkedin.com/in/joeyu629" >
-                  <img role="presentation" style={loginButtonStyle} src="./styles/images/linkedin_icon.png" />
-                </a>
+                <Row>
+                  <Col s={2} offset="s2">
+                    <a href="https://github.com/YOO629" >
+                      <img role="presentation" style={loginButtonStyle} src="./styles/images/github_icon.png" />
+                    </a>
+                  </Col>
+                  <Col s={4} offset="s2">
+                    <a href="https://www.linkedin.com/in/joeyu629" >
+                      <img role="presentation" style={loginButtonStyle} src="./styles/images/linkedin_icon.png" />
+                    </a>
+                  </Col>
+                </Row>
               </div>
             </div>
           </div>
@@ -72,16 +90,22 @@ const LandingPage = () => (
             <div className="card white">
               <img role="presentation" className="responsive-img" src="/../styles/images/dan.jpg" />
               <div className="card-content">
-                <span className="card-title">Dan</span>
-                <p className="orange-text medium italic">Software Engineer</p>
+                <p className="center-align names">Dan Snyder</p>
+                <p className="orange-text medium italic center-align jobdesc">Software Engineer</p>
               </div>
               <div className="card-action">
-                <a href="https://github.com/DanCSnyder" >
-                  <img role="presentation" style={loginButtonStyle} src="./styles/images/github_icon.png" />
-                </a>
-                <a href="https://www.linkedin.com/in/daniel-snyder-a3674594" >
-                  <img role="presentation" style={loginButtonStyle} src="./styles/images/linkedin_icon.png" />
-                </a>
+                <Row>
+                  <Col s={2} offset="s2">
+                    <a href="https://github.com/DanCSnyder" >
+                      <img role="presentation" style={loginButtonStyle} src="./styles/images/github_icon.png" />
+                    </a>
+                  </Col>
+                  <Col s={2} offset="s2">
+                    <a href="https://www.linkedin.com/in/daniel-snyder-a3674594" >
+                      <img role="presentation" style={loginButtonStyle} src="./styles/images/linkedin_icon.png" />
+                    </a>
+                  </Col>
+                </Row>
               </div>
             </div>
           </div>
