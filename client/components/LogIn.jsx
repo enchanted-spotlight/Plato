@@ -6,7 +6,6 @@ import * as t from './../actions';
 const mapStateToProps = state => ({});
 
 const mapDispatchToProps = dispatch => ({
-  onUsernameSubmit: formData => dispatch(t.loginUser(formData))
   onUsernameSubmit: formData => dispatch(t.loginUser(formData)),
   getIdentity: () => dispatch(t.getIdentity()),
   hasSignedIn: () => dispatch(t.setSignIn())
