@@ -1,12 +1,12 @@
 import React from 'react';
-import NavBar from './NavBar.jsx';
+import NavBarContainer from './NavBar.jsx';
 
 // eslint-disable-next-line 
 class App extends React.Component {
   render() {
     return (
       <div className="plato-app">
-        <NavBar />
+        <NavBarContainer />
         {this.props.children}
       </div>
     );

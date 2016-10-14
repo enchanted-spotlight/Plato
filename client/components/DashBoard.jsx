@@ -31,10 +31,9 @@ class DashBoard extends React.Component {
       <div>
         <Row>
           <Col s={3} className="light-blue darken-4 base-col-height left-panel" id="notelist">
-            <h7 className="h7">{this.props.username}'s Notes</h7>
+            <ChatClientComponent id="chat" />
             <SearchBarContainer />
             <NoteListContainer />
-            <ChatClientComponent id="chat" />
           </Col>
           <Col s={9} className="base-col-height">
             <SessionContainer />
