@@ -33,7 +33,7 @@ class CanvasToolbar extends React.Component {
             floating className="red"
             href="#"
             onClick={() => this.props.saveCanvasToPNG()}
-            icon="grade"
+            icon="get_app"
             download="image.png"
           />
         </span>

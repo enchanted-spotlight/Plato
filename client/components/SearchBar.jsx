@@ -34,11 +34,12 @@ class SearchBar extends React.Component {
   render() {
     return (
       <div>
-        <div className="search">
+        <div className="search center-align">
           <h3>Search:</h3>
           <input
             type="text"
             onChange={this.onInputChange}
+            placeholder="Enter your search text here..."
           />
         </div>
       </div>

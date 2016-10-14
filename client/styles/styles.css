@@ -8,6 +8,11 @@
   overflow: auto;
 }
 
+.base-col-height2 {
+  min-height: 700px;
+  overflow: auto;
+}
+
 .chat-client-container{
   max-height: 565px;
   overflow: hidden;
@@ -52,10 +57,6 @@
   margin: 0;
 }
 
-.notes-list{
-  margin-top: 80px;
-}
-
 .header {
   position: fixed;
   top: 0;
@@ -79,10 +80,6 @@
 }
 .sketch {
   position: relative;
-}
-
-.paint {
-  outline: 2px solid gray;
 }
 
 #tmpCanvas {

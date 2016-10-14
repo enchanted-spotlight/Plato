@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import { Navbar, NavItem } from 'react-materialize';
 import request from 'superagent';
 
@@ -9,26 +9,24 @@ const logout = () => {
     .end((err, res) => {
       if (err) {
         // do something on error
-        console.log('error logging out!');
       } else {
-        // successful login
-        console.log('It successfully logged out of the user');
-        browserHistory.push('/login');
+        browserHistory.push('/');
       }
     });
 };
 
-
+/* eslint-disable */
 const NavBar = () => (
-  <div>
-
-    <Navbar brand="Plato" right>
-      <NavItem><Link to="/login">Login</Link></NavItem>
-      <NavItem onClick={logout}>Logout</NavItem>
-    </Navbar>
-
-  </div>
-
+  <nav>
+    <div className="nav-wrapper">
+      <a href="/" className="brand-logo center">P L A T O</a>
+      <ul id="nav-mobile" className="right hide-on-med-and-down">
+        <li><a href="/login">Login</a></li>
+        <li><a onClick={() => logout()}>Logout</a></li>
+      </ul>
+    </div>
+  </nav>
 );
+/* eslint-enable */
 
 export default NavBar;

@@ -38,18 +38,9 @@ class LogIn extends React.Component {
     this.loginButtonStyle = {
       height: '32px',
       width: '32px',
+      margin: '2px',
       border: '0',
       background: 'transparent'
-    };
-
-    // redirect to fb oauth endpoint on click
-    this.fbLogin = () => {
-      document.location = '/api/auth/login/facebook';
-    };
-
-    // redirect to google oauth endpoint on click
-    this.googleLogin = () => {
-      document.location = '/api/auth/login/google';
     };
   }
 
@@ -59,9 +50,9 @@ class LogIn extends React.Component {
   /* eslint-disable */
   render() {
     return (
-      <div className="loginContainer">        
+      <div className="loginContainer container">
         <Row className="center-align">
-              <h3>Login:</h3>
+              <h3>Login</h3>
               <a href="/api/auth/login/facebook" >
                   <img src="./styles/images/fb_icon.png" style={this.loginButtonStyle} />
               </a>
@@ -81,22 +72,35 @@ class LogIn extends React.Component {
                 };
                 this.props.onUsernameSubmit(formData);
               }}
+              className="center-align"
             >
-              <input
-                type="email"
-                placeholder="E-mail"
-                value={this.state.username}
-                onChange={this.changeUsernameState}
-                className="center-align"
-              />
-              <input
-                type="password"
-                placeholder="Password"
-                value={this.state.password}
-                onChange={this.changePasswordState}
-                className="center-align"
-              />
+              <div className="input-field">
+                <input
+                  type="email"
+                  value={this.state.username}
+                  onChange={this.changeUsernameState}
+                  className="center-align"
+                  id="email"
+                />
+                <label htmlFor="email">
+                  E-mail
+                </label>
+              </div>
+
+              <div className="input-field">
+                <input
+                  type="password"
+                  value={this.state.password}
+                  onChange={this.changePasswordState}
+                  className="center-align"
+                />
+                <label htmlFor="Password">
+                  Password
+                </label>
+              </div>
+
               <input type="submit" />
+
             </form>
           </Col>
         </Row>
