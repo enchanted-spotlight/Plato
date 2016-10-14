@@ -13,8 +13,6 @@ const LandingPage = () => (
   <div>
     <div className="grey lighten-4">
       <div>
-<<<<<<< 953027750d7b19c1acf563abc1a3f8a401e67637
-=======
         <div className="topContainer">
           HI
         </div>
@@ -42,7 +40,6 @@ const LandingPage = () => (
             </div>
           </div>
         </div>
->>>>>>> (feat) Implement vertical align
         <div className="row container">
           <div className="col s3">
             <div className="card white">
