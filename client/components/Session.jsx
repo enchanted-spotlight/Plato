@@ -104,7 +104,7 @@ class Session extends React.Component {
               onClick={() => this.submitSession()}
               waves="light"
               floating
-              icon="get_app"
+              icon="save"
               className="yellow darken-2"
               style={{ top: '5px' }}
             />
