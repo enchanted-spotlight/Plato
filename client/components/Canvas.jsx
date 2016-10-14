@@ -22,7 +22,7 @@ class Canvas extends React.Component {
       // imageData containing state of the canvas
       canvasState: '',
       // width of canvas
-      canvasWidth: ((window.innerWidth * 0.85) / 12) * 9,
+      canvasWidth: (window.innerWidth / 12) * 9,
       // height of canvas
       canvasHeight: 500,
       // width of drawing line

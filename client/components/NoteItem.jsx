@@ -119,7 +119,12 @@ class NoteItem extends React.Component {
                     className="center-align"
                     onChange={e => this.setState({ email: e.target.value })}
                   />
-                  <input type="submit" value="share" />
+                  <Button
+                    type="submit"
+                    value="share"
+                    icon="send"
+                    className="yellow darken-2"
+                  />
                 </form>
                 : null
               }
