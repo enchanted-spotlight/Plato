@@ -25,19 +25,19 @@ const LandingPage = () => (
               <div className="col s4 innerContainer valign-wrapper center-align">
                 <div>
                   <i className="small material-icons">insert_chart</i>
-                  <p> This app will change your life. It will blow your hair back </p>
+                  <p> Tired of typing your notes? Let our speech to text editor do the heavy lifting for you. </p>
                 </div>
               </div>
               <div className="col s4 innerContainer valign-wrapper center-align">
                 <div>
                   <i className="small material-icons">insert_chart</i>
-                  <p> This app will change your life. It will blow your hair back </p>
+                  <p> Can't put your thoughts into words? Use our infinite canvas to draw them instead. </p>
                 </div>
               </div>
               <div className="col s4 innerContainer valign-wrapper center-align">
                 <div>
                   <i className="small material-icons">insert_chart</i>
-                  <p> This app will change your life. It will blow your hair back </p>
+                  <p>Need clarification? Use the class chat feature to share insights and problems.</p>
                 </div>
               </div>
             </div>
@@ -95,7 +95,7 @@ const LandingPage = () => (
             <div className="card white">
               <img role="presentation" className="responsive-img" src="/../styles/images/joejoe.jpg" />
               <div className="card-content">
-                <p className="center-align names">Joe Yu</p>
+                <p className="center-align names">Joe-Joe Yu</p>
                 <p className="orange-text medium italic center-align jobdesc">Software Engineer</p>
               </div>
               <div className="card-action">
@@ -143,23 +143,12 @@ const LandingPage = () => (
         <div className="container">
           <div className="row">
             <div className="col l6 s12">
-              <h5 className="white-text">Plato</h5>
-              <p className="grey-text text-lighten-4">What do we want to put here???</p>
-            </div>
-            <div className="col l4 offset-l2 s12">
-              <h5 className="white-text">Links</h5>
-              <ul>
-                <li>
-                  <a className="grey-text text-lighten-3" href="#!" >Example</a>
-                </li>
-              </ul>
             </div>
           </div>
         </div>
         <div className="footer-copyright">
           <div className="container">
-            © 2014 Copyright Text
-            <a className="grey-text text-lighten-4 right" href="#!">More Links</a>
+            © 2016 MIT License
           </div>
         </div>
       </footer>
