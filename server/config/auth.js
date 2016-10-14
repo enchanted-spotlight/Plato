@@ -35,7 +35,7 @@ passport.use(new LocalStrategy(
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: 'http://localhost:3000/api/auth/login/facebook/callback',
+  callbackURL: 'http://www.platonotes.com/api/auth/login/facebook/callback',
   profileFields: ['id', 'emails', 'name']
 },
   (accessToken, refreshToken, profile, done) => {
@@ -63,7 +63,7 @@ passport.use(new FacebookStrategy({
 passport.use(new TwitterStrategy({
   consumerKey: process.env.TWITTER_CONSUMER_KEY,
   consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-  callbackURL: 'http://localhost:3000/api/auth/login/twitter/callback',
+  callbackURL: 'http://www.platonotes.com/api/auth/login/twitter/callback',
   profileFields: ['id', 'emails', 'name'],
   passReqToCallback: true
 },
@@ -150,7 +150,7 @@ passport.use(new GoogleStrategy({
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: 'http://localhost:3000/api/auth/login/google/callback',
+  callbackURL: 'http://www.platonotes.com/api/auth/login/google/callback',
   passReqToCallback: true
 },
   (request, accessToken, refreshToken, profile, done) => {
