@@ -14,7 +14,9 @@ const LandingPage = () => (
     <div className="grey lighten-4">
       <div>
         <div className="topContainer">
-          HI
+          <div>
+          Yo
+          </div>
         </div>
         <div className="outerContainer">
           <div className="container innerContainer">
