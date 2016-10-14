@@ -48,7 +48,7 @@ class ChatClient extends React.Component {
   }
   render() {
     return (
-      <div className="chat-client-container card light-blue darken-3">
+      <div className="chat-client-container card light-blue darken-3" id="chat">
         <div className="card-content white-text center-align">
           <form
             className="chat-room-select"

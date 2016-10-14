@@ -31,13 +31,13 @@ class DashBoard extends React.Component {
       <div>
         <Row>
           <Col s={3} className="light-blue darken-4 base-col-height left-panel" id="notelist">
-            <ChatClientComponent id="chat" />
+            <ChatClientComponent />
             <SearchBarContainer />
             <NoteListContainer />
           </Col>
           <Col s={9} className="base-col-height">
             <SessionContainer />
-            <Canvas id="canvas" />
+            <Canvas />
           </Col>
         </Row>
 

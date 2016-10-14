@@ -1,6 +1,7 @@
 import React from 'react';
 import { Editor } from 'medium-draft';
 import { connect } from 'react-redux';
+import { Row } from 'react-materialize'
 
 import * as a from './../actions.js';
 
@@ -30,6 +31,7 @@ const MediumEditor = props => (
       editorState={props.currentNote}
       onChange={props.onNoteChange}
       placeholder="Start typing notes here ..."
+      style={{ overflow: 'auto' }}
     />
   </div>
 );

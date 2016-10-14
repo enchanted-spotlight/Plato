@@ -291,7 +291,7 @@ class Canvas extends React.Component {
   // eslint-disable-next-line
   render() {
     return (
-      <div>
+      <div id="canvas">
         <CanvasToolbar
           incrementLineWidth={this.incrementLineWidth}
           decrementLineWidth={this.decrementLineWidth}
