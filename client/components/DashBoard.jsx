@@ -9,7 +9,9 @@ import Canvas from './Canvas.jsx';
 
 import * as a from './../actions';
 // eslint-disable-next-line 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+  username: state.username
+});
 const mapDispatchToProps = dispatch => ({
   onDashBoardLoad: () => dispatch(a.loadUserName())
 });
@@ -28,35 +30,55 @@ class DashBoard extends React.Component {
     return (
       <div>
         <Row>
-          <Col s={3} className="base-col-height">
-            <Row>
-              <SearchBarContainer />
-              <div>
-                <h3>All Notes</h3>
-              </div>
-              <NoteListContainer />
-            </Row>
-            <Row>
-              <ChatClientComponent />
-            </Row>
-
-          </Col>
-          <Col s={9} className="base-col-height">
-            <SessionContainer />
-          </Col>
         </Row>
         <Row>
           <Col s={8} offset="s3" className="base-col-height" style={{ border: '2px solid grey' }}>
             <Canvas />
           </Col>
         </Row>
+        <div
+          className="fixed-action-btn vertical"
+          style={{ bottom: 45, right: 24 }}
+        >
+          <a className="btn-floating btn-large red">
+            <i className="large material-icons">mode_edit</i>
+          </a>
+          <ul>
+            <li>
+              <a
+                className="btn-floating btn-large orange darken-1"
+                style={{ 'font-size': 10 }}
+              ><span>Note</span></a></li>
+            <li>
+              <a
+                className="btn-floating btn-large"
+                style={{ 'font-size': 10 }}
+              ><span>Notes</span></a></li>
+            <li>
+              <a
+                className="btn-floating btn-large red"
+                style={{ 'font-size': 10 }}
+              ><span>Scribe</span></a></li>
+            <li>
+              <a
+                className="btn-floating btn-large"
+                style={{ 'font-size': 10, 'background-color': '#696969' }}
+              ><span>Chat</span></a></li>
+            <li>
+              <a
+                className="btn-floating btn-large black"
+                style={{ 'font-size': 10 }}
+              ><span>Canvas</span></a></li>
+          </ul>
+        </div>
       </div>
     );
   }
 }
 
 DashBoard.propTypes = {
-  onDashBoardLoad: React.PropTypes.func,
+  username: React.PropTypes.string,
+  onDashBoardLoad: React.PropTypes.func
 };
 
 const DashBoardContainer = connect(
@@ -66,3 +88,42 @@ const DashBoardContainer = connect(
 
 
 export default DashBoardContainer;
+
+/*
+<<<<<<< 5b84549babe156bc6ad76dfa559bfda07c8c27e6
+//           <Col s={3} className="base-col-height">
+//             <Row>
+//               <SearchBarContainer />
+//               <div>
+//                 <h3>All Notes</h3>
+//               </div>
+//               <NoteListContainer />
+//             </Row>
+//             <Row>
+//               <ChatClientComponent />
+//             </Row>
+
+//           </Col>
+//           <Col s={9} className="base-col-height">
+//             <SessionContainer />
+//           </Col>
+// =======
+//           <Col s={3} className="teal lighten-3 base-col-height left-panel">
+//             <h7 className="h7">{this.props.username}'s Notes</h7>
+//             <SearchBarContainer />
+//             <NoteListContainer />
+//           </Col>
+//           <Col
+//             s={6}
+//             className="base-col-height center-panel"
+//           >
+//             <SessionContainer />
+//           </Col>
+//           <Col
+//             s={3}
+//             className="login right-panel"
+//           >
+//             <ChatClientComponent />
+//           </Col>
+// >>>>>>> Fix conflict
+*/
