@@ -124,7 +124,8 @@ class SpeechToTextEditor extends React.Component {
           <Col s={12} className="center-align">
             <Button
               onClick={() => this.toggleRecordingState()}
-              floating className="red recordingState" icon="voicemail"
+              floating className="yellow darken-2 recordingState"
+              icon="voicemail"
             />
           </Col>
         </Row>
