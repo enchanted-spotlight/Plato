@@ -28,9 +28,6 @@ const mapDispatchToProps = dispatch => ({
   saveSession: sessionPkg => (
     dispatch(a.saveSession(sessionPkg))
   ),
-  onTitleChange: e => (
-    dispatch(a.onSessionTitleCreate(e.target.value))
-  ),
   hasSignedIn: bool => dispatch(a.setSignIn(bool))
 });
 
@@ -117,19 +114,16 @@ class Session extends React.Component {
               waves="light"
               floating
               icon="get_app"
-              style={{ top: "5px" }}
+              style={{ top: 5 }}
             />
           </Col>
-        </Row>
 
-        <Row>
-          <Col s={9} style={{ border: '2px solid grey', height: '500px' }}>
-            <MediumEditor />
-          </Col>
-        </Row>
-        <Row>
-          <Col s={9} className="base-col-height" style={{ border: '1px solid grey', height: '300px' }}>
+          <Col s={5} className="grey lighten-2 base-col-height" id="transcript">
             <SpeechToTextEditor />
+          </Col>
+
+          <Col s={5} className="base-col-height" id="notepad">
+            <MediumEditor />
           </Col>
         </Row>
       </div>
