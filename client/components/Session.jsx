@@ -112,17 +112,18 @@ class Session extends React.Component {
           </Col>
         </Row>
         <Row>
-          <Col s={9} id="transcript" style={{ border: '2px solid grey', height: '500px' }}>
+          <Col s={9} style={{ border: '2px solid grey', height: '500px' }}>
             <MediumEditor />
           </Col>
         </Row>
         <Row>
-          <Col s={9} className="base-col-height" style={{ border: '2px solid grey', height: '300px' }}>
+          <Col
+            s={9}
+            id="transcript"
+            className="base-col-height"
+            style={{ border: '2px solid grey', height: '300px' }}
+          >
             <SpeechToTextEditor />
-          </Col>
-
-          <Col s={5} className="base-col-height" id="notepad">
-            <MediumEditor />
           </Col>
         </Row>
       </div>

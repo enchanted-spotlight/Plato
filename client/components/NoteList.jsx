@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({});
 
 const NoteList = props => (
-  <div className="notes-list">
+  <div className="notes-list" style={{ marginTop: '100px' }}>
     <ul>
       {
       props.notes.map(element =>

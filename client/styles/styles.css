@@ -198,6 +198,9 @@ section .parallax {
   font-size: 10px;
   color: black; 
   font-weight: bold;
+}
 
+.search-input {
+  margin-bottom: 25px;
 }
 

@@ -34,19 +34,13 @@ class DashBoard extends React.Component {
             <h7 className="h7">{this.props.username}'s Notes</h7>
             <SearchBarContainer />
             <NoteListContainer />
+            <ChatClientComponent id="chat" />
           </Col>
           <Col
             s={6}
             className="base-col-height center-panel"
           >
             <SessionContainer />
-          </Col>
-          <Col
-            s={3}
-            className="login right-panel"
-            id="chat"
-          >
-            <ChatClientComponent />
           </Col>
         </Row>
         <Row>
