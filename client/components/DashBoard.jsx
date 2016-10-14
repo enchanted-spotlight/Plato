@@ -37,7 +37,7 @@ class DashBoard extends React.Component {
           </Col>
           <Col s={9} className="base-col-height">
             <SessionContainer />
-            <Canvas id="canvas" />
+            <Canvas />
           </Col>
         </Row>
 
