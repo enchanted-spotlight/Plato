@@ -23,25 +23,28 @@ class SearchBar extends React.Component {
     super(props);
     this.state = {
       username: props.username,
-      searchBounce: debounce(750, props.searchBounce)
+      searchBounce: debounce(750, props.searchBounce),
+      searchActive: null
     };
     this.onInputChange = (e) => {
-      console.log(this.props.username);
       this.state.searchBounce(this.props.username, e.target.value);
+      this.setState({ searchActive: e.target.value });
     };
   }
 
   render() {
     return (
-      <div>
-        <div className="search center-align">
-          <h3>Search:</h3>
-          <input
-            type="text"
-            onChange={this.onInputChange}
-            placeholder="Enter your search text here..."
-          />
-        </div>
+      <div className="search-container">
+        <input
+          type="text"
+          className={
+            // change class according to
+            // if input has value and the value is not an empty string
+            this.state.searchActive && this.state.searchActive.length > 0 ?
+              'active-search' : 'search-input'
+            }
+          onChange={this.onInputChange}
+        />
       </div>
     );
   }
@@ -58,3 +61,5 @@ const SearchBarContainer = connect(
 )(SearchBar);
 
 export default SearchBarContainer;
+
+//search center-align
