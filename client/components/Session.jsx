@@ -113,7 +113,7 @@ class Session extends React.Component {
         </Row>
         <Row>
           <Col
-            s={9}
+            s={12}
             style={{ border: '2px solid grey', height: '500px' }}
           >
             <MediumEditor />
@@ -121,7 +121,7 @@ class Session extends React.Component {
         </Row>
         <Row>
           <Col
-            s={9}
+            s={12}
             id="transcript"
             style={{ border: '2px solid grey' }}
           >
