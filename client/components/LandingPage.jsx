@@ -44,6 +44,7 @@ const LandingPage = () => (
           </div>
         </div>
         <div className="row container">
+          <h2 className="center-align"> Meet Us: </h2>
           <div className="col s3">
             <div className="card white">
               <img role="presentation" className="responsive-img" src="/../styles/images/cbelle.jpg" />
