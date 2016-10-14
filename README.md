@@ -30,6 +30,8 @@ Plato expects environment variables with regards to the OAuth strategies that ar
   3.  In the dashboard, Users can also create chatrooms and leverage the chat client to interact with other Plato users.
   4.  Once the user has created sessions/notes/drawings, the user can then share the note with others via e-mail.
 
+  ![Alt text](./flow_chart.png?raw=true "Plato Flow Chart")
+
 ## Architecture
 Plato has multiple components that can be split into a few categories
 
