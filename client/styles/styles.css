@@ -2,28 +2,23 @@
   min-height: 800px;
   overflow: auto;
 }
-
 .base-col-height2 {
   min-height: 700px;
   overflow: auto;
 }
-
 .chat-client-container{
   max-height: 565px;
   overflow: hidden;
   background: #eeeeee;
   border: solid #A1A1A1 1px;
 }
-
 .chat-client-container>h2{
   margin: 0;
 }
-
 .chat-client-container>p,
 .chat-client-container>ul{
   margin: 0;
 }
-
 #chat-messages-display{
   padding: 0 1em 0 1em;
   max-height: 350px;
@@ -32,11 +27,9 @@
   background-color: white;
   border-top: solid #A1A1A1 1px;
 }
-
 .chat-client-input{
   background: white;
 }
-
 .column-header-lists{
   position: absolute;
   height: 48px;
@@ -51,14 +44,12 @@
 .column-header-lists>h3{
   margin: 0;
 }
-
 .left-panel {
   height: 100%;
   display: block;
   position: relative;
   left: 0px;
 }
-
 .center-panel {
   position: relative;
   float: left;
@@ -66,16 +57,13 @@
   margin: 10px;
   padding: 900px;
 }
-
 .right-panel {
   position: relative;
 }
-
 .notes-list{
   position: relative;
   margin-top: 25%;
 }
-
 .h7 {
   color: white;
   border: red;
@@ -85,7 +73,6 @@
   width: 100%;
   margin-bottom: 0;
 }
-
 .header {
   position: fixed;
   top: 0;
@@ -98,16 +85,13 @@
   -moz-box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
   box-shadow: 0 7px 8px rgba(0, 0, 0, 0.12);
 }
-
 .header__content-text {
   text-align: center;
   padding: 15px 20px;
 }
-
 .sketch {
   position: relative;
 }
-
 #tmpCanvas {
   position: absolute;
   left: 0px;
@@ -116,95 +100,94 @@
   top: 0px;
   cursor: crosshair;
 }
-
 .strokeStyle {
   margin-left: 25px;
 }
-
 .lineWidth {
   margin-left: 25px;
 }
-
 .undoRedo {
   margin-left: 25px;
 }
-
 .canvasHeight {
   float: right;
 }
-
 .language {
   position: relative;
 }
-
 section {
   text-align: center;
-}
-    
-    /* .react-simple-parallax-bg is generate by the component */
-section .react-simple-parallax-bg {
-  background-image: url('./images/frontpage1.jpg');
-  height: 750px;
 }
     
 section .parallax {
   top: 200px;
   margin: auto;
 }
-
 .names {
   font-size: 16px;
   font-weight: bold;
 }
-
 .jobdesc {
   line-height: 5em;
 }
-
-.landingpage-image {
-  background-image: url("./styles/images/frontpage1.jpg");
-  width: 853em ;
-  height: 480em;
-}
-
 .search-container {
   position: relative;
   margin-top: 40px;
   margin-bottom: 5px;
 }
-
 .search-input {
   position: absolute;
   background: url("../icon-search.png") no-repeat 1px;
   background-size: 30px 30px;
   margin: 0px;
 }
-
+.outerContainer {
+  background-color: white;
+  height: 300px;
+}
 .search-input:focus {
   background: none;
 }
-
 .active-search {
   background: none;
 }
-
 .dashboard-fab li a {
   font-size: 10px;
   color: black; 
   font-weight: bold;
 }
-
 .dashboard-fab li a:active {
   font-size: 10px;
   color: black; 
   font-weight: bold;
 }
-
 .search-input {
   margin-bottom: 25px;
 }
-
-.sketch {
+.paint {
   border: 2px solid grey;
 }
-
+.innerContainer {
+  height: 100%;
+}
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+.topContainer {
+  height: 500px;
+  background-image: url('./images/frontpage1.jpg');
+  background-size: 100%;
+}
+.topContainer div {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+h1 {
+  font-size: 200px;
+}
+h1, h3 {
+  color: white;
+}
