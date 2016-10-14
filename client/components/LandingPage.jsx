@@ -23,19 +23,19 @@ const LandingPage = () => (
           <div className="container innerContainer">
             <div className="row innerContainer">
               <div className="col s4 innerContainer valign-wrapper center-align">
-                <div>
+                <div className="container">
                   <i className="medium material-icons">settings_remote</i>
                   <p> Tired of typing your notes? Let our speech to text editor do the heavy lifting for you. </p>
                 </div>
               </div>
               <div className="col s4 innerContainer valign-wrapper center-align">
-                <div>
+                <div className="container">
                   <i className="medium material-icons">picture_in_picture</i>
                   <p> Can't put your thoughts into words? Use our infinite canvas to draw them instead. </p>
                 </div>
               </div>
               <div className="col s4 innerContainer valign-wrapper center-align">
-                <div>
+                <div className="container">
                   <i className="medium material-icons">message</i>
                   <p>Need clarification? Use the class chat feature to share insights and problems.</p>
                 </div>
