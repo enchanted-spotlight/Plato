@@ -141,12 +141,6 @@ section {
   text-align: center;
 }
     
-    /* .react-simple-parallax-bg is generate by the component */
-section .react-simple-parallax-bg {
-  background-image: url('./images/frontpage1.jpg');
-  height: 750px;
-}
-    
 section .parallax {
   top: 200px;
   margin: auto;
@@ -161,12 +155,6 @@ section .parallax {
   line-height: 5em;
 }
 
-.landingpage-image {
-  background-image: url("./styles/images/frontpage1.jpg");
-  width: 853em ;
-  height: 480em;
-}
-
 .search-container {
   position: relative;
   margin-top: 40px;
@@ -178,6 +166,11 @@ section .parallax {
   background: url("../icon-search.png") no-repeat 1px;
   background-size: 30px 30px;
   margin: 0px;
+}
+
+.outerContainer {
+  background-color: white;
+  height: 300px;
 }
 
 .search-input:focus {
@@ -207,4 +200,32 @@ section .parallax {
 .sketch {
   border: 2px solid grey;
 }
+.innerContainer {
+  height: 100%;
+}
 
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+.topContainer {
+  height: 500px;
+  background-image: url('./images/frontpage1.jpg');
+  background-size: 100%;
+}
+
+.topContainer div {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+h1 {
+  font-size: 200px;
+}
+
+h1, h3 {
+  color: white;
+}
