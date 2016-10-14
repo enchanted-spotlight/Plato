@@ -224,7 +224,7 @@ section .parallax {
 
 .topContainer {
   height: 500px;
-  background-image: url('./images/frontpage2.jpg');
+  background-image: url('./images/frontpage1.jpg');
   background-size: 100%;
 }
 
@@ -233,4 +233,11 @@ section .parallax {
   width: 50%;
   padding: 10px;
 }
->>>>>>> (feat) Render front page image on landing page
+
+h1 {
+  font-size: 200px;
+}
+
+h1, h3{
+  color: white;
+}>>>>>>> (feat) Render front page image on landing page

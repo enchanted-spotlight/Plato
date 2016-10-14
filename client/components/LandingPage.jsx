@@ -15,7 +15,8 @@ const LandingPage = () => (
       <div>
         <div className="topContainer">
           <div>
-          Yo
+            <h1 className="title center-align">Plato</h1>
+            <h3 className="center-align">The new note-taking experience</h3>
           </div>
         </div>
         <div className="outerContainer">
