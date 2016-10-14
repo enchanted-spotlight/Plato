@@ -17,9 +17,9 @@ const logout = () => {
 
 /* eslint-disable */
 const NavBar = () => (
-  <nav>
+  <nav className="light-blue darken-2">
     <div className="nav-wrapper">
-      <a href="/" className="brand-logo center">P L A T O</a>
+      <a href="/" className="brand-logo center">P L A T O N O T E S</a>
       <ul id="nav-mobile" className="right hide-on-med-and-down">
         <li><a href="/login">Login</a></li>
         <li><a onClick={() => logout()}>Logout</a></li>

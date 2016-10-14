@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Row, Col } from 'react-materialize';
+import { Row, Col, Button } from 'react-materialize';
 
 import * as a from './../actions';
 
@@ -91,8 +91,10 @@ class SignUp extends React.Component {
                 </label>
               </div>
 
-              <input type="submit" value="Submit" />
-
+              <Button type="submit" value="Submit" icon="send" className="yellow darken-2" />
+              <div style={{ marginTop: '20px' }}>
+                Already have an account? <a href="/login">Login here.</a>
+              </div>
             </form>
           </Col>
         </Row>

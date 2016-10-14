@@ -66,7 +66,7 @@ class NoteItem extends React.Component {
   render() {
     return (
       <li>
-        <div className="card red darken-1">
+        <div className="card light-blue darken-3">
           <div className="card-content white-text center-align">
             <span className="center-align card-title">{this.props.title}</span>
             <Row className="center-align">
@@ -86,7 +86,7 @@ class NoteItem extends React.Component {
                   }}
                   waves="light"
                   icon="open_in_browser"
-                  className="red"
+                  className="yellow darken-2"
                 />
               </Col>
 
@@ -97,7 +97,7 @@ class NoteItem extends React.Component {
                   }}
                   waves="light"
                   icon="delete_forever"
-                  className="red"
+                  className="yellow darken-2"
                 />
               </Col>
 
@@ -106,7 +106,7 @@ class NoteItem extends React.Component {
                   onClick={this.toggleDisplayShare}
                   waves="light"
                   icon="rss_feed"
-                  className="red"
+                  className="yellow darken-2"
                 />
               </Col>
 

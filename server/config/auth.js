@@ -11,6 +11,19 @@ const Note = require('../models/note');
 
 const cryptr = new Cryptr(process.env.CRYPTR_KEY);
 
+const callbacks = {};
+if (process.env.NODE_ENV !== 'dev') {
+  callbacks.facebook = 'http://www.platonotes.com/api/auth/login/facebook/callback';
+  callbacks.google = 'http://www.platonotes.com/api/auth/login/google/callback';
+  callbacks.twitter = 'http://www.platonotes.com/api/auth/login/twitter/callback';
+  callbacks.slack = 'http://www.platonotes.com/api/auth/login/slack/callback';
+} else {
+  callbacks.facebook = 'http://localhost:3000/api/auth/login/facebook/callback';
+  callbacks.google = 'http://localhost:3000/api/auth/login/google/callback';
+  callbacks.twitter = 'http://localhost:3000/api/auth/login/twitter/callback';
+  callbacks.slack = 'http://localhost:3000/api/auth/login/slack/callback';
+}
+
 passport.use(new LocalStrategy(
   (username, password, done) => {
     if (!password) { return done(); }
@@ -35,10 +48,11 @@ passport.use(new LocalStrategy(
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: 'http://www.platonotes.com/api/auth/login/facebook/callback',
+  callbackURL: callbacks.facebook,
   profileFields: ['id', 'emails', 'name']
 },
   (accessToken, refreshToken, profile, done) => {
+    console.log(callbacks.facebook);
     const fbId = {
       $set: { facebookId: profile.id }
     };
@@ -63,7 +77,7 @@ passport.use(new FacebookStrategy({
 passport.use(new TwitterStrategy({
   consumerKey: process.env.TWITTER_CONSUMER_KEY,
   consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-  callbackURL: 'http://www.platonotes.com/api/auth/login/twitter/callback',
+  callbackURL: callbacks.twitter,
   profileFields: ['id', 'emails', 'name'],
   passReqToCallback: true
 },
@@ -92,7 +106,7 @@ passport.use(new TwitterStrategy({
 passport.use(new SlackStrategy({
   clientID: process.env.SLACK_CLIENT_ID,
   clientSecret: process.env.SLACK_CLIENT_SECRET,
-  callbackURL: 'http://localhost:3000/api/auth/login/slack/callback',
+  callbackURL: callbacks.slack,
   scope: 'incoming-webhook users:read chat:write:user'
 },
   (accessToken, refreshToken, profile, done) => {
@@ -124,33 +138,7 @@ passport.use(new SlackStrategy({
 passport.use(new GoogleStrategy({
   clientID: process.env.GOOGLE_CLIENT_ID,
   clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: 'http://localhost:3000/api/auth/login/google/callback',
-  passReqToCallback: true
-},
-  (request, accessToken, refreshToken, profile, done) => {
-    const googleId = { $set: { googleId: profile.id } };
-
-    User.findOneAndUpdate({
-      email: profile.email.toUpperCase()
-    }, googleId, { upsert: true }, (err, user) => {
-      if (err) {
-        return done(err);
-      } else if (user === null) {
-        User.findOne({ googleId: profile.id }, (err2, user2) => {
-          if (err) { return done(err); }
-          return done(null, user2);
-        });
-      } else {
-        return done(null, user);
-      }
-    });
-  }
-));
-
-passport.use(new GoogleStrategy({
-  clientID: process.env.GOOGLE_CLIENT_ID,
-  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-  callbackURL: 'http://www.platonotes.com/api/auth/login/google/callback',
+  callbackURL: callbacks.google,
   passReqToCallback: true
 },
   (request, accessToken, refreshToken, profile, done) => {

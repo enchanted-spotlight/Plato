@@ -1,7 +1,6 @@
 import React from 'react';
-import request from 'superagent';
 import { connect } from 'react-redux';
-import { Row, Col } from 'react-materialize';
+import { Row, Col, Button } from 'react-materialize';
 
 import * as t from './../actions';
 
@@ -99,7 +98,11 @@ class LogIn extends React.Component {
                 </label>
               </div>
 
-              <input type="submit" />
+              <Button type="submit" icon="send" className="yellow darken-2" />
+
+              <div style={{ marginTop: '20px' }}>
+                Don't have an account? <a href="/signup">Sign up here.</a>
+              </div>
 
             </form>
           </Col>
