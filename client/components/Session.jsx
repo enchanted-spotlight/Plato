@@ -100,14 +100,6 @@ class Session extends React.Component {
     return (
       <div>
         <Row>
-          <Col s={3} className="center-align">
-            <input
-              type="text"
-              value={this.props.title}
-              onChange={this.props.onTitleChange}
-              placeholder="Title"
-            />
-          </Col>
           <Col s={2}>
             <Button
               onClick={() => this.submitSession()}
@@ -135,10 +127,8 @@ Session.propTypes = {
   title: React.PropTypes.string,
   currentNote: React.PropTypes.object,
   currentTranscript: React.PropTypes.object,
-  currentCanvas: React.PropTypes.object,
   username: React.PropTypes.string,
-  saveSession: React.PropTypes.func,
-  onTitleChange: React.PropTypes.func
+  saveSession: React.PropTypes.func
 };
 
 const SessionContainer = connect(
