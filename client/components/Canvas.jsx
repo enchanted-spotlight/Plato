@@ -39,7 +39,7 @@ class Canvas extends React.Component {
 
     // increases thickness of the drawing lines
     this.incrementLineWidth = () => {
-      this.setState({ lineWidth: this.state.lineWidth });
+      this.setState({ lineWidth: this.state.lineWidth + 1 });
     };
 
     // decreases thickness of the drawing lines

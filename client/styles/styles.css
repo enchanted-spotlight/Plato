@@ -92,6 +92,9 @@
 .sketch {
   position: relative;
 }
+.paint {
+  border: 2px solid grey;
+}
 #tmpCanvas {
   position: absolute;
   left: 0px;
@@ -164,9 +167,6 @@ section .parallax {
 .search-input {
   margin-bottom: 25px;
 }
-.paint {
-  border: 2px solid grey;
-}
 .innerContainer {
   height: 100%;
 }
@@ -190,4 +190,7 @@ h1 {
 }
 h1, h3 {
   color: white;
+}
+#notelist {
+  padding: 0;
 }

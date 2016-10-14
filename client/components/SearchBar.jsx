@@ -34,7 +34,7 @@ class SearchBar extends React.Component {
 
   render() {
     return (
-      <div className="search-container">
+      <div className="search-container white-text">
         <input
           type="text"
           className={
