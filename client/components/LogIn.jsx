@@ -52,7 +52,7 @@ class LogIn extends React.Component {
     return (
       <div className="loginContainer container">
         <Row className="center-align">
-              <h3>Login:</h3>
+              <h3>Login</h3>
               <a href="/api/auth/login/facebook" >
                   <img src="./styles/images/fb_icon.png" style={this.loginButtonStyle} />
               </a>

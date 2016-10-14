@@ -21,7 +21,7 @@ class Canvas extends React.Component {
       // imageData containing state of the canvas
       canvasState: '',
       // width of canvas
-      canvasWidth: window.innerWidth,
+      canvasWidth: ((window.innerWidth * 0.85) / 12) * 9,
       // height of canvas
       canvasHeight: 500,
       // width of drawing line
@@ -62,6 +62,7 @@ class Canvas extends React.Component {
     this.incrementCanvasHeight = () => {
       const savedState = this.saveCanvas();
       this.setState({ canvasHeight: this.state.canvasHeight + 250 });
+      console.log(this.state.canvasHeight + 250);
       document.querySelector('.paint').height += 250;
       document.querySelector('#tmpCanvas').height += 250;
       this.loadCanvas(savedState);
@@ -89,7 +90,7 @@ class Canvas extends React.Component {
       // set local state
       this.setState({ canvasState: savedCanvas });
       // set state in store
-      this.props.saveCanvasState(savedCanvas);
+      // this.props.saveCanvasState(savedCanvas);
       return savedCanvas;
     };
 

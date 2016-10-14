@@ -103,25 +103,35 @@ class Session extends React.Component {
     return (
       <div>
         <Row>
-          <input
-            type="text"
-            value={this.props.title}
-            onChange={this.props.onTitleChange}
-            placeholder="Title"
-          />
-          <Col s={5} className="grey lighten-2 base-col-height">
-            <SpeechToTextEditor />
+          <Col s={3} className="center-align">
+            <input
+              type="text"
+              value={this.props.title}
+              onChange={this.props.onTitleChange}
+              placeholder="Title"
+            />
           </Col>
+          <Col s={2}>
+            <Button
+              onClick={() => this.submitSession()}
+              waves="light"
+              floating
+              icon="get_app"
+              style={{ top: "5px" }}
+            />
+          </Col>
+        </Row>
 
-          <Col s={5} className="base-col-height">
+        <Row>
+          <Col s={9} style={{ border: '2px solid grey', height: '500px' }}>
             <MediumEditor />
           </Col>
         </Row>
-        <Button
-          onClick={() => this.submitSession()}
-          waves="light"
-        >Submit
-        </Button>
+        <Row>
+          <Col s={9} className="base-col-height" style={{ border: '1px solid grey', height: '300px' }}>
+            <SpeechToTextEditor />
+          </Col>
+        </Row>
       </div>
     );
   }

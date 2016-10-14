@@ -28,22 +28,25 @@ class DashBoard extends React.Component {
     return (
       <div>
         <Row>
-          <Col s={3} className="blue-grey lighten-3 base-col-height">
-            <SearchBarContainer />
-            <div className="blue-grey lighten-3 column-header-lists">
-              <h3>All Notes</h3>
-            </div>
-            <NoteListContainer />
+          <Col s={3} className="base-col-height">
+            <Row>
+              <SearchBarContainer />
+              <div>
+                <h3>All Notes</h3>
+              </div>
+              <NoteListContainer />
+            </Row>
+            <Row>
+              <ChatClientComponent />
+            </Row>
+
           </Col>
-          <Col s={6} className="base-col-height">
+          <Col s={9} className="base-col-height">
             <SessionContainer />
-          </Col>
-          <Col s={3} className="login">
-            <ChatClientComponent />
           </Col>
         </Row>
         <Row>
-          <Col s={12} className="base-col-height">
+          <Col s={8} offset="s3" className="base-col-height" style={{ border: '2px solid grey' }}>
             <Canvas />
           </Col>
         </Row>

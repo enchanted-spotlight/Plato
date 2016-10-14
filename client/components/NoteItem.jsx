@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'react-materialize';
+import { Row, Col, Button } from 'react-materialize';
 import { createEditorState } from 'medium-draft';
 import { connect } from 'react-redux';
 import request from 'superagent';
@@ -67,40 +67,67 @@ class NoteItem extends React.Component {
   render() {
     return (
       <li>
-        <p>{this.props.title}</p>
-        <Button
-          onClick={() => {
-            // get new store state for editors
-            const newNoteState =
-              createEditorState(JSON.parse(this.props.notesText));
-            const newTranscriptState =
-              createEditorState(JSON.parse(this.props.transcriptText));
-            // load each editor onto page.
-            this.props.loadNote(newNoteState, this.props.title);
-            this.props.loadTranscript(newTranscriptState);
-            console.log(this.props);
-            this.props.loadCanvas(JSON.parse(this.props.canvas));
-          }}
-        > display </Button>
-        <Button
-          onClick={() => {
-            this.props.deleteNote(this.props.noteId, this.props.username);
-          }}
-          waves="light"
-        > deleteNote </Button>
-        <Button onClick={this.toggleDisplayShare}>
-          SHARE
-        </Button>
-        {this.state.displayShare ?
-          <form onSubmit={this.shareNote}>
-            <input
-              type="email"
-              placeholder="E-mail address"
-              onChange={e => this.setState({ email: e.target.value })}
-            />
-            <input type="submit" value="share" />
-          </form> : null
-        }
+        <div className="card red darken-1">
+          <div className="card-content white-text center-align">
+            <span className="center-align card-title">{this.props.title}</span>
+            <Row className="center-align">
+
+              <Col s={4} className="center-align">
+                <Button
+                  onClick={() => {
+                    // get new store state for editors
+                    const newNoteState =
+                      createEditorState(JSON.parse(this.props.notesText));
+                    const newTranscriptState =
+                      createEditorState(JSON.parse(this.props.transcriptText));
+                    // load each editor onto page.
+                    this.props.loadNote(newNoteState, this.props.title);
+                    this.props.loadTranscript(newTranscriptState);
+                    this.props.loadCanvas(JSON.parse(this.props.canvas));
+                  }}
+                  waves="light"
+                  icon="open_in_browser"
+                  className="red"
+                />
+              </Col>
+
+              <Col s={4}>
+                <Button
+                  onClick={() => {
+                    this.props.deleteNote(this.props.noteId, this.props.username);
+                  }}
+                  waves="light"
+                  icon="delete_forever"
+                  className="red"
+                />
+              </Col>
+
+              <Col s={4}>
+                <Button
+                  onClick={this.toggleDisplayShare}
+                  waves="light"
+                  icon="rss_feed"
+                  className="red"
+                />
+              </Col>
+
+              {this.state.displayShare ?
+                <form onSubmit={this.shareNote} className="">
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="E-mail"
+                    className="center-align"
+                    onChange={e => this.setState({ email: e.target.value })}
+                  />
+                  <input type="submit" value="share" />
+                </form>
+                : null
+              }
+
+            </Row>
+          </div>
+        </div>
       </li>
     );
   }
