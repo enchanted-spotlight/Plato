@@ -180,6 +180,11 @@ section .parallax {
   margin: 0px;
 }
 
+.outerContainer {
+  background-color: white;
+  height: 400px;
+}
+
 .search-input:focus {
   background: none;
 }
