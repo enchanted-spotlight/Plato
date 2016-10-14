@@ -13,6 +13,36 @@ const LandingPage = () => (
   <div>
     <div className="grey lighten-4">
       <div>
+<<<<<<< 953027750d7b19c1acf563abc1a3f8a401e67637
+=======
+        <div className="topContainer">
+          HI
+        </div>
+        <div className="outerContainer">
+          <div className="container innerContainer">
+            <div className="row innerContainer">
+              <div className="col s4 innerContainer valign-wrapper center-align">
+                <div>
+                  <i className="small material-icons">insert_chart</i>
+                  <p> This app will change your life. It will blow your hair back </p>
+                </div>
+              </div>
+              <div className="col s4 innerContainer valign-wrapper center-align">
+                <div>
+                  <i className="small material-icons">insert_chart</i>
+                  <p> This app will change your life. It will blow your hair back </p>
+                </div>
+              </div>
+              <div className="col s4 innerContainer valign-wrapper center-align">
+                <div>
+                  <i className="small material-icons">insert_chart</i>
+                  <p> This app will change your life. It will blow your hair back </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+>>>>>>> (feat) Implement vertical align
         <div className="row container">
           <div className="col s3">
             <div className="card white">
@@ -132,7 +162,6 @@ const LandingPage = () => (
       </footer>
     </div>
   </div>
-
 
 );
 
