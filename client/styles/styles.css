@@ -212,3 +212,12 @@ section .parallax {
 .sketch {
   border: 2px solid grey;
 }
+.innerContainer {
+  height: 100%;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
