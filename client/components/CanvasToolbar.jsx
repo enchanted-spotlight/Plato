@@ -25,12 +25,12 @@ class CanvasToolbar extends React.Component {
       <div>
         <span className="saveCanvas">
           <Button
-            floating className="red"
+            floating className="yellow darken-2"
             onClick={() => this.props.saveCanvas()}
             icon="save"
           />
           <Button
-            floating className="red"
+            floating className="yellow darken-2"
             href="#"
             onClick={() => this.props.saveCanvasToPNG()}
             icon="get_app"
@@ -39,7 +39,7 @@ class CanvasToolbar extends React.Component {
         </span>
         <span className="newCanvas">
           <Button
-            floating className="red"
+            floating className="yellow darken-2"
             onClick={() => this.props.newCanvas()}
             icon="not_interested"
             title="New Canvas"
@@ -74,13 +74,13 @@ class CanvasToolbar extends React.Component {
         </span>
         <span className="lineWidth">
           <Button
-            floating className="red"
+            floating className="yellow darken-2"
             icon="add"
             onClick={() => this.props.incrementLineWidth()}
             title="Increase Line Width"
           />
           <Button
-            floating className="red"
+            floating className="yellow darken-2"
             icon="remove"
             onClick={() => this.props.decrementLineWidth()}
             title="Decrease Line Width"
@@ -88,13 +88,13 @@ class CanvasToolbar extends React.Component {
         </span>
         <span className="undoRedo">
           <Button
-            floating className="black"
+            floating className="yellow darken-2"
             icon="undo"
             onClick={() => this.props.undo()}
             title="Undo"
           />
           <Button
-            floating className="black"
+            floating className="yellow darken-2"
             icon="redo"
             onClick={() => this.props.redo()}
             title="Redo"
