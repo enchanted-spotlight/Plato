@@ -115,7 +115,7 @@ class Session extends React.Component {
             s={12}
             style={{ border: '2px solid grey', height: '500px' }}
           >
-            <MediumEditor />
+            <MediumEditor className="base-col-height" />
           </Col>
         </Row>
         <Row>
@@ -124,7 +124,7 @@ class Session extends React.Component {
             id="transcript"
             style={{ border: '2px solid grey' }}
           >
-            <SpeechToTextEditor />
+            <SpeechToTextEditor className="base-col-height" />
           </Col>
         </Row>
       </div>
