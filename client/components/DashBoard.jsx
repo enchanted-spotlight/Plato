@@ -30,24 +30,23 @@ class DashBoard extends React.Component {
     return (
       <div>
         <Row>
-          <Col s={3} className="teal lighten-3 base-col-height left-panel" id="notelist">
+          <Col s={3} className="light-blue darken-4 base-col-height left-panel" id="notelist">
             <h7 className="h7">{this.props.username}'s Notes</h7>
             <SearchBarContainer />
             <NoteListContainer />
             <ChatClientComponent id="chat" />
           </Col>
-          <Col
-            s={6}
-            className="base-col-height center-panel"
-          >
+          <Col s={9} className="base-col-height">
             <SessionContainer />
           </Col>
         </Row>
+
         <Row>
-          <Col s={12} className="base-col-height" id="canvas">
+          <Col s={9} className="base-col-height" id="canvas" offset="s3">
             <Canvas />
           </Col>
         </Row>
+
         <div
           className="fixed-action-btn vertical"
           style={{ bottom: 45, right: 24 }}
@@ -98,42 +97,3 @@ const DashBoardContainer = connect(
 
 
 export default DashBoardContainer;
-
-/*
-<<<<<<< 5b84549babe156bc6ad76dfa559bfda07c8c27e6
-//           <Col s={3} className="base-col-height">
-//             <Row>
-//               <SearchBarContainer />
-//               <div>
-//                 <h3>All Notes</h3>
-//               </div>
-//               <NoteListContainer />
-//             </Row>
-//             <Row>
-//               <ChatClientComponent />
-//             </Row>
-
-//           </Col>
-//           <Col s={9} className="base-col-height">
-//             <SessionContainer />
-//           </Col>
-// =======
-//           <Col s={3} className="teal lighten-3 base-col-height left-panel">
-//             <h7 className="h7">{this.props.username}'s Notes</h7>
-//             <SearchBarContainer />
-//             <NoteListContainer />
-//           </Col>
-//           <Col
-//             s={6}
-//             className="base-col-height center-panel"
-//           >
-//             <SessionContainer />
-//           </Col>
-//           <Col
-//             s={3}
-//             className="login right-panel"
-//           >
-//             <ChatClientComponent />
-//           </Col>
-// >>>>>>> Fix conflict
-*/

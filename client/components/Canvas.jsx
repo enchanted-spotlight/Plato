@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Row, Col } from 'react-materialize';
 import CanvasToolbar from './CanvasToolbar.jsx';
 
 import * as a from './../actions.js';

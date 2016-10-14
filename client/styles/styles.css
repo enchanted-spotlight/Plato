@@ -204,3 +204,7 @@ section .parallax {
   margin-bottom: 25px;
 }
 
+.sketch {
+  border: 2px solid grey;
+}
+
